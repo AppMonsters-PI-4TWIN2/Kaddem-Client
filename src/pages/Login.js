@@ -1,15 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useLogin } from "../hooks/useLogin"
 
 const Login = () => {
     const [email, setEmail] = useState('')
+    const [role, setRole] = useState('')
     const [password, setPassword] = useState('')
     const {login, error, isLoading} = useLogin()
+    const [errorMessage, setErrorMessage] = useState('')
+
+  
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
+   const role =e.role ; 
         await login(email, password)
+       setRole(role) ; 
+    
+    
     }
 
     return (
@@ -34,6 +41,8 @@ const Login = () => {
                         <span>Password</span>
                         <i></i>
                 </div>
+
+              
                 <div className="linkss">
                     <a href="#">Forgot Password ?</a>
                     <a href="#">Signup</a>
