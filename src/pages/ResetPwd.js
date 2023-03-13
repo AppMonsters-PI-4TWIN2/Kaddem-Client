@@ -49,7 +49,7 @@ const ResetPwd = () => {
 
           <div className="inputBox">
             <input
-              type="confirmpassword"
+              type="password"
               required="required"
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmpassword}
