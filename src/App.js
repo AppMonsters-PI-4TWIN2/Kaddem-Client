@@ -11,6 +11,7 @@ import Navbar from "./components/Common/Navbar/navbar";
 import Footer from "./components/Common/Footer/footer";
 import Users from './pages/Users';
 import NotFound from './pages/NotFound';
+import CheckMail from './pages/CheckMail';
 function Navcheck() {
   if (window.location.pathname==="/login" || window.location.pathname==="/signup" )
     return null
@@ -38,6 +39,7 @@ function App() {
               <Route path="/signup" element={!user ? <Signup /> : (user.role === "admin" ? <Navigate to="/users" /> : <Navigate to="/" />)} />
               <Route path="/resetpwd" element={<ResetPwd />}/>
               <Route path="/forgotpwd" element={<ForgotPwd />}/>
+              <Route path="/checkmail" element={<CheckMail />}/>
             </Routes>
           </div>
 
