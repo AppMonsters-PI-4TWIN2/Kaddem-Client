@@ -11,7 +11,7 @@ const ResetPwd = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await resetpwd(email,password)
+    await resetpwd(email,password,newpassword)
     
   };
 
@@ -20,7 +20,7 @@ const ResetPwd = () => {
       <div className="boxx">
         <form
           autoComplete="off"
-          className="formm login"
+          className="formm signup"
           onSubmit={handleSubmit}
         >
           <img
@@ -62,7 +62,7 @@ const ResetPwd = () => {
             ----------------------------------------
             ----------------------------------------
           </div>
-          <button className="btn btn-primary ms-2 ms-lg-3 ">Change</button>
+          <button className="btn btn-primary ms-2 ms-lg-3 " disabled={isLoading}>Change</button>
         </form>
       </div>
     </div>
