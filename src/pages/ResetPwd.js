@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {useResetPwd} from "../hooks/useResetPwd"
+import { Navigate } from "react-router-dom";
 
 const ResetPwd = () => {
   const [password, setPassword] = useState("");
@@ -11,7 +12,7 @@ const ResetPwd = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await resetpwd(email,password,newpassword)
+    await resetpwd(email,password,newpassword);
     
   };
 
@@ -60,9 +61,9 @@ const ResetPwd = () => {
           <div style={{ opacity: "0" }}>
             ----------------------------------------
             ----------------------------------------
-            ----------------------------------------
           </div>
           <button className="btn btn-primary ms-2 ms-lg-3 " disabled={isLoading}>Change</button>
+          {error && <div className="error">{error}</div>}
         </form>
       </div>
     </div>

@@ -36,9 +36,9 @@ function App() {
               <Route path="/" element={<Home />}/>
               <Route path="/login" element={!user ? <Login /> : user.role ==="admin" ? <Navigate to="/users"  /> : <Navigate to="/" />}/>              
               {/* <Route path="/signup" element={!user ? <Signup /> : user.role == 'admin' ? <Navigate to="/users" /> : <Navigate to ="/" />}    /> */}
-              <Route path="/signup" element={!user ? <Signup /> : (user.role === "admin" ? <Navigate to="/users" /> : <Navigate to="/" />)} />
-              <Route path="/resetpwd" element={<ResetPwd />}/>
-              <Route path="/forgotpwd" element={<ForgotPwd />}/>
+              <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/checkmail" />} />
+              <Route path="/resetpwd" element={!user ? <ResetPwd /> : <Navigate to="/login" />}/>
+              <Route path="/forgotpwd" element={!user ? <ForgotPwd /> : <Navigate to="/checkmail" />}/>
               <Route path="/checkmail" element={<CheckMail />}/>
             </Routes>
           </div>
