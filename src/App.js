@@ -10,6 +10,7 @@ import ForgotPwd from './pages/ForgotPwd'
 import Navbar from "./components/Common/Navbar/navbar";
 import Footer from "./components/Common/Footer/footer";
 import Users from './pages/Users';
+import GoogleLogin from "./pages/GoogleLogin";
 import NotFound from './pages/NotFound';
 import CheckMail from './pages/CheckMail';
 function Navcheck() {
@@ -32,8 +33,9 @@ function App() {
 
           <div className="pages">
             <Routes>
-            <Route path="/users" element ={<Users />} />
+            <Route path="/users" element ={user && user.role === 'admin' ?<Users />:<Navigate to="/" />} />
               <Route path="/" element={<Home />}/>
+              <Route path="/googleLogin" element={<GoogleLogin />}/>
               <Route path="/login" element={!user ? <Login /> : user.role ==="admin" ? <Navigate to="/users"  /> : <Navigate to="/" />}/>              
               {/* <Route path="/signup" element={!user ? <Signup /> : user.role == 'admin' ? <Navigate to="/users" /> : <Navigate to ="/" />}    /> */}
               <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/checkmail" />} />

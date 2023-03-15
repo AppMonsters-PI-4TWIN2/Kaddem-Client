@@ -5,8 +5,8 @@ import { Navigate } from "react-router-dom";
 const ResetPwd = () => {
   const [password, setPassword] = useState("");
   const [newpassword, setNewpassword] = useState("");
-  //const email = localStorage.getItem('email')
-  const email= "taha.jemli@esprit.tn"
+  const email = localStorage.getItem('email')
+  //const email= "taha.jemli@esprit.tn"
   const {resetpwd, error, isLoading} = useResetPwd()
 
   const handleSubmit = async (e) => {

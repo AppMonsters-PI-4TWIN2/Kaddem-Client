@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useLogin } from "../hooks/useLogin"
-
+import { GoogleIcon, FacebookIcon } from '../components/Common/Icon';
 const Login = () => {
     const [email, setEmail] = useState('')
     const [role, setRole] = useState('')
@@ -50,10 +50,27 @@ const Login = () => {
                 <div style={{opacity:"0"}}>
                     ----------------------------------------
                 </div>
-                <button className="btn btn-primary ms-2 ms-lg-3 " disabled={isLoading}>Log in</button>
-                {error && <div className="error">{error}</div>}
+                <div className={" col-12"}>
+                    <button className="btn btn-primary col-12" disabled={isLoading}>Log in</button>
+                    {error && <div className="error">{error}</div>}
+                </div>
+                <div style={{opacity:"0"}}>
+                    ----------------------------------------
+                </div>
+                <span className='btn-text' style={{marginLeft:"30%"}}>Login with Google :</span>
 
-
+                <div className='signup-provider' style={{ height: "15%",
+                    width: "15%",marginLeft:"43%",marginTop:"5%"}}>
+                    <a href={"http://localhost:4000/api/user/google"} className='mb-2 google-btn'>
+                        <GoogleIcon />
+                    </a>
+                    {/*
+                    <a href={`/auth/facebook`} className='facebook-btn'>
+                        <FacebookIcon />
+                        <span className='btn-text'>Login with Facebook</span>
+                    </a>
+                    */}
+                </div>
             </form>
         </div>
         </div>
