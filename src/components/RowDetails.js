@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 import React, { useState } from 'react'
 
-function RowDetails({email ,password,role,isBanned,id,OnDelete,OnBan,fetchData}) {
+function RowDetails({email ,password,role,created,status,isBanned,id,OnDelete,OnBan,fetchData}) {
  
  
  
@@ -22,10 +22,12 @@ const [isUserBanned, setIsUserBanned] = useState(isBanned);
   return (
    
     <tr  style={{color: 'black'}}>
-    <th >{id}</th>
+    <th style={{color: '#2F4F4F '}}>{id}</th>
     <td>{email}</td>
     <td>{password}</td>
     <td>{role}</td>
+    <td>{status}</td>
+    <td>{created}</td>
     <td >
         <button style={{ fontSize: '12px !important' }}  className={`btn btn-${isUserBanned ? 'danger' : 'success'}`} onClick={handleToggleBanned}>
           {isUserBanned ? 'Banned' : 'Not Banned'}
@@ -33,19 +35,19 @@ const [isUserBanned, setIsUserBanned] = useState(isBanned);
 </td>
   
   <td >
-    <Button className="badge bg-yellow " onClick={handleShow}>
+    <Button  style={{backgroundColor: '#2F4F4F '}}  className="badge bg-yellow " onClick={handleShow}>
     <i className="fas fa-trash-alt"></i> 
     </Button>
-    <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+    <Modal  show={show} onHide={handleClose}>
+        <Modal.Header  style={{backgroundColor: '#2F4F4F'}}  closeButton>
           <Modal.Title > Delete User </Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure to delete this user ? </Modal.Body>
+        <Modal.Body  >Are you sure to delete this user ? </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button  style={{backgroundColor: '#2F4F4F '}}   onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => { handleClose(); OnDelete(id) ;fetchData() }}>
+          <Button   style={{backgroundColor: '#2F4F4F '}}   onClick={() => { handleClose(); OnDelete(id) ;fetchData() }}>
             Delete
 
           </Button>

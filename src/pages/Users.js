@@ -5,6 +5,7 @@ import axios from "axios";
 import RowDetails from "../components/RowDetails";
 import Alert from "../components/Alert";
 import NavbarAdmin from "../components/Common/NavbarAdmin/navbarAdmin";
+import FooterAdmin from "../components/Common/Footer/footerAdmin";
 // stocker le token dans localStorage
 
 
@@ -83,28 +84,40 @@ const[message,setMessage]=useState("") ;
           
        <NavbarAdmin/>
        <Alert message={message} show={show}/>
-  <table className="table table-bordered " style={{color: 'green'}}>
+       <div class="row">
+       <div  class="col  align-self-start">                                          
+       
+       
+       </div>
+       <div  class="col align-self-center">
+  <table className="table table-hover " style={{color: '#2F4F4F '}} >
   <thead className="thead-light">
     <tr>
       <th scope="col">#</th>
       <th scope="col">email</th>
       <th scope="col">paswword</th>
       <th scope="col">role</th>
+     
+      <th scope="col">status</th>
+      <th scope="col">created</th>
       <th scope="col">Banned</th>
-      <th scope="col">Actions</th>
+     <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
 {
-    users.map(({email,password,role,isBanned,_id}) =>(
+    users.map(({email,password,role,created,status,isBanned,_id}) =>(
      
-        <RowDetails key={_id} email={email} password={password} role={role} isBanned={isBanned}  id={_id} OnDelete={OnDelete} OnBan={OnBan} fetchData={fetchData}/>
+        <RowDetails key={_id} email={email} password={password} role={role} status={status} isBanned={isBanned} created ={created} id={_id} OnDelete={OnDelete} OnBan={OnBan} fetchData={fetchData}/>
     
     ))
 }
   </tbody>
 </table>
-            <Footer/>
+</div>
+<div class="col align-self-end"></div>
+</div>
+            <FooterAdmin/>
         </div>
     )
 }

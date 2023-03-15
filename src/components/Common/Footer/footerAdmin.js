@@ -1,10 +1,10 @@
 
-const Footer = () => {
+const FooterAdmin = () => {
 
 
     return (
-        <footer style={{color:'black'}} className="section-sm bg-tertiary footerp"  bg="dark">
-            <div className="container">
+        <footer className="section-sm sm-tertiary footerp  text-center text-white"  style={{backgroundColor: '#2F4F4F'}} >
+            <div style={{color:'white'}}className="container">
 
                 <div className="row align-items-center mt-5 text-center text-md-start">
                     <div className="col-lg-4">
@@ -47,4 +47,4 @@ const Footer = () => {
     )
 }
 
-export default Footer
+export default FooterAdmin
