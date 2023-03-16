@@ -10118,14 +10118,7 @@ textarea.form-control {
 .applyLoanModal .modal-content {
   padding: 10px;
 }
-.footerp{
-  padding: 1em;
-  text-align: center;
-  flex-shrink: 0;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
+
 .bodyy
 {
   display: flex;

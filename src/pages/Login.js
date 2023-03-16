@@ -45,7 +45,7 @@ const Login = () => {
               
                 <div className="linkss">
                     <a href="/forgotpwd">Forgot Password ?</a>
-                    <a href="#">Signup</a>
+                    <a href="/signup">Signup</a>
                 </div>
                 <div style={{opacity:"0"}}>
                     ----------------------------------------
