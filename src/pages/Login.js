@@ -1,13 +1,25 @@
 import { useEffect, useState } from "react"
 import { useLogin } from "../hooks/useLogin"
 import { GoogleIcon, FacebookIcon } from '../components/Common/Icon';
+import ReCAPTCHA from "react-google-recaptcha";
+const  sitekey="6LeCLgUlAAAAADtjRbkgiwTQzJcXNnRJ5jZHS6LP";
+
 const Login = () => {
     const [email, setEmail] = useState('')
     const [role, setRole] = useState('')
     const [password, setPassword] = useState('')
     const {login, error, isLoading} = useLogin()
     const [errorMessage, setErrorMessage] = useState('')
-
+    const[recaptchValue,setRecaptchValue]=useState('')
+    const[verified,setVerified]=useState(false)
+       
+      
+      
+      function onChange(value){
+        console.log("valur",value)
+        setVerified(true)
+    
+       }
   
 
     const handleSubmit = async (e) => {
@@ -22,7 +34,7 @@ const Login = () => {
     return (
 
         <div className={"bodyy"} >
-        <div className="boxx">
+        <div className="boxx" style={{ height: "650px" }}>
 
 
             <form autoComplete="off" className="formm login" onSubmit={handleSubmit}>
@@ -41,7 +53,12 @@ const Login = () => {
                         <span>Password</span>
                         <i></i>
                 </div>
-
+                <div>
+                <ReCAPTCHA
+    sitekey={sitekey}
+    onChange={onChange}
+   
+  /></div>
               
                 <div className="linkss">
                     <a href="/forgotpwd">Forgot Password ?</a>
@@ -51,8 +68,8 @@ const Login = () => {
                     ----------------------------------------
                 </div>
                 <div className={" col-12"}>
-                    <button className="btn btn-primary col-12" disabled={isLoading}>Log in</button>
-                    {error && <div className="error">{error}</div>}
+                    <button className="btn btn-primary col-12" disabled={isLoading || !verified}>Log in</button>
+                    {error    && <div  style={{color:'green'}} className="error">{error}</div>}
                 </div>
                 <div style={{opacity:"0"}}>
                     ----------------------------------------

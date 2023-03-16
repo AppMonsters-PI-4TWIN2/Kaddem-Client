@@ -3,8 +3,8 @@ const FooterAdmin = () => {
 
 
     return (
-        <footer className="section-sm sm-tertiary footerp  text-center text-white"  style={{backgroundColor: '#2F4F4F'}} >
-            <div style={{color:'white'}}className="container">
+        <footer className="section-sm sm-tertiary footerp  text-center text-white"  style={{backgroundColor: '#2F4F4F',position: 'fixed',height:'10px', width: '100%', bottom: 0 }} >
+        <div style={{color:'white'}}className="container">
 
                 <div className="row align-items-center mt-5 text-center text-md-start">
                     <div className="col-lg-4">
