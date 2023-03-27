@@ -10,10 +10,10 @@ const Home = () => {
     const {user} = useAuthContext()
     return (
 
-        <div>
+        <div >
             <Navbar/>
 
-        <div className="home">
+        <div className="home" style={{ minHeight: "100vh"}}>
 
         k
         </div>

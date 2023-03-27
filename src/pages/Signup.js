@@ -1,17 +1,24 @@
 import { useState } from "react"
 import { useSignup } from "../hooks/useSignup"
-
+import ReCAPTCHA from "react-google-recaptcha";
+const  sitekey="6LeCLgUlAAAAADtjRbkgiwTQzJcXNnRJ5jZHS6LP";
 const Signup = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const {signup, error, isLoading} = useSignup()
+    const[recaptchValue,setRecaptchValue]=useState('')
+    const[verified,setVerified]=useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         await signup(email, password)
     }
+    function onChange(value){
+        console.log("valur",value)
+        setVerified(true)
 
+    }
     return (
         <div className={"bodyy"} >
             <div className="boxx">
@@ -37,13 +44,17 @@ const Signup = () => {
                     <div style={{opacity:"0"}}>
                         ----------------------------------------
                     </div>
+                    <div>
+                        <ReCAPTCHA
+                            sitekey={sitekey}
+                            onChange={onChange}
+
+                        /></div>
                     <div style={{opacity:"0"}}>
                         ----------------------------------------
                     </div>
-                    <div style={{opacity:"0"}}>
-                        ----------------------------------------
-                    </div>
-                    <button className="btn btn-primary ms-2 ms-lg-3 " disabled={isLoading}>Sign up</button>
+
+                    <button className="btn btn-primary ms-2 ms-lg-3 " disabled={isLoading|| !verified}>Sign up</button>
                     {error && <div className="error">{error}</div>}
 
 

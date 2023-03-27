@@ -14,7 +14,7 @@ const EditProfil = () => {
         <div>
             <Navbar/>
 
-            <div className="home">
+            <div className="home" style={{ minHeight: "100vh"}}>
 
                 <EditProfilForm/>
             </div>

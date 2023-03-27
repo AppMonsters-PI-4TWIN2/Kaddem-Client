@@ -12,9 +12,13 @@ function RowDetails({email ,password,role,created,status,isBanned,id,OnDelete,On
   const handleShow = () => setShow(true);
   
 const [isUserBanned, setIsUserBanned] = useState(isBanned);
-
+  var user = JSON.parse( localStorage.getItem('user') );
   const handleToggleBanned = () => {
-    axios.put(`/list/users/ban/${id}`, { isBanned: !isUserBanned })
+    axios.put(`/list/users/ban/${id}`, { isBanned: !isUserBanned }, {
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      }
+    })
       .then(() => setIsUserBanned(!isUserBanned))
       .catch(err => console.log(err));
   }

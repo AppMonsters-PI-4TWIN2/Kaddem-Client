@@ -14,36 +14,32 @@ import Users from './pages/Users';
 import GoogleLogin from "./pages/GoogleLogin";
 import NotFound from './pages/NotFound';
 import CheckMail from './pages/CheckMail';
-function Navcheck() {
-  if (window.location.pathname==="/login" || window.location.pathname==="/signup" )
-    return null
-  else return <Navbar />
-}
-function Footercheck() {
-  if (window.location.pathname==="/login" || window.location.pathname==="/signup" )
-    return null
-  else return <Footer />
-}
+import ViewProfile from "./pages/ViewProfile";
+
 function App() {
   
   const { user } = useAuthContext()
-  
+  var LoggedInUser = JSON.parse( localStorage.getItem('user') );
+
+
   return (
       <div className="App">
         <BrowserRouter>
 
           <div className="pages">
             <Routes>
-            <Route path="/users" element ={user && user.role === 'admin' ?<Users />:<Navigate to="/" />} />
+            <Route path="/users" element ={LoggedInUser && LoggedInUser.role === 'admin' ?<Users />:<Navigate to="/" />} />
               <Route path="/" element={<Home />}/>
-              <Route path="/editProfil" element={user ? < EditProfil/>:<Navigate to="/" />}/>
+              <Route path="/edit-profile" element={LoggedInUser ? < EditProfil/>:<Navigate to="/" />}/>
               <Route path="/googleLogin" element={<GoogleLogin />}/>
-              <Route path="/login" element={!user ? <Login /> : user.role ==="admin" ? <Navigate to="/users"  /> : <Navigate to="/editProfil" />}/>
+              <Route path="/login" element={!LoggedInUser ? <Login /> : LoggedInUser.role ==="admin" ? <Navigate to="/users"  /> : <Navigate to="/edit-profile" />}/>
               {/* <Route path="/signup" element={!user ? <Signup /> : user.role == 'admin' ? <Navigate to="/users" /> : <Navigate to ="/" />}    /> */}
-              <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/checkmail" />} />
-              <Route path="/resetpwd" element={!user ? <ResetPwd /> : <Navigate to="/login" />}/>
-              <Route path="/forgotpwd" element={!user ? <ForgotPwd /> : <Navigate to="/checkmail" />}/>
+              <Route path="/signup" element={!LoggedInUser ? <Signup /> : <Navigate to="/checkmail" />} />
+              <Route path="/resetpwd" element={!LoggedInUser ? <ResetPwd /> : <Navigate to="/login" />}/>
+              <Route path="/forgotpwd" element={!LoggedInUser ? <ForgotPwd /> : <Navigate to="/checkmail" />}/>
               <Route path="/checkmail" element={<CheckMail />}/>
+              <Route path="/user/:userName" element={<ViewProfile />} />
+              <Route path="/*" element={<NotFound />}/>
             </Routes>
           </div>
 

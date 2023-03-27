@@ -3,14 +3,14 @@ const Footer = () => {
 
 
     return (
-        <footer style={{color:'black',position: 'fixed',height:'10px', width: '100%', bottom: 0}} className="section-sm bg-tertiary footerp"  bg="dark">
+        <footer  className="section-sm bg-tertiary "  bg="dark">
         <div className="container">
 
             <div className="row align-items-center mt-5 text-center text-md-start">
                 <div className="col-lg-4">
                     <a href="index.html">
                         <img loading="prelaod" decoding="async" className="img-fluid" width="160"
-                             src="images/logo.png" alt="Wallet"/>
+                             src="/images/logo.png" alt="Wallet"/>
                     </a>
                 </div>
                 <div className="col-lg-4 col-md-6 mt-4 mt-lg-0">

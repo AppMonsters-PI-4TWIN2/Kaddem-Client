@@ -10,8 +10,8 @@ import FooterAdmin from "../components/Common/Footer/footerAdmin";
 
 
 // récupérer le token depuis localStorage
-const token = localStorage.getItem('token');
-localStorage.setItem('token', 'votre_token_jwt');
+var user = JSON.parse( localStorage.getItem('user') );
+
 
 
 const Users = () => {
@@ -26,53 +26,57 @@ const[message,setMessage]=useState("") ;
 
 
 //delete
-  const OnDelete=(id__)=>{
-   axios.delete(`/list/users/${id__}`) ; 
-  
-   }
+    const OnDelete = (id__) => {
+        axios.delete(`/list/users/${id__}`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        })
+            .then((response) => {
+                console.log('User deleted successfully', response.data);
+                // do something else, such as update the UI
+            })
+            .catch((error) => {
+                console.log('Error deleting user', error);
+                // handle the error, such as displaying an error message to the user
+            });
+    }
 
    //ban
    const OnBan=(id__)=>{
     if(window.confirm("are you sur to ban this user "))
-  {axios.put(`/list/users/ban/${id__}`)
-  .then(res=>{
-    setShow(true)
-    setTimeout(()=>{
-      setMessage(res.data.message)
-      setShow(false)
-    },4000);
-     
-  })
-   }} 
-  
+  {axios.put(`/api/user/users/ban/${id__}`)
+      .then(res => {
+          setShow(true)
+          setTimeout(() => {
+              setMessage(res.data.message)
+              setShow(false)
+          }, 4000);
+      })
+   }}
+
    const fetchData = async () => {
     const token = localStorage.getItem('token'); // Récupère le token stocké dans le local storage du navigateur
-  
+
     const response = await axios.get('/list/users', {
-      headers: {
-        Authorization: `Bearer ${token}` , 
-        'Ma-Cle-Secrete': process.env.SECRET 
-      }
+        headers: {'Authorization': `Bearer ${user.token}`},
     })
-    setUsers(response.data) 
-    console.log(response.data); 
-   
+    setUsers(response.data)
+    console.log(response.data);
+
   }
 
 /* find all users */
  useEffect(()=>{
     const fetchData = async () => {
-      const token = localStorage.getItem('token'); // Récupère le token stocké dans le local storage du navigateur
-    
+
+
       const response = await axios.get('/list/users', {
-        headers: {
-          Authorization: `Bearer ${token}` , 
-          'Ma-Cle-Secrete': process.env.SECRET 
-        }
+          headers: {'Authorization': `Bearer ${user.token}`},
       })
-      setUsers(response.data) 
-      console.log(response.data); 
-     
+      setUsers(response.data)
+      console.log(response.data);
+
     }
     fetchData()
   },[])
@@ -84,18 +88,18 @@ const[message,setMessage]=useState("") ;
           
        <NavbarAdmin/>
        <Alert message={message} show={show}/>
-       <div class="row">
-       <div  class="col  align-self-start">                                          
+       <div className="row">
+       <div  className="col  align-self-start">
        
        
        </div>
-       <div  class="col align-self-center">
+       <div  className="col align-self-center">
   <table className="table table-hover " style={{color: '#2F4F4F '}} >
   <thead className="thead-light">
     <tr>
       <th scope="col">#</th>
       <th scope="col">email</th>
-      <th scope="col">paswword</th>
+      <th scope="col">password</th>
       <th scope="col">role</th>
      
       <th scope="col">status</th>
@@ -115,9 +119,9 @@ const[message,setMessage]=useState("") ;
   </tbody>
 </table>
 </div>
-<div class="col align-self-end"></div>
+<div className="col align-self-end"></div>
 </div>
-            <FooterAdmin/>
+
         </div>
     )
 }

@@ -29,9 +29,13 @@ const GoogleLogin = () => {
         <div>
             <Navbar/>
 
-            <div className="home">
-                <h1 style={{marginLeft:"20%",marginTop:"8%"}}>Continuer en tant que {email}</h1>
-                <button style={{marginLeft:"30%",marginTop:"2%"}} className="btn btn-primary col-4" onClick={loginwithgoogle}>Continuer</button>
+            <div className="home" style={{ minHeight: "100vh"}}>
+                <h1 style={{textAlign: "center" ,marginTop:"10%"}}>Continue as {email}</h1>
+                <div style={{textAlign: "center"}}>
+                <button style={{display:"block", margin:"0 auto"}}className="btn btn-primary col-4" onClick={loginwithgoogle}>Continue</button>
+                </div>
+
+
 
             </div>
             <Footer/>

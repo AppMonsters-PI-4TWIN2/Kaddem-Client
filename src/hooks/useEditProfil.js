@@ -9,7 +9,7 @@ export const useEditProfil = () => {
     //const history = useHistory();
 
 
-    const editProfil = async (email,firstName,lastName,aboutMe,avatar) => {
+    const editProfil = async (email,firstName,lastName,aboutMe,avatar,region,country,phoneNumber,userName) => {
         setIsLoading(true)
         setError(null)
         const token = localStorage.getItem('token');
@@ -17,7 +17,7 @@ export const useEditProfil = () => {
             method: 'PUT',
             headers: { Authorization: `Bearer ${token}` ,
                 'Ma-Cle-Secrete': process.env.SECRET,'Content-Type': 'application/json' },
-            body: JSON.stringify({ email,firstName,lastName,aboutMe,avatar })
+            body: JSON.stringify({ email,firstName,lastName,aboutMe,avatar,region,country,phoneNumber,userName })
         })
         const json = await response.json()
 
@@ -27,7 +27,7 @@ export const useEditProfil = () => {
         }
         if (response.ok) {
             // save the user to local storage
-            // localStorage.setItem('user', JSON.stringify(json))
+             localStorage.setItem('user', JSON.stringify(json))
             // history.push('/');
             // update the auth context
             // update loading state
