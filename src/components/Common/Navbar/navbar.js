@@ -67,12 +67,11 @@ const Navbar = () => {
 
                                 <img src={LoggedInUser.avatar}  loading="prelaod" decoding="async"  className="profile img-fluid"  height="55" width="55" style={{borderRadius: "25%"}}/>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{marginTop:"30%",textAlign:"center"}}>
-                                    <li><a className="dropdown-item " >{LoggedInUser.firstName} {LoggedInUser.lastName}</a>
-                                    </li>
+
 
                                     <li><a className="dropdown-item " href="/edit-profile">Edit my profile</a>
                                     </li>
-                                    <li><a className="dropdown-item " href="blog-details.html">See my profile</a>
+                                    <li><a className="dropdown-item " href={'/user/' + LoggedInUser.userName}>See my profile</a>
                                     </li>
                                     <li><a className="dropdown-item " href="service-details.html">Settings</a>
                                     </li>
