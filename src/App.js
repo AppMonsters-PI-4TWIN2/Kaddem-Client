@@ -15,6 +15,7 @@ import GoogleLogin from "./pages/GoogleLogin";
 import NotFound from './pages/NotFound';
 import CheckMail from './pages/CheckMail';
 import ViewProfile from "./pages/ViewProfile";
+import Post from './components/Post/Post';
 
 function App() {
   
@@ -39,6 +40,7 @@ function App() {
               <Route path="/forgotpwd" element={!LoggedInUser ? <ForgotPwd /> : <Navigate to="/checkmail" />}/>
               <Route path="/checkmail" element={<CheckMail />}/>
               <Route path="/user/:userName" element={<ViewProfile />} />
+              <Route path="/post" element={<Post />}/>
               <Route path="/*" element={<NotFound />}/>
             </Routes>
           </div>
