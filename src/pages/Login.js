@@ -16,7 +16,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-   const role =e.role ; 
+      const role =e.role ; 
         await login(email, password)
        setRole(role) ; 
     

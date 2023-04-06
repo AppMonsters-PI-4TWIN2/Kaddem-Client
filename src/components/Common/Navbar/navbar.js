@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom'
 import { useLogout } from '../../../hooks/useLogout'
 import { useAuthContext } from '../../../hooks/useAuthContext'
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const { logout } = useLogout()
     const { user } = useAuthContext()
     var LoggedInUser = JSON.parse( localStorage.getItem('user') );
+    const navigate=useNavigate()  ;
+  
     const handleClick = () => {
         logout()
+        navigate("/")
     }
 
     return (
@@ -27,8 +31,8 @@ const Navbar = () => {
                         <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
                             <li className="nav-item"><a className="nav-link" href="/">Home</a>
                             </li>
-                            <li className="nav-item "><a className="nav-link" href="about.html">About</a>
-                            </li>
+                          { user && <li className="nav-item "><a className="nav-link" href="/chat">Chat </a>
+                            </li>}
                             <li className="nav-item "><a className="nav-link" href="how-it-works.html">How It Works</a>
                             </li>
                             <li className="nav-item "><a className="nav-link" href="services.html">Services</a>
