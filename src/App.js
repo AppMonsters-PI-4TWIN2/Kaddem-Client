@@ -15,6 +15,7 @@ import GoogleLogin from "./pages/GoogleLogin";
 import NotFound from './pages/NotFound';
 import CheckMail from './pages/CheckMail';
 import ViewProfile from "./pages/ViewProfile";
+import Chat from "./pages/chat";
 
 function App() {
   
@@ -38,6 +39,7 @@ function App() {
               <Route path="/resetpwd" element={!LoggedInUser ? <ResetPwd /> : <Navigate to="/login" />}/>
               <Route path="/forgotpwd" element={!LoggedInUser ? <ForgotPwd /> : <Navigate to="/checkmail" />}/>
               <Route path="/checkmail" element={<CheckMail />}/>
+              <Route path="/chat" element={<Chat />}/>
               <Route path="/user/:userName" element={<ViewProfile />} />
               <Route path="/*" element={<NotFound />}/>
             </Routes>

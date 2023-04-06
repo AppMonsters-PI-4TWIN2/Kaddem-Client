@@ -69,9 +69,7 @@ const[message,setMessage]=useState("") ;
 /* find all users */
  useEffect(()=>{
     const fetchData = async () => {
-
-
-      const response = await axios.get('/list/users', {
+     const response = await axios.get('/list/users', {
           headers: {'Authorization': `Bearer ${user.token}`},
       })
       setUsers(response.data)
