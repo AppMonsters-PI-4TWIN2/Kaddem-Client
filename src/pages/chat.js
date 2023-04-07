@@ -5,8 +5,10 @@ import { uniqBy } from "lodash";
 import axios from "axios";
 import Avatar from "./Avatar";
 import Contact from "./Contact";
+import NavbarAdmin from "../components/Common/NavbarAdmin/navbarAdmin";
 
 const Chat = () => {
+  
     const [ws,setWs] =useState(null) ; 
     const [onlinePeople,setOnlinePeople]=useState({})
     //const [onlinePeopleExclOurUser,setOnlinePeopleExclOurUser]=useState({})
@@ -53,20 +55,20 @@ connectToWs() ;
     peopleArray.forEach(({userId,email}) => {
     people[userId] =email 
      });
-   console.log(people)
+    // console.log(people)
    setOnlinePeople(people)
 }
 
-function sendMessage(ev){
-    ev.preventDefault() ; 
+function sendMessage(ev,file = null){
+  
+   if(ev) ev.preventDefault() ; 
     ws.send(JSON.stringify({
             recipient : selectedUserId , 
             text : newMessageText , 
+            file ,
     })); 
     setNewMessageText('') ;
-    
-    console.log("userId ", user.id ),
-
+  
     setMessages(prev => ([...prev,{
         text :newMessageText,
         isOur :true,
@@ -74,7 +76,27 @@ function sendMessage(ev){
         recipient :selectedUserId , 
         _id:Date.now()
     }])) ; 
+    if(file) {
+      axios.get('/chat/messages/'+selectedUserId).then(res => {
+  
+        setMessages(res.data)
+      })
+    }
 }
+
+
+function sendFile(ev) {
+  const reader = new FileReader();
+  reader.readAsDataURL(ev.target.files[0]);
+  reader.onload = () => {
+    sendMessage(null, {
+      name: ev.target.files[0].name,
+      data: reader.result,
+    });
+  };
+}
+
+
 useEffect(()=>{
 if(selectedUserId){
   axios.get('/chat/messages/'+selectedUserId).then(res => {
@@ -113,23 +135,18 @@ console.log({offlinePeople,offlinePeopleArr})
 const onlinePeopleExclOurUser = { ...onlinePeople };
   
  delete onlinePeopleExclOurUser[user.id];
- console.log("user.id")
-  console.log(user.id)
- console.log("onlinePeopleExclOurUser")
-console.log( onlinePeopleExclOurUser)
+
 
 
 const messagesWithoutDupes =uniqBy(messages, '_id') ;
 
 
-
     
 return (<div>
-    <Navbar/>
-      <div style={ { display: 'flex',
-          height: '100vh' }}>
+   {user.role === 'admin' ? <NavbarAdmin/> : <Navbar/> }
+      <div style={ { display: 'flex', height: '100vh' }}>
   
-    <div style={{  backgroundColor: '#fff', width: '33.33%',  padding: '5px' }}>
+    <div style={{  backgroundColor: '#fff', width: '20%',  padding: '5px' }}>
   
       {user && (
            <div>
@@ -160,7 +177,7 @@ selected={userId === selectedUserId} />
       display: 'flex',
       flexDirection: 'column',
       backgroundColor: '#f0f4f8',
-      width: '66.66%',
+      width: '80%',
       padding: '8px'
     }}>
   <div style={ { flexGrow: 1}}>
@@ -176,12 +193,29 @@ selected={userId === selectedUserId} />
   {messagesWithoutDupes && messagesWithoutDupes.map(message => (
     <div key={message._id}
        style={{textAlign: message.sender === user.id ? 'right' : 'left'}}    >
-      <div style={{display:'inline-block', textAlign: 'left' ,padding: '6px', margin: '3px', borderRadius: '0.205rem', fontSize: '0.975rem',
-       backgroundColor: message.sender === user.id ? 'blue' : 'white', color: message.sender === user.id ? 'white' : 'gray'}}
+      <div style={{display:'inline-block', textAlign: 'left' ,padding: '6px', margin: '3px', borderRadius: '0.205rem', fontSize: '1rem',
+       backgroundColor: message.sender === user.id ? '	#87CEFA' : 'white', color: message.sender === user.id ? 'white' : 'gray'}}
      > 
              {/* sender :{message.sender}<br/>
               my id : {user.id} < br/> */}
                {message.text}
+               {message.file && (
+             
+             <div style={{  display: 'flex', alignItems: 'center', gap: '1rem', borderBottom: '1px solid black' }}> 
+              
+                <a target="_blank"  style={{textDecoration: 'underline' ,color :'black'}} href= {'http://localhost:4000/uploads/' + message.file}>
+                  
+                  
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"  style={{ width: "20px", height: "20px" }}>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
+</svg>
+                  
+                    {message.file}
+
+                </a>
+
+               </div>
+               )}
               
               </div>  
                </div>
@@ -196,15 +230,28 @@ selected={userId === selectedUserId} />
   
   
   </div>
-  {!!selectedUserId && ( 
-      <form onSubmit={sendMessage} style={{ display: 'flex', gap: '1rem' ,overflow: 'scroll' , marginX: '80rem'}}   >
+  {!!selectedUserId && (
+      <form onSubmit={sendMessage} style={{ textDecoration: 'underline', display: 'flex', gap: '1rem' ,overflow: 'scroll' , marginX: '80rem'}}   >
       <input type="text "
       id="kk"
       value={newMessageText} 
     onChange={ev =>setNewMessageText(ev.target.value)}
       placeholder='tape your message here ' 
       style={{backgroundColor: 'white', border: '1px solid',   padding: '0.5rem',flexGrow: 3 }} />
-          <button type="submit" style={ {   flexGrow: 1,  backgroundColor: '#3B82F6',  padding: '0.5rem', color: 'white' }}>
+
+<label style={{backgroundColor :'#87CEFA', 
+  padding: "2px",
+  color: "white",
+cursor:'pointer',
+  borderRadius: "0.125rem"}}>
+    <input type="file" style={{display: 'none'}} onChange={sendFile} />
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"  style={{ width: "20px", height: "20px" }}>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
+</svg>
+
+</label>
+
+<button type="submit" style={ {   flexGrow: 1,  backgroundColor: '#3B82F6',  padding: '0.5rem', color: 'white' }}>
   
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
    style={{ width: '1.5rem', height: '1.5rem' }}>

@@ -16,9 +16,10 @@ import NotFound from './pages/NotFound';
 import CheckMail from './pages/CheckMail';
 import ViewProfile from "./pages/ViewProfile";
 import Chat from "./pages/chat";
+import axios from 'axios';
 
 function App() {
-  
+ 
   const { user } = useAuthContext()
   var LoggedInUser = JSON.parse( localStorage.getItem('user') );
 
