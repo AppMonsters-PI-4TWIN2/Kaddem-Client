@@ -5,7 +5,9 @@ import Footer from "../Common/Footer/footer";
 const Post = () => {
   return (
     <div>
+      
       <Navbar />
+      <link href="assets/css/bootstrap/bootstrap.min.css" rel="stylesheet"></link>
       <div className="newsfeed">
         <div className="container-fluid" id="wrapper">
           <div className="row newsfeed-size">
