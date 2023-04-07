@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Avatar from './Avatar.js'
 
 function Contact({id,email,onClick,selected,online}) {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    async function fetchUser() {
+      const response = await fetch(`/users/${email}`);
+      const data = await response.json();
+      setUser(data);
+    }
+    fetchUser();
+  }, [email]);
+
+  if (!user) {
+    return null;
+  }
+  const name = user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : email;
+
   return (
     <div key={id} onClick={() => onClick(id)}
     style ={{
@@ -21,8 +36,9 @@ function Contact({id,email,onClick,selected,online}) {
   paddingTop: '2px',
   paddingLeft: '4px',
   alignItems: 'center'}}>
-   <Avatar online={online} firstName={email} userId={id} />
-   <span style={{ color: '#2d3748' }}>{email}</span>
+   <Avatar online={online} email={email} userId={id} />
+   <span style={{ color: '#2d3748' }}>{name}</span>
+   <div></div>
  </div>
 </div>
 
