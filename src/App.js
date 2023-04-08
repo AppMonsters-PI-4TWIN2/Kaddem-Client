@@ -17,6 +17,7 @@ import CheckMail from './pages/CheckMail';
 import ViewProfile from "./pages/ViewProfile";
 import Chat from "./pages/chat";
 import axios from 'axios';
+import Post from "./pages/Post";
 
 function App() {
  
@@ -41,6 +42,7 @@ function App() {
               <Route path="/forgotpwd" element={!LoggedInUser ? <ForgotPwd /> : <Navigate to="/checkmail" />}/>
               <Route path="/checkmail" element={<CheckMail />}/>
               <Route path="/chat" element={<Chat />}/>
+              <Route path="/post" element={<Post />}/>
               <Route path="/user/:userName" element={<ViewProfile />} />
               <Route path="/*" element={<NotFound />}/>
             </Routes>
