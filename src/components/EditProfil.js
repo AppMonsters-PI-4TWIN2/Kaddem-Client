@@ -123,7 +123,7 @@ const EditProfilForm=()=>{
                                             </div>
                                             <div className="form-group mb-4 pb-2">
                                                 <label htmlFor="exampleFormControlTextarea1" className="form-label"> About Me</label>
-                                                <input className="form-control shadow-none"
+                                                <textarea className="form-control shadow-none"
                                                        type={"text"}
                                                        onChange={(e)=>setAboutMe(e.target.value)}
                                                        value={aboutMe}
