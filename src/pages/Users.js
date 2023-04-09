@@ -120,7 +120,7 @@ const[message,setMessage]=useState("") ;
 <div className="col align-self-end"></div>
 </div>
 
-        </div>
+        {/* </div>
 
             <div className="container">
 
@@ -163,7 +163,7 @@ const[message,setMessage]=useState("") ;
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
 
     )
