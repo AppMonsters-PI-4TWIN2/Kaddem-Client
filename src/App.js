@@ -18,8 +18,12 @@ import ViewProfile from "./pages/ViewProfile";
 import Chat from "./pages/chat";
 import axios from 'axios';
 import Post from "./pages/Post";
+
+import Investment from './pages/Investment';
+
 import NewProject from "./pages/NewProject";
 import ViewProject from "./pages/ViewProject";
+
 
 function App() {
  
@@ -48,8 +52,12 @@ function App() {
               <Route path="/chat" element={<Chat />}/>
               <Route path="/post" element={<Post />}/>
               <Route path="/user/:userName" element={<ViewProfile />} />
+
+           <Route path="/investment" element={<Investment/>}></Route>
+
               <Route path="/new-project" element={<NewProject />}/>
               <Route path="/project/:ProjectName" element={<ViewProject />}/>
+
               <Route path="/*" element={<NotFound />}/>
             </Routes>
           </div>

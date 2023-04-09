@@ -87,6 +87,41 @@ const[message,setMessage]=useState("") ;
           
        <NavbarAdmin/>
        <Alert message={message} show={show}/>
+
+       <div className="row">
+       <div  className="col  align-self-start">
+       </div>
+       <div  className="col align-self-center">
+  <table className="table table-hover " style={{color: '#2F4F4F '}} >
+  <thead className="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">email</th>
+      <th scope="col">password</th>
+      <th scope="col">role</th>
+     
+      <th scope="col">status</th>
+      <th scope="col">created</th>
+      <th scope="col">Banned</th>
+     <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+{
+    users.map(({email,password,role,created,status,isBanned,_id}) =>(
+     
+        <RowDetails key={_id} email={email} password={password} role={role} status={status} isBanned={isBanned} created ={created} id={_id} OnDelete={OnDelete} OnBan={OnBan} fetchData={fetchData}/>
+    
+    ))
+}
+  </tbody>
+</table>
+</div>
+<div className="col align-self-end"></div>
+</div>
+
+        </div>
+
             <div className="container">
 
                 <div className="col-8 mx-auto text-center" style={{marginTop:"10%"}}>
@@ -130,6 +165,7 @@ const[message,setMessage]=useState("") ;
                 </div>
             </div>
         </>
+
     )
 }
 
