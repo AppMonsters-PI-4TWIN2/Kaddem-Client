@@ -89,8 +89,6 @@ const[message,setMessage]=useState("") ;
        <Alert message={message} show={show}/>
        <div className="row">
        <div  className="col  align-self-start">
-       
-       
        </div>
        <div  className="col align-self-center">
   <table className="table table-hover " style={{color: '#2F4F4F '}} >

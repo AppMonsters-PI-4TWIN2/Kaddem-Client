@@ -17,6 +17,7 @@ import CheckMail from './pages/CheckMail';
 import ViewProfile from "./pages/ViewProfile";
 import Chat from "./pages/chat";
 import axios from 'axios';
+import Investment from './pages/Investment';
 
 function App() {
  
@@ -42,6 +43,7 @@ function App() {
               <Route path="/checkmail" element={<CheckMail />}/>
               <Route path="/chat" element={<Chat />}/>
               <Route path="/user/:userName" element={<ViewProfile />} />
+           <Route path="/investment" element={<Investment/>}></Route>
               <Route path="/*" element={<NotFound />}/>
             </Routes>
           </div>
