@@ -17,7 +17,7 @@ import CheckMail from './pages/CheckMail';
 import ViewProfile from "./pages/ViewProfile";
 import Chat from "./pages/chat";
 import axios from 'axios';
-import Post from "./pages/Post";
+import Feed from './pages/Feed';
 
 import Investment from './pages/Investment';
 
@@ -50,7 +50,7 @@ function App() {
               <Route path="/forgot-password" element={!LoggedInUser ? <ForgotPwd /> : <Navigate to="/check-email" />}/>
               <Route path="/check-email" element={<CheckMail />}/>
               <Route path="/chat" element={<Chat />}/>
-              <Route path="/post" element={<Post />}/>
+              <Route path="/feed" element={<Feed />}/>
               <Route path="/user/:userName" element={<ViewProfile />} />
 
            <Route path="/investment" element={<Investment/>}></Route>

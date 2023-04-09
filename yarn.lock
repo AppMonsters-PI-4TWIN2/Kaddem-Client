@@ -1642,9 +1642,9 @@
   "version" "2.11.7"
 
 "@react-aria/ssr@^3.5.0":
-  "integrity" "sha512-h0MJdSWOd1qObLnJ8mprU31wI8tmKFJMuwT22MpWq6psisOOZaga6Ml4u6Ee6M6duWWISjXvqO4Sb/J0PBA+nQ=="
-  "resolved" "https://registry.npmjs.org/@react-aria/ssr/-/ssr-3.5.0.tgz"
-  "version" "3.5.0"
+  "integrity" "sha512-OFiYQdv+Yk7AO7IsQu/fAEPijbeTwrrEYvdNoJ3sblBBedD5j5fBTNWrUPNVlwC4XWWnWTCMaRIVsJujsFiWXg=="
+  "resolved" "https://registry.npmjs.org/@react-aria/ssr/-/ssr-3.6.0.tgz"
+  "version" "3.6.0"
   dependencies:
     "@swc/helpers" "^0.4.14"
 
