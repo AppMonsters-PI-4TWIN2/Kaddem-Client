@@ -22,8 +22,7 @@ const Home = () => {
                                 <h3 style={{fontSize:"34px"}} className="text-capitalize mb-4">Welcome to Kaddem,<br/>the platform that connects project creators with investors to bring innovative ideas to life</h3>
                                 <p className=" mb-4">Whether you're a project creator with a bold new idea or an investor looking for the next big thing, Kaddem is here to help you make a difference in the world.</p> <a
                                 type="button"
-                                className="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#applyLoan">Apply
-                                Loan Now <span style={{fontSize: "14px"}}  className="ms-2 fas fa-arrow-right"></span></a>
+                                className="btn btn-primary" href="#about-section">What we do ?<span style={{fontSize: "14px"}}  className="ms-2 fas fa-arrow-right"></span></a>
                             </div>
                         </div>
                         <div className="col-lg-6">
@@ -59,17 +58,14 @@ const Home = () => {
                 </div>
 
             </section>
-            <section className="about-section section bg-tertiary position-relative overflow-hidden">
+            <section className="about-section section bg-tertiary position-relative overflow-hidden"id={"about-section"}>
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-lg-5">
                             <div className="section-title">
                                 <p className="text-primary text-uppercase fw-bold mb-3">About Ourselves</p>
                                 <h3 style={{fontSize:"34px",marginBottom:"7.5%"}} className="text-capitalize mb-4">The Solution: Connecting Project Creators with Investors through Kaddem</h3>
-                                <p className="mb-0 mt-4">
-                                    <p>Kaddem is the solution to this problem. We're a platform that brings project creators and investors together in one place, making it easy to connect and collaborate. Our platform offers a chat feature that allows project creators to engage with potential investors and build relationships based on mutual interests and goals. Once an investment is made, Kaddem provides a dashboard for tracking project progress, allowing investors to stay informed and see the impact of their investment. We also use a machine learning algorithm to assign a score to each project, making it easier for investors to identify the most promising opportunities. With Kaddem, project creators can access the funding they need to bring their ideas to life, and investors can find projects that align with their goals and values, all in one place.</p>
-                                </p>
-
+                                <p className="mb-0 mt-4">Kaddem is the solution to this problem. We're a platform that brings project creators and investors together in one place, making it easy to connect and collaborate. Our platform offers a chat feature that allows project creators to engage with potential investors and build relationships based on mutual interests and goals. Once an investment is made, Kaddem provides a dashboard for tracking project progress, allowing investors to stay informed and see the impact of their investment. We also use a machine learning algorithm to assign a score to each project, making it easier for investors to identify the most promising opportunities. With Kaddem, project creators can access the funding they need to bring their ideas to life, and investors can find projects that align with their goals and values, all in one place.</p>
                             </div>
                         </div>
                         <div className="col-lg-7 text-center text-lg-end">

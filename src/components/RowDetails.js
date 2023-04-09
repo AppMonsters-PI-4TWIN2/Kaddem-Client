@@ -28,7 +28,6 @@ const [isUserBanned, setIsUserBanned] = useState(isBanned);
     <tr  style={{color: 'black'}}>
     <th style={{color: '#2F4F4F '}}>{id}</th>
     <td>{email}</td>
-    <td>{password}</td>
     <td>{role}</td>
     <td>{status}</td>
     <td>{created}</td>

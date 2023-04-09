@@ -189,7 +189,7 @@ selected={userId === selectedUserId} />
    
   {!!selectedUserId && (
     <div  style={{position :'relative',height:"100%"}}>
-  <div style={{width:"100%",position:'absolute', overflowY: 'scroll', position: 'absolute', top: 0, left: 0, right: 0, bottom: '2px' }}  >
+  <div style={{width:"100%", overflowY: 'scroll', position: 'absolute', top: 0, left: 0, right: 0, bottom: '2px' }}  >
   {messagesWithoutDupes && messagesWithoutDupes.map(message => (
     <div key={message._id}
        style={{textAlign: message.sender === user.id ? 'right' : 'left'}}    >
@@ -231,7 +231,7 @@ selected={userId === selectedUserId} />
   
   </div>
   {!!selectedUserId && (
-      <form onSubmit={sendMessage} style={{ textDecoration: 'underline', display: 'flex', gap: '1rem' ,overflow: 'scroll' , marginX: '80rem'}}   >
+      <form onSubmit={sendMessage} style={{ textDecoration: "underline", display: "flex", gap: "1rem" ,overflow: "scroll" , marginX: "80rem"}}   >
       <input type="text "
       id="kk"
       value={newMessageText} 
