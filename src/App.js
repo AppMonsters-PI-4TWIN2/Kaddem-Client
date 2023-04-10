@@ -22,6 +22,7 @@ import Investment from './pages/Investment';
 
 import NewProject from "./pages/NewProject";
 import ViewProject from "./pages/ViewProject";
+import MyInvest from "./pages/myInvest" ;
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
 
            <Route path="/investment" element={<Investment/>}></Route>
 
+           <Route path="/myInvestment" element={<MyInvest/>}></Route>
               <Route path="/new-project" element={<NewProject />}/>
               <Route path="/project/:ProjectName" element={<ViewProject />}/>
 

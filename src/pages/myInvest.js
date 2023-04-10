@@ -1,15 +1,15 @@
+
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Navbar from "../components/Common/Navbar/navbar";
 import Footer from '../components/Common/Footer/footer';
 import AddInvestment from "./addInvestment"
-import InvestmentDetails from '../components/InvestmentDetails';
+import MyInvestmentDetails from '../components/myInvestmentDetails';
 // récupérer le token depuis localStorage
 var user = JSON.parse( localStorage.getItem('user') );
 
 
-
-function Investment() {
+function MyInvest() {
     const [investments,setInvestments]=useState([])
     const [count ,setCount]=useState(0) ; 
 
@@ -23,7 +23,7 @@ function Investment() {
         }
         )
         setInvestments(response.data)
-       
+        console.log(response.data);
 
       }
 
@@ -55,7 +55,7 @@ setCount(count+1)
 
 
 {investments.map(({montant,idUser,idProject,isValid,_id}) => (
-    <InvestmentDetails key={_id}  id={_id}  montant={montant} idUser={idUser} idProject={idProject}  isValid={isValid} fetchData={fetchData} />
+    <MyInvestmentDetails key={_id}  id={_id}  montant={montant} idUser={idUser} idProject={idProject}  isValid={isValid} fetchData={fetchData} />
 	
         ))
         }
@@ -125,4 +125,4 @@ setCount(count+1)
   )
 }
 
-export default Investment
+export default MyInvest

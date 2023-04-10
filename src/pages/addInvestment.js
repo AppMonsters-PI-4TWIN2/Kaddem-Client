@@ -4,7 +4,7 @@ import axios from 'axios';
 
 function addInvestment() {
     const [montant,setMontant] =useState( ) ;
-  
+
     const [idProject,setProject] =useState() ;
     var user = JSON.parse( localStorage.getItem('user') );
 
@@ -28,12 +28,12 @@ function addInvestment() {
         throw new Error(error.response.data.message || 'Failed to add investment');
       }
     };
-    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         const token = localStorage.getItem('token');
-        await addInvestment(idUser, idProject, montant, token)
+        await addInvestment(idUser, idProject, montant, user.token)
        // window.location.reload(true)
 
 
@@ -60,7 +60,7 @@ function addInvestment() {
                                 <div className="col-lg-12">
                                     <div className="contact-form">
                                         <form className="create" onSubmit={handleSubmit}>
-                                          
+
                                             <div className="form-group mb-4 pb-2">
                                                 <label htmlFor="exampleFormControlInput1" className="form-label">montant</label>
                                                 <input className="form-control shadow-none"
