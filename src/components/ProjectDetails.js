@@ -10,6 +10,7 @@ function ProjectDetails({ProjectName,Creator,ProjectLocation,Description,Image,O
 
     return (
 
+
         <tr  style={{color: 'black'}}>
             <th style={{color: '#2F4F4F '}}>{id}</th>
 

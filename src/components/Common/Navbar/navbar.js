@@ -33,7 +33,9 @@ const Navbar = () => {
                             </li>
                           { user && <li className="nav-item "><a className="nav-link" href="/chat">Chat </a>
                             </li>}
-                            <li className="nav-item "><a className="nav-link" href="how-it-works.html">How It Works</a>
+                            <li className="nav-item "><a className="nav-link" href="/investment">investments</a>
+                            </li>
+                            <li className="nav-item "><a className="nav-link" href="/myInvestment">my Investment</a>
                             </li>
                             <li className="nav-item "><a className="nav-link" href="services.html">Services</a>
                             </li>
