@@ -17,6 +17,7 @@ const ShowAllProjects = () => {
                 console.log('Error deleting Project', error);
             });
     }
+
     const [projects, setProject] = useState([]);
     useEffect(()=>{
         const fetchData = async () => {

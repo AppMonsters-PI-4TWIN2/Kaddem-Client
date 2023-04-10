@@ -4,8 +4,12 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
+import { useHistory } from 'react-router-dom';
+
 
 const ViewProject = () => {
+    var LoggedInUser = JSON.parse( localStorage.getItem('user') );
+
     const [Project, setProject] = useState({});
     const [loading, setLoading] = useState(true);
     let { ProjectName } = useParams();
@@ -33,6 +37,8 @@ const ViewProject = () => {
         return <div>Loading...</div>;
     }
 
+
+
     return (
         <div>
             <Navbar />
@@ -46,6 +52,10 @@ const ViewProject = () => {
                                     <div>
                                     <h1 className="mb-4" style={{lineHeight:"1.5"}}>{Project.ProjectName}</h1>
                                         <button className="btn btn-primary w-25" style={{float:"right"}}>Invest</button>
+                                        {Project.Creator === LoggedInUser.id &&
+                                            <a href={`/edit-project/${ProjectName}`} className="btn">Edit Project</a>
+                                        }
+
                                     </div>
                                     <span>Project created : {formattedDate} <span className="mx-2">/</span> </span>
                                     <p className="list-inline-item">Creator : <a href="#!" className="ml-1">{Project.Creator} </a></p>
