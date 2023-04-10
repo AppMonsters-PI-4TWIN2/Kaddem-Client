@@ -1,31 +1,39 @@
-import { useProjectsContext } from '../hooks/useProjectsContext'
 
-// date fns
-import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
+import React, { useState } from 'react'
 
-const ProjectDetails = ({ project }) => {
-    const { dispatch } = useProjectsContext()
+function ProjectDetails({ProjectName,Creator,ProjectLocation,Description,Image,OnDelete,id}) {
 
-    const handleClick = async () => {
-        const response = await fetch('/api/projects/' + project._id, {
-            method: 'DELETE'
-        })
-        const json = await response.json()
-
-        if (response.ok) {
-            dispatch({type: 'DELETE_PROJECT', payload: json})
-        }
-    }
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
-        <div className="project-details">
-            <h4>{project.BrandName}</h4>
-            <p><strong>High Level Concept: </strong>{project.concept}</p>
-            <p><strong>Number of reps: </strong>{workout.reps}</p>
-            <p>{formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}</p>
-            <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
-        </div>
+
+
+        <tr  style={{color: 'black'}}>
+            <th style={{color: '#2F4F4F '}}>{id}</th>
+
+            <td>{ProjectName}</td>
+            <td>{Creator}</td>
+            <td>{ProjectLocation}</td>
+            <td>{Description}</td>
+            <td>{Image}</td>
+            <td>
+                <Button   style={{backgroundColor: '#2F4F4F '}}   onClick={() => { handleClose(); OnDelete(id) ; }}>
+                    Delete
+
+                </Button>
+            </td>
+
+
+
+        </tr>
+
+
     )
 }
 
 export default ProjectDetails
+
+

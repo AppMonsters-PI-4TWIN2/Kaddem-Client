@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
+import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 
 const ViewProject = () => {
     const [Project, setProject] = useState({});
@@ -11,13 +12,44 @@ const ViewProject = () => {
     let { ProjectName } = useParams();
     const date = new Date(Project.createdAt);
     const formattedDate = date.toLocaleDateString('en-US');
-    useEffect(() => {
+     //modal 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [montant,setMontant] =useState( ) ;
+  const [idUser,setIdUser] =useState(localStorage.getItem('user').id) ;
+const [idProject ,setIdProject] = useState('')
+
+  var user = JSON.parse( localStorage.getItem('user') );
+
+  
+  const addInvestment = async (idUser, idProject, montant, token) => {
+    idUser=user.id
+      try {
+      const response = await axios.post('/investment/add', {
+        idUser,
+        idProject,
+        montant,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error(error.response.data.message || 'Failed to add investment');
+    }
+  };
+
+  useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch(`/api/project/${ProjectName}`);
                 if (response.ok) {
                     const data = await response.json();
                     setProject(data);
+                    setIdProject(Project._id)
                     setLoading(false);
                     console.log(data)
                 }
@@ -33,6 +65,17 @@ const ViewProject = () => {
         return <div>Loading...</div>;
     }
 
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const token = localStorage.getItem('token');
+
+        await addInvestment(idUser, Project._id, montant, user.token)
+        handleClose()
+       // window.location.reload(true)
+
+
+    }
     return (
         <div>
             <Navbar />
@@ -45,7 +88,40 @@ const ViewProject = () => {
                                 <div className="mb-5">
                                     <div>
                                     <h1 className="mb-4" style={{lineHeight:"1.5"}}>{Project.ProjectName}</h1>
-                                        <button className="btn btn-primary w-25" style={{float:"right"}}>Invest</button>
+                  
+                                      
+                                      
+                                       {Project.Creator!=user.id &&
+                                       <Button className="btn btn-primary w-25" style={{float:"right"}}onClick={handleShow}> invest</Button>}
+                                      <Modal  show={show} onHide={handleClose}>
+                                       <Modal.Header  style={{backgroundColor: '#198754'}}  closeButton>
+                                      <Modal.Title > Add your </Modal.Title>
+                                     </Modal.Header>
+                                      <Modal.Body  > Budget 
+                                                      <form className="create" onSubmit={handleSubmit}>
+
+                                            <div className="form-group mb-4 pb-2">
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">montant</label>
+                                                <input className="form-control shadow-none"
+                                                       type={"text"}
+                                                       onChange={(e)=>setMontant(e.target.value)}
+                                                       value={montant}
+                                                />
+                                            </div>
+                                       
+                                            <div className={" col-12"}>
+                                                <button className="btn btn-primary col-12" >Save</button>
+                                                {/* {error && <div className="error">{error}</div>} */}
+                                            </div>
+                                        </form>
+                                        </Modal.Body>
+                                      
+                                           </Modal>
+
+
+
+
+
                                     </div>
                                     <span>Project created : {formattedDate} <span className="mx-2">/</span> </span>
                                     <p className="list-inline-item">Creator : <a href="#!" className="ml-1">{Project.Creator} </a></p>
