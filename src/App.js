@@ -17,11 +17,15 @@ import CheckMail from './pages/CheckMail';
 import ViewProfile from "./pages/ViewProfile";
 import Chat from "./pages/chat";
 import axios from 'axios';
+
+import Investment from './pages/Investment';
+
 import NewProject from "./pages/NewProject";
 import ViewProject from "./pages/ViewProject";
 import ShowAllProjects from "./pages/ShowAllProjects";
 import ProjectCard from "./pages/ProjectCard";
 import EditProject from "./pages/EditProject";
+
 
 function App() {
  
@@ -49,11 +53,18 @@ function App() {
               <Route path="/check-email" element={<CheckMail />}/>
               <Route path="/chat" element={<Chat />}/>
               <Route path="/user/:userName" element={<ViewProfile />} />
+
+           <Route path="/investment" element={<Investment/>}></Route>
+
               <Route path="/new-project" element={<NewProject />}/>
               <Route path="/edit-project/:ProjectName" element={<EditProject />}/>
               <Route path="/project/:ProjectName" element={<ViewProject />}/>
+
               <Route path="/project/projects" element={<ShowAllProjects/>}/>
               <Route path="/projects" element={<ProjectCard/>}/>
+
+
+
               <Route path="/*" element={<NotFound />}/>
             </Routes>
           </div>
