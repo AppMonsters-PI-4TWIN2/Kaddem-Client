@@ -95,22 +95,25 @@ const [idProject ,setIdProject] = useState('')
                                        <Button className="btn btn-primary w-25" style={{float:"right"}}onClick={handleShow}> invest</Button>}
                                       <Modal  show={show} onHide={handleClose}>
                                        <Modal.Header  style={{backgroundColor: '#198754'}}  closeButton>
-                                      <Modal.Title > Add your </Modal.Title>
+                                      <Modal.Title style={{color :'#343a40'}} > Invest in  {Project.ProjectName} </Modal.Title>
                                      </Modal.Header>
-                                      <Modal.Body  > Budget 
+                                      <Modal.Body  >
+                                      <p>Please enter the amount you would like to invest in {Project.ProjectName}:</p>
+       
                                                       <form className="create" onSubmit={handleSubmit}>
 
                                             <div className="form-group mb-4 pb-2">
-                                                <label htmlFor="exampleFormControlInput1" className="form-label">montant</label>
-                                                <input className="form-control shadow-none"
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">Budget</label>
+                                                <input style={{color :'#343a40'}} className="form-control shadow-none"
                                                        type={"text"}
                                                        onChange={(e)=>setMontant(e.target.value)}
                                                        value={montant}
                                                 />
+                                                
                                             </div>
                                        
                                             <div className={" col-12"}>
-                                                <button className="btn btn-primary col-12" >Save</button>
+                                                <button className="btn btn-primary col-12" >Invest</button>
                                                 {/* {error && <div className="error">{error}</div>} */}
                                             </div>
                                         </form>

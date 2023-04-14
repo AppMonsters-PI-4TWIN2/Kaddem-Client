@@ -38,14 +38,14 @@ connectToWs() ;
 
  function handleMessage(ev){
     const messageData = JSON.parse(ev.data);
-  console.log({ev,messageData})
+  //console.log({ev,messageData})
     if('online' in messageData){
      showOnlinePeople(messageData.online) 
     }else if ('text' in messageData) {
      if(messageData.sender === selectedUserId)
       {setMessages(prev => ([...prev,{...messageData}]))
   }
-     console.log({messageData})
+    // console.log({messageData})
     }
  }
 
@@ -126,7 +126,7 @@ const offlinePeople={} ;
 offlinePeopleArr.forEach(p => {
 offlinePeople[p._id] =p ; 
 }) ; 
-console.log({offlinePeople,offlinePeopleArr})
+//console.log({offlinePeople,offlinePeopleArr})
  setOfflinePeople(offlinePeople)
 
 } ) ;
@@ -156,7 +156,7 @@ key={userId}
 id={userId}
 online={true}
 email={onlinePeopleExclOurUser[userId]}
-onClick={() => {setSelectedUserId(userId);console.log({userId})}}
+onClick={() => {setSelectedUserId(userId)}}
 selected={userId === selectedUserId} /> 
 
   ))} 
@@ -166,7 +166,7 @@ selected={userId === selectedUserId} />
               id={userId}
               online={false}
               email={offlinePeople[userId].email}
-              onClick={() =>{ setSelectedUserId(userId);console.log({userId})}}
+              onClick={() =>{ setSelectedUserId(userId)}}
               selected={userId === selectedUserId} />
           ))}
   </div>

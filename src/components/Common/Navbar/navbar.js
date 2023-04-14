@@ -31,40 +31,20 @@ const Navbar = () => {
                         <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
                             <li className="nav-item"><a className="nav-link" href="/">Home</a>
                             </li>
-                          { user && <li className="nav-item "><a className="nav-link" href="/chat">Chat </a>
-                            </li>}
-                            <li className="nav-item "><a className="nav-link" href="/investment">investments</a>
-                            </li>
-                            <li className="nav-item "><a className="nav-link" href="/myInvestment">my Investment</a>
+                            <li className="nav-item"><a className="nav-link" href="/projects">projects</a>
                             </li>
                             <li className="nav-item "><a className="nav-link" href="/feed">my Feed</a>
                             </li>
-                            <li className="nav-item "><a className="nav-link" href="services.html">Services</a>
+                            
+                            <li className="nav-item "><a className="nav-link" href="/investment">investments</a>
                             </li>
-                            <li className="nav-item "><a className="nav-link" href="contact.html">Contact</a>
+                            <li className="nav-item "><a className="nav-link" href="/myInvestment">my Investments</a>
                             </li>
-                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#"
-                                                                 id="navbarDropdown" role="button"
-                                                                 data-bs-toggle="dropdown"
-                                                                 aria-expanded="false">Pages</a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item " href="blog.html">Blog</a>
-                                    </li>
-                                    <li><a className="dropdown-item " href="blog-details.html">Blog Details</a>
-                                    </li>
-                                    <li><a className="dropdown-item " href="service-details.html">Service Details</a>
-                                    </li>
-                                    <li><a className="dropdown-item " href="faq.html">FAQ&#39;s</a>
-                                    </li>
-                                    <li><a className="dropdown-item " href="legal.html">Legal</a>
-                                    </li>
-                                    <li><a className="dropdown-item " href="terms.html">Terms &amp; Condition</a>
-                                    </li>
-                                    <li><a className="dropdown-item "
-                                           href="privacy-policy.html">Privacy &amp; Policy</a>
-                                    </li>
-                                </ul>
-                            </li>
+                           
+                            { user && <li className="nav-item "><a className="nav-link" href="/chat">Chat </a>
+                            </li>}
+                           
+                          
                         </ul>
                         {user && (
                             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
