@@ -21,15 +21,37 @@ const Feed =(props) => {
 
     var user = JSON.parse( localStorage.getItem('user') );
     const owner = user._id;
+    const userId = user.id;
     const namex = user.email;
     const [postId, setPostId] = useState('');
     const [content, setContent] = useState('');
+    const [selectedProject, setSelectedProject] = useState('');
+    const [Projects, setProjects] = useState([]);
+    // ----------------------------------------Show Projects----------------------------------------
+    useEffect(()=>{
+        const fetchData = async () => {
+
+            const response = await axios.get(`/api/project/projects/${userId}`)
+            setProjects(response.data)
+            console.log(response.data);
+
+        }
+
+            fetchData();
+
+    },[userId])
+    const handleSelect = (event) => {
+        const selectedValue = event.target.value;
+        setSelectedProject(selectedValue);
+    };
+    // -------------------------------------End Show Projects-------------------------------------
   // ------------------------------------------------------------------------------------------
     const handleSubmit = async (event) => {
   
       event.preventDefault();
       var formData = new FormData(event.target);
       formData.append('owner', owner);
+      formData.append('project',selectedProject)
       
       await OnAddPost(formData);
     };
@@ -71,7 +93,7 @@ const Feed =(props) => {
        useEffect(()=>{
          const fetchPost = async () => {
            
-          const response = await axios.get('/post/posts', {
+          const response = await axios.get(`/post/posts/${userId}`, {
            headers: {'Authorization': `Bearer ${user.token}`}})
            //setUsers(response.data)
            setPosts(response.data);
@@ -79,7 +101,7 @@ const Feed =(props) => {
      
          }
          fetchPost()
-       },[])
+       },[userId])
 
 
 
@@ -129,6 +151,17 @@ const onAddComment = async (postId,content) => {
     return (
         <div className={styled.feed}>
           <Navbar/>
+            <div>
+                <select value={selectedProject} onChange={handleSelect}>
+                    <option value="">Select a project</option>
+                    {Projects.map((project) => (
+                        <option key={project._id} value={project._id}>
+                            {project.name}
+                        </option>
+                    ))}
+                </select>
+                <p>You have selected: {selectedProject}</p>
+            </div>
         <div className={styled.feedWrapper}>
         <form onSubmit={handleSubmit} className={styles.post} >
           <textarea className={styles.postTop} rows="2" placeholder="What's on your mind?" type="text" name="caption" />
