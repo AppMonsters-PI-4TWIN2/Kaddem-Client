@@ -7,27 +7,16 @@ function InvestmentDetails({id,montant,idUser,idProject,isValid,fetchData}) {
     var user = JSON.parse( localStorage.getItem('user') );
 
 
-
-  const  handleToggleValid =() => {
-    // if(!isValid){
-    //   var user = JSON.parse( localStorage.getItem('user') );
-    //   axios.put(`/api/project/amount/${id}`, {montant} , {
-    //     headers: {
-    //       Authorization: `Bearer ${user.token}`
-    //     }
-    //   }
-    //   )
-    // }
-    var user = JSON.parse( localStorage.getItem('user') );
-   axios.put(`/investment/valid/${id}`, { isValid: !isInvestmentValid }, {
-        headers: {
-          Authorization: `Bearer ${user.token}`
-        }
-      })
-        .then(() => setInvestmentValid(!isInvestmentValid))
-        .catch(err => console.log(err));
-       
-  }
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      try {
+        await axios.put(`/investment/investment/${id}`, {isValid: isInvestmentValid});
+        fetchData(); // mettre à jour les données après la mise à jour
+        setShow(false); // fermer la modal
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
 
     //modal 
@@ -80,10 +69,22 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
         
         <p class="mb-0">user : {fullName.firstName} {fullName.lastName}</p>
           <p class="mb-0">Project Name: {project.projectName}</p> 
-         {/* <p class="mb-0">Project Category: {project.Category}</p>  */}
-        <button style={{ fontSize: '12px !important' }}  className={`btn btn-${isInvestmentValid ? 'success' : 'danger'}`}  onClick={handleToggleValid}>
-          {isInvestmentValid ? 'Accepted' : 'Not accepted'}
-        </button>
+   
+          <form onSubmit={handleSubmit}>
+                <label>
+                  Status:
+                  <select class="form-control shadow-none bg-white border-end-0"
+                    value={isInvestmentValid}
+                    onChange={(event) => setInvestmentValid(event.target.value)}
+                  >
+                    <option value="accepted">Accepted</option>
+                    {/* <option value="No response">No response</option> */}
+                    <option value="Not Accepted">Not Accepted</option>
+                  </select>
+                </label>
+            
+                <button className="btn btn-sm btn-primary mb-75 me-75" type="submit">Update</button>
+              </form>
 
       </li>
    </div> </div> )} 

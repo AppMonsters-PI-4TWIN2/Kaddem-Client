@@ -77,14 +77,11 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
        <h3 class="mb-3">montant : {montant} dt</h3>
          {/* <p class="mb-0">user     : {fullName.firstName} {fullName.lastName}</p> */}
          <p class="mb-0">Project Name: {project.projectName}</p> 
+         <p class="mb-0">Status: {isValid}</p> 
          {/* <p class="mb-0">Project Category: {project.Category}</p>  */}
-        <p class="mb-0" >acceptend : {isValid ? 'Investment accepted' : 'Waiting for a response'}</p> 
-
        
        
-   { !isValid &&<Button  style={{backgroundColor: '#2F4F4F '}}  className="badge bg-yellow " onClick={handleShow}>
-   <i className="fas fa-trash-alt"></i> 
-   </Button>}
+ 
    <Modal  show={show} onHide={handleClose}>
        <Modal.Header  style={{backgroundColor: '#2F4F4F'}}  closeButton>
          <Modal.Title > Delete User </Modal.Title>
