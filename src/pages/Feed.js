@@ -21,15 +21,37 @@ const Feed =(props) => {
 
     var user = JSON.parse( localStorage.getItem('user') );
     const owner = user._id;
+    const userId = user.id;
     const namex = user.email;
     const [postId, setPostId] = useState('');
     const [content, setContent] = useState('');
+    const [selectedProject, setSelectedProject] = useState('');
+    const [Projects, setProjects] = useState([]);
+    // ----------------------------------------Show Projects----------------------------------------
+    useEffect(()=>{
+        const fetchData = async () => {
+
+            const response = await axios.get(`/api/project/projects/${userId}`)
+            setProjects(response.data)
+            console.log(response.data);
+
+        }
+
+            fetchData();
+
+    },[userId])
+    const handleSelect = (event) => {
+        const selectedValue = event.target.value;
+        setSelectedProject(selectedValue);
+    };
+    // -------------------------------------End Show Projects-------------------------------------
   // ------------------------------------------------------------------------------------------
     const handleSubmit = async (event) => {
   
       event.preventDefault();
       var formData = new FormData(event.target);
       formData.append('owner', owner);
+      formData.append('project',selectedProject)
       
       await OnAddPost(formData);
     };
@@ -71,7 +93,7 @@ const Feed =(props) => {
        useEffect(()=>{
          const fetchPost = async () => {
            
-          const response = await axios.get('/post/posts', {
+          const response = await axios.get(`/post/posts/${userId}`, {
            headers: {'Authorization': `Bearer ${user.token}`}})
            //setUsers(response.data)
            setPosts(response.data);
@@ -79,7 +101,7 @@ const Feed =(props) => {
      
          }
          fetchPost()
-       },[])
+       },[userId])
 
 
 
@@ -117,7 +139,8 @@ const onAddComment = async (postId,content) => {
          const fetchComment = async () => {
           
           const response = await axios.get('/post/getComments', {postId}, {
-           headers: {'Authorization': `Bearer ${user.token}`}})
+           headers: {
+            'Authorization': `Bearer ${user.token}`}})
            //setUsers(response.data)
            setComments(response.data);
            console.log(response.data);
@@ -126,9 +149,23 @@ const onAddComment = async (postId,content) => {
          fetchComment()
        },[])
 
+       
+
     return (
         <div className={styled.feed}>
           <Navbar/>
+            <div>
+                <select value={selectedProject} onChange={handleSelect}>
+                    <option value="">Select a project</option>
+                    {Projects.map((project) => (
+                        <option key={project._id} value={project._id}>
+                            {project.ProjectName}
+                        </option>
+                    ))}
+                   
+                </select>
+                <p>You have selected: {selectedProject}</p>
+            </div>
         <div className={styled.feedWrapper}>
         <form onSubmit={handleSubmit} className={styles.post} >
           <textarea className={styles.postTop} rows="2" placeholder="What's on your mind?" type="text" name="caption" />
@@ -149,8 +186,8 @@ const onAddComment = async (postId,content) => {
         <Button variant="primary">LIKE</Button>
       </Card.Body>
     </Card>))} */}
-    {posts.reverse().map((post) => (
-            <div key= {post._id + 1} className={styles.post} >
+    {posts.map((post) => (
+            <div key= {post._id} className={styles.post} >
                 <div className={styles.postWrapper}>
                     <div className={styles.postTop}>
                         <div className={styles.postTopLeft}>
@@ -159,10 +196,7 @@ const onAddComment = async (postId,content) => {
                                 <img className={styles.postProfileImg} src={user.profilePicture ? PF + user.profilePicture : PF + "blank-profile-picture.png"} alt="" />
                             </Link> */}
                             <span className={styles.postUsername}>
-                                {user.username}
-                            </span>
-                            <span className={styles.postDate}>
-                                {post.owner}
+                                {post.owner.userName}
                             </span>
                         </div>
                         <div className={styles.postTopRight}>
@@ -189,16 +223,31 @@ const onAddComment = async (postId,content) => {
                                 {post.caption} comments
                             </span>
                         </div>
+
                     </div>
                 </div>
-                <form onSubmit={handleCommentSubmit} className={styles.comment } >
+                <form onSubmit={handleCommentSubmit} className={styles.postTop } >
           <textarea className={styles.postTop} rows="2" placeholder="What's on your mind?" type="text" name="content" onChange={(e) => {setPostId(post._id), setContent(e.target.value)}}/>
-          <button type="submit" className="btn btn-outline-primary ms-1" >Comment</button>
+          <button type="submit" className="btn btn-outline-primary ms-6" >Comment</button>
           {isLoading && <p>Loading...</p>}
           {error && <p>{error}</p>}
         </form>
         {comments.map((comment) => (
-          <div>
+          <div key={comment._id}>
+                                <div className={styles.postTop}>
+                        <div className={styles.postTopLeft}>
+                        <img className={styles.postProfileImg} src={profilePicture} alt="" />
+                            {/* <Link to={`profile/${user.username}`}>
+                                <img className={styles.postProfileImg} src={user.profilePicture ? PF + user.profilePicture : PF + "blank-profile-picture.png"} alt="" />
+                            </Link> */}
+                            <span className={styles.postUsername}>
+                                {post.owner.userName}
+                            </span>
+                        </div>
+                        <div className={styles.postTopRight}>
+                             {/* <MoreVert />  */}
+                        </div>
+                    </div>
             <span> {comment.content}</span>
             </div>
         ))}
