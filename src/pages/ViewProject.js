@@ -60,7 +60,25 @@ const [idProject ,setIdProject] = useState('')
         };
         fetchData();
     }, [ProjectName]);
-
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await fetch(`/api/user/findById/${Project.Creator}`);
+                if (response.ok) {
+                    const user = await response.json();
+                    setProject((prevProject) => ({
+                        ...prevProject,
+                        creatoruserName: user.userName,
+                    }));
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        if (Project.Creator) {
+            fetchUser();
+        }
+    }, [Project.Creator]);
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -140,7 +158,7 @@ const [idProject ,setIdProject] = useState('')
 
                                     </div>
                                     <span>Project created : {formattedDate} <span className="mx-2">/</span> </span>
-                                    <p className="list-inline-item">Creator : <a href="#!" className="ml-1">{Project.Creator} </a></p>
+                                    <p className="list-inline-item">Creator : <a href={`/user/${Project.creatoruserName}`} className="ml-1">{Project.creatoruserName} </a></p>
                                     <p>Project location: {Project.ProjectLocation}  <span className="mx-2">/</span> Project category:{Project.Category}</p>
                                     <p>{Project.Description}</p>
                                 </div>
