@@ -49,15 +49,15 @@ const ViewProfil = () => {
                     </div>
                 </section>
                 <section className="section-sm">
-                    <div className="container">
+                    <div >
                         <div className="row g-5">
                             <div className="col-lg-4 mb-5 mb-lg-0">
-                                <div className="bg-white shadow rounded-lg p-4 sticky-top" style={{top:"30px"}}>
+                                <div className="bg-white shadow rounded-lg p-4 sticky-top" style={{top:"30px" ,marginLeft:"10%"}}>
                                     <h4 className="has-line-end">About Me</h4>
                                     <p>{user.aboutMe}</p>
                                 </div>
                             </div>
-                            <div className="col-lg-8">
+                            <div className="col-lg-6">
                                 <div className="bg-white shadow rounded-lg p-4 sticky-top">
                                     <h4 className="has-line-end">Full Name</h4>
                                     <p>{user.firstName} {user.lastName}</p>
