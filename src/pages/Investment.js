@@ -109,11 +109,11 @@ setCount(count+1)
 			<div class="col-lg-6 mt-5 mt-lg-0">
           
 				<div class="section-title ps-0 ps-lg-5">
-					<p class="text-primary text-uppercase fw-bold mb-3">Values Wr Provide</p>
-					<h2 class="h1">Our Core Values</h2>
+					<p class="text-primary fw-bold mb-3">Kaddem</p>
+					<h1>My Projects Investments</h1>
 					<div class="content">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consv allis quam aliquet integer eget magna ullam corper intesager peent esque urna. Sed vulutate aenean nunc quis a urna morbi id vitae. Vulpuate nisl</p>
-						<p>sed morbi sit ut placerat eges aeftas et. Pellen tesque tristisque magnis augue gravida pulvinar placerat. Tellus massa pretra scelerisque leo. In volutpat arcu nunc nisl et, viverra faucisfbus egestas. In habitasse sagittis, convallis ut commodo amet.</p>
+						<p>On this page, you can see all the investments made for your projects. You have the ability to review each investment carefully and choose to accept or refuse it. Remember, the funds transaction cannot be made on our website. If an investment is made in real life, and the funds have been transferred, then you can change the status of the offer from pending to accepted. Once an investment is accepted, the investor will have access to your project's posts. Please review each investment carefully and accept only if you are confident in the investor and their offer. Communication with the investor can be done via our chat system or other means</p>
+
 					</div>
 				</div>
 			</div>

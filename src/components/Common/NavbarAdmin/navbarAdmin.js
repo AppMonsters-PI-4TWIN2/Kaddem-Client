@@ -22,7 +22,7 @@ const NavbarAdmin = () => {
             <div className="container">
 
                 <a className="navbar-brand" href="index.html">
-                    <img loading="prelaod" decoding="async" className="img-fluid" width="160" src="images/logo.png"
+                    <img loading="prelaod" decoding="async" className="img-fluid" width="160" src="/images/logo.png"
                          alt="kaddem"/>
                 </a>
 

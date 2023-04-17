@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react"
 import axios from "axios";
-import Navbar from "../components/Common/Navbar/navbar";
 import Footer from "../components/Common/Footer/footer";
 import Alert from "../components/Alert";
 import ProjectDetails from "../components/ProjectDetails";
+import NavbarAdmin from "../components/Common/NavbarAdmin/navbarAdmin";
 
 
 const ShowAllProjects = () => {
@@ -31,7 +31,7 @@ const ShowAllProjects = () => {
     },[])
     return (
         <div>
-            <Navbar/>
+            <NavbarAdmin/>
 
             <div className="container">
 

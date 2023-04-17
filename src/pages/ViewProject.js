@@ -16,13 +16,13 @@ const ViewProject = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleLoginToInvest= () =>{
+      window.location.href = '/login';
+  };
   const [montant,setMontant] =useState( ) ;
-  const [idUser,setIdUser] =useState(localStorage.getItem('user').id) ;
+  const [idUser,setIdUser] =useState('') ;
 const [idProject ,setIdProject] = useState('')
-
   var user = JSON.parse( localStorage.getItem('user') );
-
-  
   const addInvestment = async (idUser, idProject, montant, token) => {
     idUser=user.id
       try {
@@ -83,16 +83,29 @@ const [idProject ,setIdProject] = useState('')
             <div className="home" style={{ minHeight: "100vh" }}>
                 <div className="section">
                     <div className="container">
-                        <div className="row justify-content-center">
+                        <div className="row justify-content-center" style={{minWidth:"1500px"}}>
                             <div className="col-lg-10">
                                 <div className="mb-5">
                                     <div>
                                     <h1 className="mb-4" style={{lineHeight:"1.5"}}>{Project.ProjectName}</h1>
-                  
-                                      
-                                      
-                                       {Project.Creator!=user.id &&
-                                       <Button className="btn btn-primary w-25" style={{float:"right"}}onClick={handleShow}> invest</Button>}
+
+
+
+                                        {user?.id ? (
+                                            Project.Creator !== user.id ? (
+                                                <Button className="btn btn-primary w-25" style={{float:"right"}} onClick={handleShow}>
+                                                    invest
+                                                </Button>
+                                            ) : (
+                                                <Button className="btn btn-primary w-25" style={{float:"right"}}>
+                                                    invest
+                                                </Button>
+                                            )
+                                        ) : (
+                                            <Button className="btn btn-primary w-25" style={{float:"right"}} onClick={handleLoginToInvest}>
+                                                invest
+                                            </Button>
+                                        )}
                                       <Modal  show={show} onHide={handleClose}>
                                        <Modal.Header  style={{backgroundColor: '#198754'}}  closeButton>
                                       <Modal.Title style={{color :'#343a40'}} > Invest in  {Project.ProjectName} </Modal.Title>

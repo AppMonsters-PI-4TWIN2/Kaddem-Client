@@ -6,6 +6,7 @@ import axios from "axios";
 import Avatar from "./Avatar";
 import Contact from "./Contact";
 import NavbarAdmin from "../components/Common/NavbarAdmin/navbarAdmin";
+import ReactGA from "react-ga";
 
 const Chat = () => {
   
@@ -139,7 +140,11 @@ const onlinePeopleExclOurUser = { ...onlinePeople };
 
 
 const messagesWithoutDupes =uniqBy(messages, '_id') ;
-
+    //----------------------------google Analytics---------------------
+    useEffect(()=>{
+        ReactGA.pageview(window.location.pathname)
+    },[]);
+    //----------------------------end google Analytics------------------
 
     
 return (<div>

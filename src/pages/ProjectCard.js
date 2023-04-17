@@ -39,7 +39,7 @@ const ProjectCard= () => {
                                 <div className="card_inner">
                                     <img src={curElem.Image} alt="" />
                                     <div className="ProjectName">{curElem.ProjectName}</div>
-                                    <div className="description">{curElem.Description}</div>
+                                    <div style={{overflow:"hidden",textOverflow:"ellipsis",display:"-webkit-box",WebkitBoxOrient: "vertical",WebkitLineClamp: "3", height: "4.5em",marginBottom:"2%"}}>{curElem.Description}</div>
 
 
                                     <button className="btn btn-primary" onClick={() => navigate(`/project/${curElem.ProjectName}`)}>See More</button>

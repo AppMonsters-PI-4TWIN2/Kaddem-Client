@@ -72,7 +72,7 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
    
           <form onSubmit={handleSubmit}>
                 <label>
-                  Status:
+                  Status:{isValid}
                   <select class="form-control shadow-none bg-white border-end-0"
                     value={isInvestmentValid}
                     onChange={(event) => setInvestmentValid(event.target.value)}

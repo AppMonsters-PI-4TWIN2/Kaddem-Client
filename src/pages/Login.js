@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLogin } from "../hooks/useLogin"
 import { GoogleIcon, FacebookIcon } from '../components/Common/Icon';
-
+import ReactGA from "react-ga";
 const Login = () => {
     const [email, setEmail] = useState('')
     const [role, setRole] = useState('')
@@ -22,7 +22,11 @@ const Login = () => {
     
     
     }
-
+    //----------------------------google Analytics---------------------
+    useEffect(()=>{
+        ReactGA.pageview(window.location.pathname)
+    },[]);
+    //----------------------------end google Analytics------------------
     return (
 
         <div className={"bodyy"} >

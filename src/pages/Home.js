@@ -2,10 +2,15 @@ import {useAuthContext} from "../hooks/useAuthContext";
 import Navbar from "../components/Common/Navbar/navbar";
 import Footer from "../components/Common/Footer/footer";
 import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
+import {useEffect} from "react";
+import ReactGA from "react-ga";
 
 
 
 const Home = () => {
+    useEffect(()=>{
+        ReactGA.pageview(window.location.pathname)
+    },[]);
 
 
     return (

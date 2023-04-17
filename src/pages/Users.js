@@ -87,7 +87,7 @@ const[message,setMessage]=useState("") ;
           
        <NavbarAdmin/>
        <Alert message={message} show={show}/>
-
+            {/*
        <div className="row">
        <div  className="col  align-self-start">
        </div>
@@ -120,8 +120,8 @@ const[message,setMessage]=useState("") ;
 <div className="col align-self-end"></div>
 </div>
 
-        {/* </div>
-
+         </div>
+*/}
             <div className="container">
 
                 <div className="col-8 mx-auto text-center" style={{marginTop:"10%"}}>
@@ -163,7 +163,7 @@ const[message,setMessage]=useState("") ;
                         </div>
                     </div>
                 </div>
-            </div> */}
+            </div>
         </>
 
     )
