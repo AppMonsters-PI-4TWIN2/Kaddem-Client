@@ -162,6 +162,9 @@ const [idProject ,setIdProject] = useState('')
                                     <p>Project location: {Project.ProjectLocation}  <span className="mx-2">/</span> Project category:{Project.Category}</p>
                                     <p>{Project.Description}</p>
                                 </div>
+                                <div className={"percent"}>
+
+                                </div>
                                 <div className="mb-5 text-center">
                                     <div className="post-slider rounded overflow-hidden">
                                         <img loading="lazy" decoding="async" src={Project.Image}  alt="Project Image"/>

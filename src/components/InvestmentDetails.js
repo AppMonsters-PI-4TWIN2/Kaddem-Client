@@ -60,32 +60,34 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
 
      return (
 
-      <>   {  idUser !== user.id  && project.creator ==user.id && (
-         <div class="icon-box-item col-md-6">
+      <>   {  idUser !== user.id  && project.creator ===user.id && (
+         <div class="icon-box-item col-md-12">
     <div class="block bg-white">
-      <li key={id}>
-        <div class="icon rounded-number">.</div>
-        <h3 class="mb-3">montant : {montant}  dt</h3>
+      <li key={id} style={{listStyle: "none"}}>
+          {isValid === "No response" ?(<div className="rounded"  style={{backgroundColor:"#f9ca24",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Pending</div>):isValid === "Not Accepted" ?(<div className="rounded" style={{backgroundColor:"#ff6b6b",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Rejected</div>):(<div className="rounded" style={{backgroundColor:"#51B56D",width:"150px" ,float:"right",color:"white",textAlign:"center"}} >Accepted</div>)}
+
+          <h3 class="mb-3">Amount : {montant}  $</h3>
         
         <p class="mb-0">user : {fullName.firstName} {fullName.lastName}</p>
-          <p class="mb-0">Project Name: {project.projectName}</p> 
-   
+          <p class="mb-0">Project Name: {project.projectName}</p>
+   <div style={{float:"right"}} >
           <form onSubmit={handleSubmit}>
                 <label>
-                  Status:{isValid}
-                  <select class="form-control shadow-none bg-white border-end-0"
+                  Status
+                  <select className="form-control shadow-none bg-white border-end-0"
                     value={isInvestmentValid}
                     onChange={(event) => setInvestmentValid(event.target.value)}
                   >
-                    <option value="accepted">Accepted</option>
+                    <option value="accepted">Accept</option>
                     {/* <option value="No response">No response</option> */}
-                    <option value="Not Accepted">Not Accepted</option>
+                    <option value="Not Accepted">Decline</option>
                   </select>
                 </label>
             
-                <button className="btn btn-sm btn-primary mb-75 me-75" type="submit">Update</button>
+                <button   className="btn btn-sm btn-primary mb-75 me-75" type="submit">Update</button>
               </form>
-
+   </div>
+          <div style={{ clear: "both" }}></div>
       </li>
    </div> </div> )} 
 
