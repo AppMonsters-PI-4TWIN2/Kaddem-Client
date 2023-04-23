@@ -18,7 +18,7 @@ const EditProfilForm=()=>{
     const handleSubmit = async (e) => {
         e.preventDefault()
         await editProfil(email,firstName,lastName,aboutMe,avatar,region,country,phoneNumber,userName)
-        window.location.reload(true)
+        window.location.href = '/';
 
 
     }

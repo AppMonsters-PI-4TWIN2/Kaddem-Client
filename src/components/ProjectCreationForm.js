@@ -47,9 +47,42 @@ const ProjectCreationForm=()=>{
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await addProject( ProjectName, Description, DetailedDescription,Team,LegalConsiderations,AmountAlreadyRaised,Category,ImpactOrGoal,FundingGoal,ProjectLocation,FundingModel,Website,FundingDeadline,Creator,Stage,Image)
-        if (Valid) {
-        setShowModal(true); // show the modal
+
+        if (
+            ProjectName !== '' &&
+            Description !== '' &&
+            DetailedDescription !== '' &&
+            Team !== '' &&
+            AmountAlreadyRaised !== '' &&
+            Category !== '' &&
+            ImpactOrGoal !== '' &&
+            FundingGoal !== '' &&
+            FundingModel !== ''
+        ){
+            if (ProjectName.length > 30) {
+                setError("The Project name should not exceed a maximum length of 30 characters");
+                return;
+            }
+            if (FundingGoal < 100) {
+                setError("Funding goal should be higher than 100 $");
+                return;
+            }
+            if (AmountAlreadyRaised < -1) {
+                setError("The amount already raised can not be a negative number");
+                return;
+            }
+            if (AmountAlreadyRaised > FundingGoal) {
+                setError("The amount already raised can not be higher than the funding goal");
+                return;
+            }
+                await addProject( ProjectName, Description, DetailedDescription,Team,LegalConsiderations,AmountAlreadyRaised,Category,ImpactOrGoal,FundingGoal,ProjectLocation,FundingModel,Website,FundingDeadline,Creator,Stage,Image)
+                if (Valid) {
+                setShowModal(true); // show the modal
+                }
+        }else {
+            setError(
+                "You must complete all the required inputs (you can see * in front of the required inputs)"
+            );
         }
     }
     return(
@@ -76,14 +109,14 @@ const ProjectCreationForm=()=>{
                                     <div className="contact-form">
                                         <form className="create" onSubmit={handleSubmit}>
                                             <div className="form-group mb-4 pb-2">
-                                                <label htmlFor="exampleFormControlInput1" className="form-label" >Brand Name Or Company Name</label>
+                                                <label htmlFor="exampleFormControlInput1" className="form-label" >Brand Name Or Company Name *</label>
                                                 <input className="form-control shadow-none" type={"text"}
                                                        onChange={(e)=>setProjectName(e.target.value)}
                                                        value={ProjectName}
                                                 />
                                             </div>
                                             <div className="form-group mb-4 pb-2">
-                                                <label htmlFor="exampleFormControlInput1" className="form-label">High level concept or small Description</label>
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">High level concept or small Description * </label>
                                                 <input className="form-control shadow-none"
                                                        type={"text"}
                                                        onChange={(e)=>setDescription(e.target.value)}
@@ -91,7 +124,7 @@ const ProjectCreationForm=()=>{
                                                 />
                                             </div>
                                             <div className="form-group mb-4 pb-2">
-                                                <label htmlFor="exampleFormControlInput1" className="form-label">Detailed description</label>
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">Detailed description *</label>
                                                 <textarea className="form-control shadow-none"
                                                        type={"text"}
                                                        onChange={(e)=>setDetailedDescription(e.target.value)}
@@ -99,7 +132,7 @@ const ProjectCreationForm=()=>{
                                                 />
                                             </div>
                                             <div className="form-group mb-4 pb-2">
-                                                <label htmlFor="exampleFormControlTextarea1" className="form-label"> Category</label>
+                                                <label htmlFor="exampleFormControlTextarea1" className="form-label"> Category *</label>
                                                 <input className="form-control shadow-none"
                                                        type={"text"}
                                                        onChange={(e)=>setCategory(e.target.value)}
@@ -108,7 +141,7 @@ const ProjectCreationForm=()=>{
                                             </div>
 
                                             <div className="col1 name_box P_STADY">
-                                                The stage of the project
+                                                The stage of the project *
                                             </div>
                                             <div className={"input-group mb-4"}>
                                                 <select style={{color:"black"}} className="form-select" id="inputGroupSelect04" onChange={(event) => setStage(event.target.value)}>
@@ -123,7 +156,7 @@ const ProjectCreationForm=()=>{
                                             </div>
 
                                             <div className="form-group mb-4 pb-2">
-                                                <label htmlFor="exampleFormControlInput1" className="form-label">funding goal</label>
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">Funding goal *</label>
                                                 <input className="form-control shadow-none"
                                                        type="number"
                                                        inputMode="numeric"
@@ -132,7 +165,7 @@ const ProjectCreationForm=()=>{
                                                 />
                                             </div>
                                             <div className="form-group mb-4 pb-2">
-                                                <label htmlFor="exampleFormControlInput1" className="form-label">Amount already raised</label>
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">Amount already raised *</label>
                                                 <input className="form-control shadow-none"
                                                        type="number"
                                                        inputMode="numeric"
@@ -149,7 +182,7 @@ const ProjectCreationForm=()=>{
                                                 />
                                             </div>
                                             <div className="form-group mb-4 pb-2">
-                                                <label htmlFor="exampleFormControlInput1" className="form-label">Impact or goal</label>
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">Impact or goal *</label>
                                                 <input className="form-control shadow-none"
                                                        type={"text"}
                                                        onChange={(e)=>setImpactOrGoal(e.target.value)}
@@ -165,7 +198,7 @@ const ProjectCreationForm=()=>{
                                                 />
                                             </div>
                                             <div className="form-group mb-4 pb-2">
-                                                <label htmlFor="exampleFormControlInput1" className="form-label">Funding model</label>
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">Funding model *</label>
                                                 <input className="form-control shadow-none"
                                                        type={"text"}
                                                        onChange={(e)=>setFundingModel(e.target.value)}
@@ -173,7 +206,7 @@ const ProjectCreationForm=()=>{
                                                 />
                                             </div>
                                             <div className="form-group mb-4 pb-2">
-                                                <label htmlFor="exampleFormControlInput1" className="form-label">About the team</label>
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">About the team *</label>
                                                 <input className="form-control shadow-none"
                                                        type={"text"}
                                                        onChange={(e)=>setTeam(e.target.value)}
@@ -200,8 +233,8 @@ const ProjectCreationForm=()=>{
 
 
                                             <button className="btn btn-primary w-100" type="submit" disabled={isLoading}>Add Project</button>
+                                            {error    && <div  className="notices info" style={{textAlign:"center", backgroundColor:"#ff6b6b",opacity:"0.6",color:"white",borderRadius: "30px",marginTop:"3%"}}> <p>{error}</p></div>}
 
-                                                {error    && <div  style={{color:'green'}} className="error">{error}</div>}
 
                                         </form>
                                     </div>
