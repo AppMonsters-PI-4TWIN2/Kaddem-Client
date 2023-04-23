@@ -8,13 +8,18 @@ import { useNavigate } from "react-router-dom";
 import AdSense from 'react-adsense';
 import { Button, Form } from "react-bootstrap";
 import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
+import ReactGA from "react-ga";
 
 
 const ProjectCard= () => {
     const [pageNumber, setPageNumber] = useState(0);
     const [numberOfPages, setNumberOfPages] = useState(0);
     const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
-
+    //----------------------------google Analytics---------------------
+    useEffect(()=>{
+        ReactGA.pageview(window.location.pathname)
+    },[]);
+    //----------------------------end google Analytics------------------
     const navigate = useNavigate();
     // const handleClick = (projectName) => {
     //     history.push(`/api/project/${projectName}`);
