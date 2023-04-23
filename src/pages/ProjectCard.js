@@ -20,10 +20,16 @@ const ProjectCard= () => {
     //     history.push(`/api/project/${projectName}`);
     // };
     const fetchData = async () => {
-
-        const response = await axios.get('/api/project/projects')
-        setProject(response.data)
-        console.log(response.data);
+        fetch(`/api/project/projects?page=${pageNumber}`)
+        //      const response = await axios.get(`/api/project/projects?page=${page}`)
+              .then((response) => response.json())
+              .then(({ totalPages, projects }) => {
+                  setProject(projects);
+                setNumberOfPages(totalPages);
+              });
+        // const response = await axios.get('/api/project/projects')
+        // setProject(response.data)
+        // console.log(response.data);
 
     }
     const [Project, setProject] = useState([]);
@@ -66,20 +72,8 @@ const ProjectCard= () => {
     return (
         <div>
             <Navbar/>
-{/* search */}
-<div className="search col-lg-4">
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                  onChange={searchHandle}
-                />
-                <Button variant="success" className='search_btn'>Search</Button>
-              </Form>
-            </div>
-            
+
+
             <section className="page-header bg-tertiary">
 
                 <BreadcrumbShapes></BreadcrumbShapes>
@@ -88,10 +82,31 @@ const ProjectCard= () => {
 
 
                 <h1 style={{ textAlign: "center" }}>Projects</h1>
+                <div style={{marginTop:"2%"}}>
+                
+                {/* search */}
+                <div class="d-flex justify-content-center align-items-center">
+       <div class="search col-lg-4">
+         <Form className="d-flex">
+           <Form.Control
+             type="search"
+             placeholder="Search"
+             className="me-2"
+             aria-label="Search"
+             onChange={searchHandle}
+           />
+           <Button variant="success" className="btn btn-primary">
+             Search
+           </Button>
+         </Form>
+       </div>
+     </div>
+     
+                     <button style={{position:"absolute", right: 100}} className="btn btn-primary" onClick={() => navigate("/new-project")}>Add project</button>
+                 </div>
             </section>
-            <div style={{marginTop:"2%"}}>
-                <button style={{position:"absolute", right: 100}} className="btn btn-primary" onClick={() => navigate("/new-project")}>Add project</button>
-            </div>
+            
+           
             <div className="container">
             
            {/* Google Absense  */}
@@ -107,7 +122,7 @@ const ProjectCard= () => {
 
 
 
-<h3>Page of {pageNumber + 1}</h3>
+
                 {
                     Project.map((curElem) => {
                         return (
@@ -132,13 +147,35 @@ const ProjectCard= () => {
 
             </div>
 
-            <button onClick={gotoPrevious}>Previous</button>
-      {pages.map((pageIndex) => (
-        <button key={pageIndex} onClick={() => setPageNumber(pageIndex)}>
-          {pageIndex + 1}
-        </button>
-      ))}
-      <button onClick={gotoNext}>Next</button>
+            <div class="col-12">
+							<nav class="mt-4">
+								
+								<nav class="mb-md-50">
+									<ul class="pagination justify-content-center">
+
+                                    <li class="page-item"  onClick={gotoPrevious}>
+											<a class="page-link"  aria-label="Pagination Arrow"> <i class="fas fa-angle-left"></i>
+											</a>
+										</li>
+
+                                        {pages.map((pageIndex) => (
+  <li className={`page-item ${pageIndex === pageNumber ? 'active' : ''}`} key={pageIndex} onClick={() => setPageNumber(pageIndex)}>
+    <a className="page-link">{pageIndex + 1}</a>
+  </li>
+))}
+
+										<li class="page-item"  onClick={gotoNext}>
+											<a class="page-link"  aria-label="Pagination Arrow"> <i class="fas fa-angle-right"></i>
+											</a>
+										</li>
+									</ul>
+								</nav>
+							</nav>
+						</div>
+
+
+
+        
             <Footer/>
 
         </div>

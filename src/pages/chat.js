@@ -203,11 +203,11 @@ selected={userId === selectedUserId} />
       <div style={{display:'inline-block', textAlign: 'left' ,padding: '6px', margin: '3px', borderRadius: '0.205rem', fontSize: '1rem',
        backgroundColor: message.sender === user.id ? '	#87CEFA' : 'white', color: message.sender === user.id ? 'white' : 'gray'}}
      > 
-              sender :{message.sender}<br/>
+              {/* sender :{message.sender}<br/>
               my id : {user.id} < br/> 
               {message.recipient}
 
-              <br/>
+              <br/> */}
                {message.text}
 
                {message.file && (
