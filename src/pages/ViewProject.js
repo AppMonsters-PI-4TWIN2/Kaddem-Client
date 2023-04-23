@@ -7,9 +7,13 @@ import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 
 const ViewProject = () => {
+
     const [Project, setProject] = useState({});
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
+ const navigate = useNavigate();
+
+
+    const percentageAchieved=(Project.AmountAlreadyRaised*100/Project.FundingGoal).toFixed(2)
+   const [loading, setLoading] = useState(true);
     let { ProjectName } = useParams();
     const date = new Date(Project.createdAt);
     const formattedDate = date.toLocaleDateString('en-US');
@@ -104,24 +108,40 @@ const [idProject ,setIdProject] = useState('')
             <div className="home" style={{ minHeight: "100vh" }}>
                 <div className="section">
                     <div className="container">
-                        <div className="row justify-content-center" style={{minWidth:"1500px"}}>
+                        <div className="row justify-content-center" style={{minWidth:"100%"}}>
                             <div className="col-lg-10">
                                 <div className="mb-5">
                                     <div>
                                     <h1 className="mb-4" style={{lineHeight:"1.5"}}>{Project.ProjectName}</h1>
 
+                                        {/*progress bar*/}
+                                        <div className={"boxxx"} style={{float:"right",top:"-200px"}}>
+                                            <div className={"percent"}>
+                                                <svg>
+                                                    <circle cx={70} cy={70} r={70}></circle>
+                                                    <circle cx={70} cy={70} r={70} style={{ strokeDashoffset: `calc(440 - (440 * ${percentageAchieved}) / 100)` }}></circle>
+                                                </svg>
+                                                <div className={"number"}>
+                                                    <h1>{percentageAchieved}<span>%</span></h1>
 
+                                                </div>
+                                            </div>
+                                            <p>Raised {Project.AmountAlreadyRaised} $ of {Project.FundingGoal} $</p>
+                                        </div>
+                                        {/*end progress bar*/}
 
                                         {user?.id ? (
                                             Project.Creator !== user.id ? (
-                                                <Button className="btn btn-primary w-25" style={{float:"right"}} onClick={handleShow}>
+                                                <Button className="btn btn-primary " style={{float:"right",left:"24%",marginTop:"100px",width:"21%"}} onClick={handleShow}>
                                                     invest
                                                 </Button>
                                             ) : (
+
                                                 <div/>
+
                                             )
                                         ) : (
-                                            <Button className="btn btn-primary w-25" style={{float:"right"}} onClick={handleLoginToInvest}>
+                                            <Button className="btn btn-primary" style={{float:"right",left:"24%",marginTop:"100px",width:"21%"}} onClick={handleLoginToInvest}>
                                                 invest
                                             </Button>
                                         )}
@@ -152,7 +172,7 @@ const [idProject ,setIdProject] = useState('')
                                                 />
                                                 
                                             </div>
-                                       
+
                                             <div className={" col-12"}>
                                                 <button style={{color:'black'}} className="btn btn-primary col-12" >Invest</button>
                                                 {/* {error && <div className="error">{error}</div>} */}
@@ -170,14 +190,12 @@ const [idProject ,setIdProject] = useState('')
                                     <span>Project created : {formattedDate} <span className="mx-2">/</span> </span>
                                     <p className="list-inline-item">Creator : <a href={`/user/${Project.creatoruserName}`} className="ml-1">{Project.creatoruserName} </a></p>
                                     <p>Project location: {Project.ProjectLocation}  <span className="mx-2">/</span> Project category:{Project.Category}</p>
-                                    <p>{Project.Description}</p>
+                                    <p >{Project.Description}</p>
                                 </div>
-                                <div className={"percent"}>
 
-                                </div>
-                                <div className="mb-5 text-center">
+                                <div className="mb-5 text-center" style={{marginTop:"5%"}}>
                                     <div className="post-slider rounded overflow-hidden">
-                                        <img loading="lazy" decoding="async" src={Project.Image}  alt="Project Image"/>
+                                        <img loading="lazy" decoding="async" src={Project.Image || "/images/no-image.png"} style={{ width: "500px", height: "500px" }} alt="Project Image"/>
 
 
                                     </div>

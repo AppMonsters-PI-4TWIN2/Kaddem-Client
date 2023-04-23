@@ -4,8 +4,11 @@ import Navbar from "../components/Common/Navbar/navbar";
 import Footer from "../components/Common/Footer/footer";
 import './Card.css'
 import { useNavigate } from "react-router-dom";
+
 import AdSense from 'react-adsense';
 import { Button, Form } from "react-bootstrap";
+import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
+
 
 const ProjectCard= () => {
     const [pageNumber, setPageNumber] = useState(0);
@@ -76,8 +79,19 @@ const ProjectCard= () => {
                 <Button variant="success" className='search_btn'>Search</Button>
               </Form>
             </div>
+            
+            <section className="page-header bg-tertiary">
+
+                <BreadcrumbShapes></BreadcrumbShapes>
 
 
+
+
+                <h1 style={{ textAlign: "center" }}>Projects</h1>
+            </section>
+            <div style={{marginTop:"2%"}}>
+                <button style={{position:"absolute", right: 100}} className="btn btn-primary" onClick={() => navigate("/new-project")}>Add project</button>
+            </div>
             <div className="container">
             
            {/* Google Absense  */}
@@ -100,7 +114,9 @@ const ProjectCard= () => {
                             <div className="card_item" key={curElem.id}>
 
                                 <div className="card_inner">
-                                    <img src={curElem.Image} alt="" />
+                                    <img src={curElem.Image|| "/images/no-image.png"} style={{ width: "150px", height: "150px" }} alt="" />
+
+
                                     <div className="ProjectName">{curElem.ProjectName}</div>
                                     <div style={{overflow:"hidden",textOverflow:"ellipsis",display:"-webkit-box",WebkitBoxOrient: "vertical",WebkitLineClamp: "3", height: "4.5em",marginBottom:"2%"}}>{curElem.Description}</div>
 

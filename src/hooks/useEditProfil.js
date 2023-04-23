@@ -27,6 +27,7 @@ export const useEditProfil = () => {
         }
         if (response.ok) {
             // save the user to local storage
+            localStorage.removeItem('user')
              localStorage.setItem('user', JSON.stringify(json))
             // history.push('/');
             // update the auth context

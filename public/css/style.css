@@ -10347,6 +10347,62 @@ h2
     font-size: 182px;
   }
 }
+.boxxx{
+  position:relative;
+  width: 300px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.boxxx .percent svg{
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+.boxxx .percent svg circle{
+  width: 150px;
+  height: 150px;
+  fill: none;
+  stroke-width: 10;
+  stroke: #000;
+  transform: translate(5px,5px);
+  stroke-dasharray: 440;
+  stroke-dashoffset: 440;
+  stroke-linecap: round;
+}
+.boxxx .percent svg circle:nth-child(1){
+  stroke-dashoffset: 0;
+  stroke: #f3f3f3;
+}
+.boxxx .percent svg circle:nth-child(2){
 
+  stroke: #51B56D;
+}
+.boxxx .percent .number{
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #999;
+}
+.boxxx .percent .number h1{
+  font-size: 32px;
+}
+.boxxx .percent .number h1 span{
+  font-size: 32px;
+}
+.boxxx .text {
+  padding: 10px 0 0;
+  color: #999;
+  font-weight: 400;
+  letter-spacing: 1px;
+
+}
 
 /*# sourceMappingURL=style.css.map */
