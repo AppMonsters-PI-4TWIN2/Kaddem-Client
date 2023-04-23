@@ -69,11 +69,16 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
     }
      return (
 
-      <>    { idUser === user.id  && (
+      <>  
+      
+      
+      
+        { idUser === user.id 
+                && (
         <div class="icon-box-item col-md-12">
    <div class="block bg-white">
      <li key={id}>
-         {isValid === "No response" ?(<div className="rounded"  style={{backgroundColor:"#f9ca24",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Pending</div>):isValid === "Not Accepted" ?(<div className="rounded" style={{backgroundColor:"#ff6b6b",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Rejected</div>):(<div className="rounded" style={{backgroundColor:"#51B56D",width:"150px" ,float:"right",color:"white",textAlign:"center"}} >Accepted</div>)}
+         {isValid === "pending" ?(<div className="rounded"  style={{backgroundColor:"#f9ca24",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Pending</div>):isValid === "rejected" ?(<div className="rounded" style={{backgroundColor:"#ff6b6b",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Rejected</div>):(<div className="rounded" style={{backgroundColor:"#51B56D",width:"150px" ,float:"right",color:"white",textAlign:"center"}} >Accepted</div>)}
 
        <h3 class="mb-3">Amount : {montant} $</h3>
          {/* <p class="mb-0">user     : {fullName.firstName} {fullName.lastName}</p> */}

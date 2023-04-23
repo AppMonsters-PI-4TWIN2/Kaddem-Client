@@ -40,9 +40,6 @@ async function fetchUser() {
 
 
 
-
-
-
 useEffect (() => {
   fetchUser();   
   fetchProject() ;
@@ -64,7 +61,7 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
          <div class="icon-box-item col-md-12">
     <div class="block bg-white">
       <li key={id} style={{listStyle: "none"}}>
-          {isValid === "No response" ?(<div className="rounded"  style={{backgroundColor:"#f9ca24",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Pending</div>):isValid === "Not Accepted" ?(<div className="rounded" style={{backgroundColor:"#ff6b6b",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Rejected</div>):(<div className="rounded" style={{backgroundColor:"#51B56D",width:"150px" ,float:"right",color:"white",textAlign:"center"}} >Accepted</div>)}
+          {isValid === "pending" ?(<div className="rounded"  style={{backgroundColor:"#f9ca24",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Pending</div>):isValid === "rejected" ?(<div className="rounded" style={{backgroundColor:"#ff6b6b",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Rejected</div>):(<div className="rounded" style={{backgroundColor:"#51B56D",width:"150px" ,float:"right",color:"white",textAlign:"center"}} >Accepted</div>)}
 
           <h3 class="mb-3">Amount : {montant}  $</h3>
         
@@ -80,7 +77,7 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
                   >
                     <option value="accepted">Accept</option>
                     {/* <option value="No response">No response</option> */}
-                    <option value="Not Accepted">Decline</option>
+                    <option value="rejected">rejected</option>
                   </select>
                 </label>
             

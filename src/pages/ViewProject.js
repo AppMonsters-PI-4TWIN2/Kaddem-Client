@@ -1,6 +1,6 @@
 import Navbar from "../components/Common/Navbar/navbar";
 import Footer from "../components/Common/Footer/footer";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
@@ -8,6 +8,7 @@ import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 
 const ViewProject = () => {
     const [Project, setProject] = useState({});
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     let { ProjectName } = useParams();
     const date = new Date(Project.createdAt);
@@ -94,6 +95,8 @@ const [idProject ,setIdProject] = useState('')
 
 
     }
+
+ 
     return (
         <div>
             <Navbar />
@@ -115,36 +118,43 @@ const [idProject ,setIdProject] = useState('')
                                                     invest
                                                 </Button>
                                             ) : (
-                                                <Button className="btn btn-primary w-25" style={{float:"right"}}>
-                                                    invest
-                                                </Button>
+                                                <div/>
                                             )
                                         ) : (
                                             <Button className="btn btn-primary w-25" style={{float:"right"}} onClick={handleLoginToInvest}>
                                                 invest
                                             </Button>
                                         )}
+                                      
                                       <Modal  show={show} onHide={handleClose}>
-                                       <Modal.Header  style={{backgroundColor: '#198754'}}  closeButton>
-                                      <Modal.Title style={{color :'#343a40'}} > Invest in  {Project.ProjectName} </Modal.Title>
-                                     </Modal.Header>
-                                      <Modal.Body  >
-                                      <p>Please enter the amount you would like to invest in {Project.ProjectName}:</p>
-       
+                                      <Modal.Header style={{backgroundColor: '#198754', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
+  <Modal.Title >
+  <img style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} loading="prelaod" decoding="async" className="img-fluid" width="160" src="/images/logo.png"
+                             alt="Kaddem"  />
+    </Modal.Title>
+  
+</Modal.Header>
+
+                                      <Modal.Body   >
+                                      <p style={{color:'black' , fontWeight: 'bold', fontSize: '24px', textAlign: 'center'}} >
+                                      Invest in {Project.ProjectName}</p>
                                                       <form className="create" onSubmit={handleSubmit}>
 
                                             <div className="form-group mb-4 pb-2">
-                                                <label htmlFor="exampleFormControlInput1" className="form-label">Budget</label>
-                                                <input style={{color :'#343a40'}} className="form-control shadow-none"
-                                                       type={"text"}
+                                                <label htmlFor="exampleFormControlInput1" className="form-label" style={{fontSize: '16px' ,color:'black'}}>  Enter the amount you would like to invest in {Project.ProjectName}  :</label>
+                                                <input style={{color :'#343a40'}} 
+                                                     
+                                                       className="form-control shadow-none"
+                                                       type="number"
+                                                       inputMode="numeric"
                                                        onChange={(e)=>setMontant(e.target.value)}
-                                                       value={montant}
+                                                       value={montant} 
                                                 />
                                                 
                                             </div>
                                        
                                             <div className={" col-12"}>
-                                                <button className="btn btn-primary col-12" >Invest</button>
+                                                <button style={{color:'black'}} className="btn btn-primary col-12" >Invest</button>
                                                 {/* {error && <div className="error">{error}</div>} */}
                                             </div>
                                         </form>

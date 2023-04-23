@@ -6,7 +6,6 @@ import axios from "axios";
 import Avatar from "./Avatar";
 import Contact from "./Contact";
 import NavbarAdmin from "../components/Common/NavbarAdmin/navbarAdmin";
-import ReactGA from "react-ga";
 
 const Chat = () => {
   
@@ -19,7 +18,7 @@ const Chat = () => {
     const [newMessageText,setNewMessageText]=useState(' ')
     const divUnderMessages = useRef() ; 
     // récupérer le token depuis localStorage
-    var user = JSON.parse( localStorage.getItem('user') );
+    const user = JSON.parse( localStorage.getItem('user') );
 
 function connectToWs(){
   const ws =  new WebSocket('ws://localhost:4000') ;
@@ -46,7 +45,7 @@ connectToWs() ;
      if(messageData.sender === selectedUserId)
       {setMessages(prev => ([...prev,{...messageData}]))
   }
-    // console.log({messageData})
+  console.log({messageData})
     }
  }
 
@@ -68,16 +67,22 @@ function sendMessage(ev,file = null){
             text : newMessageText , 
             file ,
     })); 
+
     setNewMessageText('') ;
-  
-    setMessages(prev => ([...prev,{
+   
+    console.log( user.id)
+    const idd =user.id ;
+   setMessages(prev => ([...prev,{
         text :newMessageText,
         isOur :true,
-        sender:user.id ,
+        sender: idd ,
         recipient :selectedUserId , 
         _id:Date.now()
     }])) ; 
-    if(file) {
+    //console.log(messages.sender)
+    //console.log(messages[messages.length - 1].sender);
+
+    if(file) {  
       axios.get('/chat/messages/'+selectedUserId).then(res => {
   
         setMessages(res.data)
@@ -105,7 +110,7 @@ if(selectedUserId){
     setMessages(res.data)
   })
 }
-},[selectedUserId])
+},[])
 
 useEffect(()=>{
   const div =  divUnderMessages.current ; 
@@ -114,7 +119,7 @@ useEffect(()=>{
 
   }
   
-},[messages])
+},[selectedUserId, newMessageText])
 
 //show offLine people
 useEffect(() => {
@@ -131,20 +136,16 @@ offlinePeople[p._id] =p ;
  setOfflinePeople(offlinePeople)
 
 } ) ;
-},[onlinePeople])
+},[])
 
 const onlinePeopleExclOurUser = { ...onlinePeople };
   
- delete onlinePeopleExclOurUser[user.id];
+ delete onlinePeopleExclOurUser[user._id];
 
 
 
 const messagesWithoutDupes =uniqBy(messages, '_id') ;
-    //----------------------------google Analytics---------------------
-    useEffect(()=>{
-        ReactGA.pageview(window.location.pathname)
-    },[]);
-    //----------------------------end google Analytics------------------
+
 
     
 return (<div>
@@ -183,6 +184,7 @@ selected={userId === selectedUserId} />
       flexDirection: 'column',
       backgroundColor: '#f0f4f8',
       width: '80%',
+      height :'90%',
       padding: '8px'
     }}>
   <div style={ { flexGrow: 1}}>
@@ -201,9 +203,13 @@ selected={userId === selectedUserId} />
       <div style={{display:'inline-block', textAlign: 'left' ,padding: '6px', margin: '3px', borderRadius: '0.205rem', fontSize: '1rem',
        backgroundColor: message.sender === user.id ? '	#87CEFA' : 'white', color: message.sender === user.id ? 'white' : 'gray'}}
      > 
-             {/* sender :{message.sender}<br/>
-              my id : {user.id} < br/> */}
+              sender :{message.sender}<br/>
+              my id : {user.id} < br/> 
+              {message.recipient}
+
+              <br/>
                {message.text}
+
                {message.file && (
              
              <div style={{  display: 'flex', alignItems: 'center', gap: '1rem', borderBottom: '1px solid black' }}> 
@@ -242,7 +248,8 @@ selected={userId === selectedUserId} />
       value={newMessageText} 
     onChange={ev =>setNewMessageText(ev.target.value)}
       placeholder='tape your message here ' 
-      style={{backgroundColor: 'white', border: '1px solid',   padding: '0.5rem',flexGrow: 3 }} />
+  style={{backgroundColor: 'white', border: '1px solid',   padding: '0.5rem',flexGrow: 3 }} 
+      />
 
 <label style={{backgroundColor :'#87CEFA', 
   padding: "2px",
@@ -270,7 +277,9 @@ cursor:'pointer',
   </div>
   
     </div> 
-    </div>)
+    <Footer />
+    </div>
+    )
   }
   
   export default Chat
