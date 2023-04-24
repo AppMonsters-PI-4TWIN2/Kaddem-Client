@@ -15,10 +15,44 @@ const EditProfilForm=()=>{
     const [phoneNumber,setPhoneNumber]=useState(LoggedInUser.phoneNumber)
     const [avatar,setAvatar]=useState(LoggedInUser.avatar)
     const {editProfil, error, isLoading} = useEditProfil()
+    const [formError, setFormError] = useState(null)
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await editProfil(email,firstName,lastName,aboutMe,avatar,region,country,phoneNumber,userName)
-        window.location.href = '/';
+        if (
+            userName !== '' &&
+            firstName !== '' &&
+            lastName !== '' &&
+            aboutMe !== '' &&
+            phoneNumber !== '' &&
+            country !== ''
+        ){
+            if (userName.length > 20) {
+                setFormError("The user name should not exceed a maximum length of 20 characters");
+                return;
+            }
+            if (firstName.length > 20) {
+                setFormError("The first name should not exceed a maximum length of 20 characters");
+                return;
+            }
+            if (lastName.length > 20) {
+                setFormError("The last name should not exceed a maximum length of 20 characters");
+                return;
+            }
+            if (country.length > 20) {
+                setFormError("The country name should not exceed a maximum length of 20 characters");
+                return;
+            }
+            if (!/^\+?\d+$/.test(phoneNumber)) {
+                // phoneNumber contains at least one non-numeric character or does not start with a plus sign followed by numeric characters
+                setFormError("The phone number should consist of only numeric characters and can only contain a + sign in the beginning (optional)");
+                return;
+            }
+            await editProfil(email,firstName,lastName,aboutMe,avatar,region,country,phoneNumber,userName)
+            window.location.href = '/';
+        }else {
+            setFormError("You must complete all the required inputs");
+            return
+        }
 
 
     }
@@ -138,7 +172,9 @@ const EditProfilForm=()=>{
 
                                             <div className={" col-12"}>
                                                 <button className="btn btn-primary col-12" disabled={isLoading}>Save</button>
-                                                {error && <div className="error">{error}</div>}
+
+                                                {error    && <div  className="notices info" style={{textAlign:"center", backgroundColor:"#ff6b6b",opacity:"0.6",color:"white",borderRadius: "30px",marginTop:"3%"}}> <p>{error}</p></div>}
+                                                {formError    && <div  className="notices info" style={{textAlign:"center", backgroundColor:"#ff6b6b",opacity:"0.6",color:"white",borderRadius: "30px",marginTop:"3%"}}> <p>{formError}</p></div>}
                                             </div>
                                         </form>
                                     </div>

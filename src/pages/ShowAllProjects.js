@@ -22,7 +22,7 @@ const ShowAllProjects = () => {
     useEffect(()=>{
         const fetchData = async () => {
 
-            const response = await axios.get('/api/project/projects')
+            const response = await axios.get('/api/project/getProjects')
             setProject(response.data)
             console.log(response.data);
 
