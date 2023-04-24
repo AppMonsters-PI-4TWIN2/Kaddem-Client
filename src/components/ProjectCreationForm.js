@@ -13,7 +13,7 @@ const ProjectCreationForm=()=>{
     const [FundingGoal,setFundingGoal]=useState('')
     const [AmountAlreadyRaised,setAmountAlreadyRaised]=useState('')
     const [ImpactOrGoal,setImpactOrGoal]=useState('')
-    const [Image,setImage]=useState('')
+    const [Image,setImage]=useState([])
     const [ProjectLocation,setProjectLocation]=useState('')
     const [FundingModel,setFundingModel]=useState('')
     const [Website,setWebsite]=useState('')
@@ -25,6 +25,7 @@ const ProjectCreationForm=()=>{
 
     const addProject = async ( ProjectName, Description, DetailedDescription,Team,LegalConsiderations,AmountAlreadyRaised,Category,ImpactOrGoal,FundingGoal,ProjectLocation,FundingModel,Website,FundingDeadline,Creator,Stage,Image) => {
         setIsLoading(true)
+
 
 
         const response = await fetch('/api/project/new', {
@@ -44,7 +45,26 @@ const ProjectCreationForm=()=>{
             setIsLoading(false)
             setValid(true)
         }
+
     }
+    //upload image from cloudinary
+    //handle and convert it in base 64
+    const handleImage = (e) =>{
+        const file = e.target.files[0];
+        setFileToBase(file);
+        console.log(file);
+    }
+
+    const setFileToBase = (file) =>{
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () =>{
+            setImage(reader.result);
+        }
+
+    }
+    //fin upload
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -57,7 +77,8 @@ const ProjectCreationForm=()=>{
             Category !== '' &&
             ImpactOrGoal !== '' &&
             FundingGoal !== '' &&
-            FundingModel !== ''
+            FundingModel !== ''&&
+            Image !== ''
         ){
             if (ProjectName.length > 30) {
                 setError("The Project name should not exceed a maximum length of 30 characters");
@@ -75,6 +96,7 @@ const ProjectCreationForm=()=>{
                 setError("The amount already raised can not be higher than the funding goal");
                 return;
             }
+
                 await addProject( ProjectName, Description, DetailedDescription,Team,LegalConsiderations,AmountAlreadyRaised,Category,ImpactOrGoal,FundingGoal,ProjectLocation,FundingModel,Website,FundingDeadline,Creator,Stage,Image)
                 if (Valid) {
                 setShowModal(true); // show the modal
@@ -230,6 +252,12 @@ const ProjectCreationForm=()=>{
                                                        value={Website}
                                                 />
                                             </div>
+                                            //UPLOAD IMAGE
+                                            <div className="form-outline mb-4">
+                                                <input onChange={handleImage}  type="file" id="formupload" name="image" className="form-control"  />
+                                                <label className="form-label" htmlFor="form4Example2">Image</label>
+                                            </div>
+                                            <img className="img-fluid" src={Image} alt="" />
 
 
                                             <button className="btn btn-primary w-100" type="submit" disabled={isLoading}>Add Project</button>

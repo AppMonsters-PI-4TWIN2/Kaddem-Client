@@ -22,6 +22,7 @@ const EditProfilForm=()=>{
 
 
     }
+
     return(
         <section className="section">
             <div className="container">
@@ -46,7 +47,7 @@ const EditProfilForm=()=>{
 
                                                     {LoggedInUser.avatar==="" &&
 
-                                                            <img  style={{borderRadius: "25%",marginRight:"4%"}} height="100" width="100" src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiPIGaj3zV2VbDQxmjKhx7_nhuHagTs0X_Nw&usqp=CAU"}/>
+                                                            <img  style={{borderRadius: "25%",marginRight:"4%"}} height="100" width="100" src={avatar.url}/>
 
                                                     }
                                                     {LoggedInUser.avatar!=="" &&

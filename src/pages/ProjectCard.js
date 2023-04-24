@@ -10,6 +10,7 @@ import { Button, Form } from "react-bootstrap";
 import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
 
 
+
 const ProjectCard= () => {
     const [pageNumber, setPageNumber] = useState(0);
     const [numberOfPages, setNumberOfPages] = useState(0);
@@ -129,7 +130,7 @@ const ProjectCard= () => {
                             <div className="card_item" key={curElem.id}>
 
                                 <div className="card_inner">
-                                    <img src={curElem.Image|| "/images/no-image.png"} style={{ width: "150px", height: "150px" }} alt="" />
+                                    <img src={curElem.Image.url|| "/images/no-image.png"} style={{ width: "150px", height: "150px" }} alt="" />
 
 
                                     <div className="ProjectName">{curElem.ProjectName}</div>

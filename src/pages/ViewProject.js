@@ -46,7 +46,6 @@ const [idProject ,setIdProject] = useState('')
       throw new Error(error.response.data.message || 'Failed to add investment');
     }
   };
-
   useEffect(() => {
         const fetchData = async () => {
             try {
@@ -127,6 +126,7 @@ const [idProject ,setIdProject] = useState('')
                                                 </div>
                                             </div>
                                             <p>Raised {Project.AmountAlreadyRaised} $ of {Project.FundingGoal} $</p>
+
                                         </div>
                                         {/*end progress bar*/}
 
@@ -149,7 +149,7 @@ const [idProject ,setIdProject] = useState('')
                                       <Modal  show={show} onHide={handleClose}>
                                       <Modal.Header style={{backgroundColor: '#198754', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
   <Modal.Title >
-  <img style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} loading="prelaod" decoding="async" className="img-fluid" width="160" src="/images/logo.png"
+  <img style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} loading="prelaod" decoding="async" className="img-fluid" width="160" src=""
                              alt="Kaddem"  />
     </Modal.Title>
   
@@ -195,7 +195,8 @@ const [idProject ,setIdProject] = useState('')
 
                                 <div className="mb-5 text-center" style={{marginTop:"5%"}}>
                                     <div className="post-slider rounded overflow-hidden">
-                                        <img loading="lazy" decoding="async" src={Project.Image || "/images/no-image.png"} style={{ width: "500px", height: "500px" }} alt="Project Image"/>
+                                        <img loading="lazy" decoding="async" src={Project.Image.url || "/images/no-image.png"} style={{ width: "500px", height: "500px" }} alt="Project Image"/>
+
 
 
                                     </div>
