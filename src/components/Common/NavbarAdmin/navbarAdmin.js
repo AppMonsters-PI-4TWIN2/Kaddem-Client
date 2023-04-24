@@ -28,9 +28,14 @@ const NavbarAdmin = () => {
 
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-                        <li className="nav-item"><a className="nav-link" href="index.html">Users</a>
+                        <li className="nav-item"><a className="nav-link" href="/admin/users">Users</a>
                         </li>
-                       
+                        <li className="nav-item"><a className="nav-link" href="/admin/projects">Projects</a>
+                        </li>
+                         
+                        <li className="nav-item "><a className="nav-link" href="/chat">Chat </a>
+                            </li>
+                        {/*
                         <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#"
                                                              id="navbarDropdown" role="button"
                                                              data-bs-toggle="dropdown"
@@ -53,7 +58,7 @@ const NavbarAdmin = () => {
                                 </li>
                             </ul>
                         </li>
-
+                        */}
                     {user && (
                         <li className="nav-item dropdown" style={{position:"absolute",right:"10%"}} ><img src={LoggedInUser.avatar} className="profile"  height="55" width="55" style={{borderRadius: "25%"}}/>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{marginTop:"30%"}}>

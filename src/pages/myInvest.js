@@ -5,6 +5,7 @@ import Navbar from "../components/Common/Navbar/navbar";
 import Footer from '../components/Common/Footer/footer';
 import AddInvestment from "./addInvestment"
 import MyInvestmentDetails from '../components/myInvestmentDetails';
+import { Button, Form } from 'react-bootstrap';
 // récupérer le token depuis localStorage
 var user = JSON.parse( localStorage.getItem('user') );
 
@@ -41,18 +42,42 @@ setCount(count+1)
     fetchData()
   },[])
 
+
+  const searchHandle = async (event)=>{
+	let key = event.target.value ;
+	if(key){
+	let result = await fetch(`/investment/search/${key}`)
+	result = await result.json()
+	if(result){
+		setInvestments(result);
+	} 
+}else{
+	fetchData();
+}
+}
   return (
     <div>
         <Navbar />
 
-
+	
+		<div className="search col-lg-4">
+              <Form className="d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                 onChange={searchHandle}
+                />
+                <Button variant="success" className='search_btn'>Search</Button>
+              </Form>
+            </div>
     <section class="section core-value bg-tertiary">
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-lg-6">
 				<div class="row position-relative gy-4">
-
-
+			
 
 {investments.map(({montant,idUser,idProject,isValid,_id}) => (
     <MyInvestmentDetails key={_id}  id={_id}  montant={montant} idUser={idUser} idProject={idProject}  isValid={isValid} fetchData={fetchData} />

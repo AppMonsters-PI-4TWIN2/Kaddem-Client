@@ -5,11 +5,14 @@ import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 function InvestmentDetails({id,montant,idUser,idProject,isValid,fetchData}) {
     const [isInvestmentValid, setInvestmentValid] = useState(isValid);
     var user = JSON.parse( localStorage.getItem('user') );
-
+  
 
     const handleSubmit = async (event) => {
       event.preventDefault();
       try {
+          if (isInvestmentValid === "accepted") {
+          await axios.patch(`/api/project/incrementAmountAlreadyRaised/${project.id}/${montant}`);
+          }
         await axios.put(`/investment/investment/${id}`, {isValid: isInvestmentValid});
         fetchData(); // mettre à jour les données après la mise à jour
         setShow(false); // fermer la modal
@@ -40,9 +43,6 @@ async function fetchUser() {
 
 
 
-
-
-
 useEffect (() => {
   fetchUser();   
   fetchProject() ;
@@ -59,33 +59,42 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
 
 
      return (
+      
 
-      <>   {  idUser !== user.id  && project.creator ==user.id && (
-         <div class="icon-box-item col-md-6">
-    <div class="block bg-white">
-      <li key={id}>
-        <div class="icon rounded-number">.</div>
-        <h3 class="mb-3">montant : {montant}  dt</h3>
+      <>  
+      
+     
+       {  project.projectName && idUser !== user.id  && project.creator ===user.id && (
+         <div className="icon-box-item col-md-12">
+    <div className="block bg-white">
+      <li key={id} style={{listStyle: "none"}}>
+          {isValid === "pending" ?(<div className="rounded"  style={{backgroundColor:"#f9ca24",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Pending</div>):isValid === "rejected" ?(<div className="rounded" style={{backgroundColor:"#ff6b6b",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Rejected</div>):(<div className="rounded" style={{backgroundColor:"#51B56D",width:"150px" ,float:"right",color:"white",textAlign:"center"}} >Accepted</div>)}
+
+          <h3 className="mb-3">Amount : {montant}  $</h3>
         
-        <p class="mb-0">user : {fullName.firstName} {fullName.lastName}</p>
-          <p class="mb-0">Project Name: {project.projectName}</p> 
-   
-          <form onSubmit={handleSubmit}>
-                <label>
-                  Status:{isValid}
-                  <select class="form-control shadow-none bg-white border-end-0"
-                    value={isInvestmentValid}
-                    onChange={(event) => setInvestmentValid(event.target.value)}
-                  >
-                    <option value="accepted">Accepted</option>
-                    {/* <option value="No response">No response</option> */}
-                    <option value="Not Accepted">Not Accepted</option>
-                  </select>
-                </label>
-            
-                <button className="btn btn-sm btn-primary mb-75 me-75" type="submit">Update</button>
-              </form>
 
+        <p className="mb-0">user : {fullName.firstName} {fullName.lastName}</p>
+          <p className="mb-0">Project Name: {project.projectName}</p>
+          {isValid !== 'accepted' && (
+               <div style={{float:"right"}} >
+                      <form onSubmit={handleSubmit}>
+                            <label>
+                              Status
+                              <select className="form-control shadow-none bg-white border-end-0"
+                                value={isInvestmentValid}
+                                onChange={(event) => setInvestmentValid(event.target.value)}
+                              ><option>-</option>
+                                <option value="accepted">Accept</option>
+                                {/* <option value="No response">No response</option> */}
+                                <option value="rejected">Decline</option>
+                              </select>
+                            </label>
+
+                            <button   className="btn btn-sm btn-primary mb-75 me-75" type="submit">Update</button>
+                          </form>
+               </div>
+          )}
+          <div style={{ clear: "both" }}></div>
       </li>
    </div> </div> )} 
 

@@ -1,11 +1,12 @@
 import Navbar from "../components/Common/Navbar/navbar";
 import Footer from "../components/Common/Footer/footer";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
 
 const ViewProfil = () => {
+    const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
     let { userName } = useParams();
@@ -45,7 +46,8 @@ const ViewProfil = () => {
 
                     <h1 style={{textAlign:"center",position:"relative",marginTop:"-7%"}}>{user.userName}</h1>
                     <div style={{textAlign:"center",display: "flex",justifyContent: "center", alignItems: "center",marginTop:"1%"}} >
-                        <button className="btn btn-primary col-lg-1 align-content-sm-start"  >Chat</button>
+                        <button className="btn btn-primary col-lg-1 align-content-sm-start" onClick={() => navigate(`/chat`)}  >Chat</button>
+                     
                     </div>
                 </section>
                 <section className="section-sm">

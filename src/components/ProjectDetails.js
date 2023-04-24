@@ -1,13 +1,14 @@
 
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 import React, { useState } from 'react'
+import { FacebookButton, FacebookCount ,TwitterButton } from "react-social";
 
 function ProjectDetails({ProjectName,Creator,ProjectLocation,Description,Image,OnDelete,id}) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    let url = "https://github.com";
     return (
 
 
@@ -24,6 +25,20 @@ function ProjectDetails({ProjectName,Creator,ProjectLocation,Description,Image,O
                     Delete
 
                 </Button>
+            </td>
+            <td>
+                 <FacebookButton url={url} appId={251304003958960}>
+                 <img  style={{  display: "block",
+                        width: "100%",
+                         height: "auto" }} 
+                         src="/images/fb.png"/>
+                 </FacebookButton>
+                 <TwitterButton url={url} appId={26988017}>
+                 <img  style={{  display: "block",
+                        width: "100%",
+                         height: "auto" }} 
+                         src="/images/twitter.png"/>
+                 </TwitterButton>
             </td>
 
 

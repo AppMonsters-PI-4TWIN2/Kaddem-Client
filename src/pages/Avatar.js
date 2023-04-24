@@ -12,7 +12,7 @@ return (
         width: '2rem', height: '2rem' , borderRadius: '50%',  display: 'flex',  alignItems: 'center', 
         justifyContent: 'center'  ,backgroundColor: color }}>
         <div style={{textAlign: "center", width: "100%"}}>
- {email[0]}  
+
         </div>
       {online &&(  
      <div style={{ position: "absolute", width: "0.75rem", height: "0.75rem", backgroundColor: "#34D399", bottom: 0, right: 0, borderRadius: "50%", border: "1px solid #FFF" }}></div>

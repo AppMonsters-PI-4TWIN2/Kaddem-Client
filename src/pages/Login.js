@@ -43,6 +43,7 @@ const Login = () => {
                         <span>Email adress</span>
                         <i></i>
                 </div>
+
                 <div className="inputBox">
                     <input type="password" required="required" onChange={(e) => setPassword(e.target.value)}
                            value={password} />
@@ -60,7 +61,7 @@ const Login = () => {
                 </div>
                 <div className={" col-12"}>
                     <button className="btn btn-primary col-12" disabled={isLoading }>Log in</button>
-                    {error    && <div  style={{color:'green'}} className="error">{error}</div>}
+                    {error    && <div  className="notices info" style={{textAlign:"center", backgroundColor:"#ff6b6b",opacity:"0.6",color:"white",borderRadius: "30px",marginTop:"25%"}}> <p>{error}</p></div>}
                 </div>
                 <div style={{opacity:"0"}}>
                     ----------------------------------------

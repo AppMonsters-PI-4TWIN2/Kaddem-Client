@@ -69,29 +69,42 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
     }
      return (
 
-      <>    { idUser === user.id  && (
-        <div class="icon-box-item col-md-6">
+      <>  
+      
+      
+      
+        { project.projectName && idUser === user.id 
+                && (
+        <div class="icon-box-item col-md-12">
    <div class="block bg-white">
      <li key={id}>
-       <div class="icon rounded-number">.</div>
-       <h3 class="mb-3">montant : {montant} dt</h3>
+         {isValid === "pending" ?(<div className="rounded"  style={{backgroundColor:"#f9ca24",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Pending</div>):isValid === "rejected" ?(<div className="rounded" style={{backgroundColor:"#ff6b6b",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Rejected</div>):(<div className="rounded" style={{backgroundColor:"#51B56D",width:"150px" ,float:"right",color:"white",textAlign:"center"}} >Accepted</div>)}
+
+       <h3 class="mb-3">Amount : {montant} $</h3>
          {/* <p class="mb-0">user     : {fullName.firstName} {fullName.lastName}</p> */}
-         <p class="mb-0">Project Name: {project.projectName}</p> 
-         <p class="mb-0">Status: {isValid}</p> 
+         <p class="mb-0">Project: {project.projectName}</p>
          {/* <p class="mb-0">Project Category: {project.Category}</p>  */}
        
-       
+
+      { isValid!="accepted" && 
+       <Button className="btn btn-primary" onClick={() => setShow(true)}>
+       Delete
+       </Button> }
  
    <Modal  show={show} onHide={handleClose}>
-       <Modal.Header  style={{backgroundColor: '#2F4F4F'}}  closeButton>
-         <Modal.Title > Delete User </Modal.Title>
+   <Modal.Header style={{backgroundColor: '#198754', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
+  <Modal.Title >
+  <img style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} loading="prelaod" decoding="async" className="img-fluid" width="160" src="/images/logo.png"
+                             alt="Kaddem"  />
+    </Modal.Title>
+  
        </Modal.Header>
-       <Modal.Body  >Are you sure to delete this user ? </Modal.Body>
+       <Modal.Body  >Are you sure to delete this investment ? </Modal.Body>
        <Modal.Footer>
-         <Button  style={{backgroundColor: '#2F4F4F '}}   onClick={handleClose}>
+         <Button  className="btn btn-primary"   onClick={handleClose}>
            Close
          </Button>
-         <Button   style={{backgroundColor: '#2F4F4F '}}   onClick={() => { handleClose(); OnDelete(id) ;fetchData() }}>
+         <Button  className="btn btn-primary "   onClick={() => { handleClose(); OnDelete(id) ;fetchData() }}>
            Delete
 
          </Button>

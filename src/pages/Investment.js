@@ -46,22 +46,36 @@ setCount(count+1)
         <Navbar />
 
 
-    <section class="section core-value bg-tertiary">
-	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-lg-6">
-				<div class="row position-relative gy-4">
+    <section className="section core-value bg-tertiary">
+	<div className="container">
+		<div className="row align-items-center">
+			<div className="col-lg-6">
+				<div className="row position-relative gy-4">
+
+				{investments
+  .filter((investment) => investment.isValid !== "rejected") 
+  .map(({ montant, idUser, idProject, isValid, _id }) => (
+    <InvestmentDetails
+      key={_id}
+      id={_id}
+      montant={montant}
+      idUser={idUser}
+      idProject={idProject}
+      isValid={isValid}
+      fetchData={fetchData}
+    />
+  )) }
 
 
+{/* {investments.map(({montant,idUser,idProject,isValid,_id}) => (
 
-{investments.map(({montant,idUser,idProject,isValid,_id}) => (
     <InvestmentDetails key={_id}  id={_id}  montant={montant} idUser={idUser} idProject={idProject}  isValid={isValid} fetchData={fetchData} />
 	
         ))
-        }
+        } */}
 
-	<div class="has-shapes">
-						<svg class="shape shape-1 text-primary" width="71" height="71" viewBox="0 0 119 119" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<div className="has-shapes">
+						<svg className="shape shape-1 text-primary" width="71" height="71" viewBox="0 0 119 119" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M8.50598 89.8686C8.17023 89.3091 7.83449 88.6376 7.49875 88.078L66.0305 0.336418C66.7019 0.448334 67.3734 0.560249 68.0449 0.560249L8.50598 89.8686Z" fill="currentColor" />
 							<path d="M5.03787 83.2646C4.70213 82.5932 4.47829 81.9217 4.14255 81.2502L58.3096 -0.00032826C59.093 -0.000328191 59.7645 -0.000328132 60.5479 -0.000328064L5.03787 83.2646Z" fill="currentColor" />
 							<path d="M16.9007 100.613C16.453 100.165 16.0053 99.7175 15.5577 99.2698L79.4613 3.47031C80.0209 3.69414 80.6924 3.91795 81.252 4.14178L16.9007 100.613Z" fill="currentColor" />
@@ -82,7 +96,7 @@ setCount(count+1)
 							<path d="M38.9475 114.712C38.388 114.489 37.7165 114.265 37.1569 114.041L101.396 17.6818C101.844 18.1295 102.292 18.5771 102.739 19.0248L38.9475 114.712Z" fill="currentColor" />
 							<path d="M45.4392 116.728C44.7677 116.616 44.2081 116.392 43.5366 116.28L105.873 22.8306C106.321 23.3902 106.657 23.8378 107.105 24.3974L45.4392 116.728Z" fill="currentColor" />
 						</svg>
-						<svg class="shape shape-2 text-primary" width="100" height="100" viewBox="0 0 119 119" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<svg className="shape shape-2 text-primary" width="100" height="100" viewBox="0 0 119 119" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M8.50598 89.8686C8.17023 89.3091 7.83449 88.6376 7.49875 88.078L66.0305 0.336418C66.7019 0.448334 67.3734 0.560249 68.0449 0.560249L8.50598 89.8686Z" fill="currentColor" />
 							<path d="M5.03787 83.2646C4.70213 82.5932 4.47829 81.9217 4.14255 81.2502L58.3096 -0.00032826C59.093 -0.000328191 59.7645 -0.000328132 60.5479 -0.000328064L5.03787 83.2646Z" fill="currentColor" />
 							<path d="M16.9007 100.613C16.453 100.165 16.0053 99.7175 15.5577 99.2698L79.4613 3.47031C80.0209 3.69414 80.6924 3.91795 81.252 4.14178L16.9007 100.613Z" fill="currentColor" />
@@ -106,12 +120,12 @@ setCount(count+1)
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 mt-5 mt-lg-0">
+			<div className="col-lg-6 mt-5 mt-lg-0">
           
-				<div class="section-title ps-0 ps-lg-5">
-					<p class="text-primary fw-bold mb-3">Kaddem</p>
+				<div className="section-title ps-0 ps-lg-5">
+					<p className="text-primary fw-bold mb-3">Kaddem</p>
 					<h1>My Projects Investments</h1>
-					<div class="content">
+					<div className="content">
 						<p>On this page, you can see all the investments made for your projects. You have the ability to review each investment carefully and choose to accept or refuse it. Remember, the funds transaction cannot be made on our website. If an investment is made in real life, and the funds have been transferred, then you can change the status of the offer from pending to accepted. Once an investment is accepted, the investor will have access to your project's posts. Please review each investment carefully and accept only if you are confident in the investor and their offer. Communication with the investor can be done via our chat system or other means</p>
 
 					</div>
