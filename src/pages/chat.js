@@ -34,7 +34,7 @@ function connectToWs(){
 
 useEffect(() => {
 connectToWs() ; 
- },[]) 
+ },[selectedUserId]) 
 
  function handleMessage(ev){
     const messageData = JSON.parse(ev.data);
@@ -110,7 +110,7 @@ if(selectedUserId){
     setMessages(res.data)
   })
 }
-},[])
+},[selectedUserId])
 
 useEffect(()=>{
   const div =  divUnderMessages.current ; 
@@ -119,7 +119,7 @@ useEffect(()=>{
 
   }
   
-},[selectedUserId, newMessageText])
+},[messages])
 
 //show offLine people
 useEffect(() => {
@@ -136,11 +136,12 @@ offlinePeople[p._id] =p ;
  setOfflinePeople(offlinePeople)
 
 } ) ;
-},[])
+},[selectedUserId])
+//offlinePeople
 
 const onlinePeopleExclOurUser = { ...onlinePeople };
   
- delete onlinePeopleExclOurUser[user._id];
+ delete onlinePeopleExclOurUser[user.id];
 
 
 

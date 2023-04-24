@@ -52,13 +52,27 @@ setCount(count+1)
 			<div className="col-lg-6">
 				<div className="row position-relative gy-4">
 
+				{investments
+  .filter((investment) => investment.isValid !== "rejected") 
+  .map(({ montant, idUser, idProject, isValid, _id }) => (
+    <InvestmentDetails
+      key={_id}
+      id={_id}
+      montant={montant}
+      idUser={idUser}
+      idProject={idProject}
+      isValid={isValid}
+      fetchData={fetchData}
+    />
+  )) }
 
 
-{investments.map(({montant,idUser,idProject,isValid,_id}) => (
+{/* {investments.map(({montant,idUser,idProject,isValid,_id}) => (
+
     <InvestmentDetails key={_id}  id={_id}  montant={montant} idUser={idUser} idProject={idProject}  isValid={isValid} fetchData={fetchData} />
 	
         ))
-        }
+        } */}
 
 	<div className="has-shapes">
 						<svg className="shape shape-1 text-primary" width="71" height="71" viewBox="0 0 119 119" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -117,7 +117,7 @@ const ProjectCard= () => {
         format='auto'
         responsive='true'
       />
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5945465024662753"
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5945465024662753"
      crossorigin="anonymous"></script>
 
 

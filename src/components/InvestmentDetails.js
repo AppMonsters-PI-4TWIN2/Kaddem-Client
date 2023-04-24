@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
+import { FacebookButton, FacebookCount } from "react-social";
 
 function InvestmentDetails({id,montant,idUser,idProject,isValid,fetchData}) {
     const [isInvestmentValid, setInvestmentValid] = useState(isValid);
     var user = JSON.parse( localStorage.getItem('user') );
-
+    let url = "https://github.com";
 
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -59,8 +60,16 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
 
 
      return (
+      
 
-      <>   {  idUser !== user.id  && project.creator ===user.id && (
+      <>  
+      
+      {/* <FacebookButton url={url} appId={251304003958960}>
+        <FacebookCount url={url} />
+         there's something new 
+        {" Share " + url}
+      </FacebookButton> */}
+       {  idUser !== user.id  && project.creator ===user.id && (
          <div className="icon-box-item col-md-12">
     <div className="block bg-white">
       <li key={id} style={{listStyle: "none"}}>
@@ -68,8 +77,8 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
 
           <h3 className="mb-3">Amount : {montant}  $</h3>
         
-        <p class="mb-0">user : {fullName.firstName} {fullName.lastName}</p>
-          <p class="mb-0">Project Name: {project.projectName}</p>
+        <p style={{  margin: 0 ,fontSize:'18px'}} class="mb-0">user : {fullName.firstName} {fullName.lastName}</p>
+          <p style={{ margin: 0 ,fontSize:'18px'}}  class="mb-0">Project Name: {project.projectName}</p>
    <div style={{float:"right"}} >
           <form onSubmit={handleSubmit}>
                 <label>
@@ -88,27 +97,6 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
               </form>
    </div>
 
-        <p className="mb-0">user : {fullName.firstName} {fullName.lastName}</p>
-          <p className="mb-0">Project Name: {project.projectName}</p>
-          {isValid !== 'accepted' && (
-               <div style={{float:"right"}} >
-                      <form onSubmit={handleSubmit}>
-                            <label>
-                              Status
-                              <select className="form-control shadow-none bg-white border-end-0"
-                                value={isInvestmentValid}
-                                onChange={(event) => setInvestmentValid(event.target.value)}
-                              ><option>-</option>
-                                <option value="accepted">Accept</option>
-                                {/* <option value="No response">No response</option> */}
-                                <option value="Not Accepted">Decline</option>
-                              </select>
-                            </label>
-
-                            <button   className="btn btn-sm btn-primary mb-75 me-75" type="submit">Update</button>
-                          </form>
-               </div>
-          )}
           <div style={{ clear: "both" }}></div>
       </li>
    </div> </div> )} 
