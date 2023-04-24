@@ -32,6 +32,9 @@ const NavbarAdmin = () => {
                         </li>
                         <li className="nav-item"><a className="nav-link" href="/admin/projects">Projects</a>
                         </li>
+                         
+                        <li className="nav-item "><a className="nav-link" href="/chat">Chat </a>
+                            </li>
                         {/*
                         <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#"
                                                              id="navbarDropdown" role="button"

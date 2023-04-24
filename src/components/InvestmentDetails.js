@@ -1,12 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
-import { FacebookButton, FacebookCount } from "react-social";
 
 function InvestmentDetails({id,montant,idUser,idProject,isValid,fetchData}) {
     const [isInvestmentValid, setInvestmentValid] = useState(isValid);
     var user = JSON.parse( localStorage.getItem('user') );
-    let url = "https://github.com";
+  
 
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -64,12 +63,8 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
 
       <>  
       
-      {/* <FacebookButton url={url} appId={251304003958960}>
-        <FacebookCount url={url} />
-         there's something new 
-        {" Share " + url}
-      </FacebookButton> */}
-       {  idUser !== user.id  && project.creator ===user.id && (
+     
+       {  project.projectName && idUser !== user.id  && project.creator ===user.id && (
          <div className="icon-box-item col-md-12">
     <div className="block bg-white">
       <li key={id} style={{listStyle: "none"}}>
