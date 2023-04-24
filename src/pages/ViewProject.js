@@ -137,7 +137,7 @@ const [idProject ,setIdProject] = useState('')
                                                 </Button>
                                             ) : (
 
-                                                <div/>
+                                                <div style={{fontWeight: "bold ", textDecoration: "underline"}}>it's your project</div>
 
                                             )
                                         ) : (

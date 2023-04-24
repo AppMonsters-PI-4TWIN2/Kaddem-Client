@@ -5,7 +5,7 @@ import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 function InvestmentDetails({id,montant,idUser,idProject,isValid,fetchData}) {
     const [isInvestmentValid, setInvestmentValid] = useState(isValid);
     var user = JSON.parse( localStorage.getItem('user') );
-
+  
 
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -59,8 +59,12 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
 
 
      return (
+      
 
-      <>   {  idUser !== user.id  && project.creator ===user.id && (
+      <>  
+      
+     
+       {  project.projectName && idUser !== user.id  && project.creator ===user.id && (
          <div className="icon-box-item col-md-12">
     <div className="block bg-white">
       <li key={id} style={{listStyle: "none"}}>
@@ -68,25 +72,6 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
 
           <h3 className="mb-3">Amount : {montant}  $</h3>
         
-        <p class="mb-0">user : {fullName.firstName} {fullName.lastName}</p>
-          <p class="mb-0">Project Name: {project.projectName}</p>
-   <div style={{float:"right"}} >
-          <form onSubmit={handleSubmit}>
-                <label>
-                  Status
-                  <select className="form-control shadow-none bg-white border-end-0"
-                    value={isInvestmentValid}
-                    onChange={(event) => setInvestmentValid(event.target.value)}
-                  >
-                    <option value="accepted">Accept</option>
-                    {/* <option value="No response">No response</option> */}
-                    <option value="rejected">rejected</option>
-                  </select>
-                </label>
-            
-                <button   className="btn btn-sm btn-primary mb-75 me-75" type="submit">Update</button>
-              </form>
-   </div>
 
         <p className="mb-0">user : {fullName.firstName} {fullName.lastName}</p>
           <p className="mb-0">Project Name: {project.projectName}</p>
@@ -101,7 +86,7 @@ const name = project.projectName ? `${project.projectName} ${user.Category}` :mo
                               ><option>-</option>
                                 <option value="accepted">Accept</option>
                                 {/* <option value="No response">No response</option> */}
-                                <option value="Not Accepted">Decline</option>
+                                <option value="rejected">Decline</option>
                               </select>
                             </label>
 

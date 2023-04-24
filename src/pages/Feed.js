@@ -147,14 +147,15 @@ const onAddComment = async (postId,content) => {
     
          }
          fetchComment()
-       },[])
+       },[postId])
 
        
 
     return (
         <div className={styled.feed}>
           <Navbar/>
-            <div>
+            <div className={styles.postTop}>
+                <form onSubmit={handleSubmit} className={styles.post} >
                 <select value={selectedProject} onChange={handleSelect}>
                     <option value="">Select a project</option>
                     {Projects.map((project) => (
@@ -165,15 +166,15 @@ const onAddComment = async (postId,content) => {
                    
                 </select>
                 <p>You have selected: {selectedProject}</p>
-            </div>
-        <div className={styled.feedWrapper}>
-        <form onSubmit={handleSubmit} className={styles.post} >
           <textarea className={styles.postTop} rows="2" placeholder="What's on your mind?" type="text" name="caption" />
           <input type="file"  name="image" />
           <button type="submit" className="btn btn-outline-primary ms-1">Create Post</button>
           {isLoading && <p>Loading...</p>}
           {error && <p>{error}</p>}
         </form>
+            </div>
+        <div className={styled.feedWrapper}>
+
 
         {/* {posts.reverse().map((post) => (
     <Card key= {post._id} style={{ width: '18rem' }}>
@@ -217,11 +218,6 @@ const onAddComment = async (postId,content) => {
                             {/* <span className={styles.postLikeCounter}>
                                 {like} people like it
                             </span>  */}
-                        </div>
-                        <div className={styles.PostBottomRight}>
-                            <span className={styles.postCommentText}>
-                                {post.caption} comments
-                            </span>
                         </div>
 
                     </div>
