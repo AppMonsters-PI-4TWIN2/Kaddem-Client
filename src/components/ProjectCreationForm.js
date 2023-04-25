@@ -252,10 +252,10 @@ const ProjectCreationForm=()=>{
                                                        value={Website}
                                                 />
                                             </div>
-                                            //UPLOAD IMAGE
+                                            <label className="form-label" htmlFor="form4Example2">Image</label>
                                             <div className="form-outline mb-4">
                                                 <input onChange={handleImage}  type="file" id="formupload" name="image" className="form-control"  />
-                                                <label className="form-label" htmlFor="form4Example2">Image</label>
+                                                
                                             </div>
                                             <img className="img-fluid" src={Image} alt="" />
 

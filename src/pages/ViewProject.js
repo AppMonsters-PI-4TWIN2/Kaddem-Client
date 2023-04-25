@@ -91,9 +91,11 @@ const [idProject ,setIdProject] = useState('')
     const handleSubmit = async (e) => {
         e.preventDefault()
         const token = localStorage.getItem('token');
-
-        await addInvestment(idUser, Project._id, montant, user.token)
-        handleClose()
+        if(montant > 0){
+            await addInvestment(idUser, Project._id, montant, user.token)
+            handleClose()
+        }
+       
        // window.location.reload(true)
 
 
