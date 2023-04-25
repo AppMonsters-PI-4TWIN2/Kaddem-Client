@@ -1,4 +1,3 @@
-
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 import React, { useState } from 'react'
 import { FacebookButton, FacebookCount ,TwitterButton } from "react-social";
@@ -19,7 +18,7 @@ function ProjectDetails({ProjectName,Creator,ProjectLocation,Description,Image,O
             <td>{Creator}</td>
             <td>{ProjectLocation}</td>
             <td>{Description}</td>
-            <td>{Image}</td>
+          
             <td>
                 <Button   style={{backgroundColor: '#2F4F4F '}}   onClick={() => { handleClose(); OnDelete(id) ; }}>
                     Delete
@@ -29,14 +28,16 @@ function ProjectDetails({ProjectName,Creator,ProjectLocation,Description,Image,O
             <td>
                  <FacebookButton url={url} appId={251304003958960}>
                  <img  style={{  display: "block",
-                        width: "100%",
-                         height: "auto" }} 
+                        width: "30px",
+                        height: "30px",
+                        }} 
                          src="/images/fb.png"/>
                  </FacebookButton>
                  <TwitterButton url={url} appId={26988017}>
                  <img  style={{  display: "block",
-                        width: "100%",
-                         height: "auto" }} 
+                        width: "30px",
+                        height: "30px",
+                       }} 
                          src="/images/twitter.png"/>
                  </TwitterButton>
             </td>
@@ -50,5 +51,3 @@ function ProjectDetails({ProjectName,Creator,ProjectLocation,Description,Image,O
 }
 
 export default ProjectDetails
-
-

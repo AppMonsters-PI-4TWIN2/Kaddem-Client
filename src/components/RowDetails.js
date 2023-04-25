@@ -37,7 +37,7 @@ const [isUserBanned, setIsUserBanned] = useState(isBanned);
         </button>
 </td>
   
-  <td >
+  {/* <td >
     <Button  style={{backgroundColor: '#2F4F4F '}}  className="badge bg-yellow " onClick={handleShow}>
     <i className="fas fa-trash-alt"></i> 
     </Button>
@@ -57,7 +57,7 @@ const [isUserBanned, setIsUserBanned] = useState(isBanned);
         </Modal.Footer>
       </Modal>
 
-    </td>
+    </td> */}
 
 
   </tr>
