@@ -26,7 +26,7 @@ import ShowAllProjects from "./pages/ShowAllProjects";
 import ProjectCard from "./pages/ProjectCard";
 import EditProject from "./pages/EditProject";
 import ReactGA from "react-ga";
-const TRACKING_ID="G-HQD2QMXMD6";
+const TRACKING_ID="UA-264043342-1";
 ReactGA.initialize(TRACKING_ID);
 
 function App() {

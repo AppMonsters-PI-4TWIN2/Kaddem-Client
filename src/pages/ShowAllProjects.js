@@ -56,7 +56,7 @@ const ShowAllProjects = () => {
 
                                         <th scope="col">Project Location</th>
                                         <th scope="col">Description</th>
-                                        <th scope="col">Image</th>
+                                        
                                         <th scope="col">Actions</th>
                                         <th scope="col">Social</th>
                                     </tr>

@@ -145,7 +145,7 @@ const[message,setMessage]=useState("") ;
                                         <th scope="col">status</th>
                                         <th scope="col">created</th>
                                         <th scope="col">Banned</th>
-                                        <th scope="col">Actions</th>
+                                        {/* <th scope="col">Actions</th> */}
                                     </tr>
                                     </thead>
                                     <tbody>
