@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 import styles from "../styles/post.module.css";
 import styled from "../styles/feed.module.css";
 //import { MoreVert } from "@material-ui/icons";
@@ -17,6 +17,7 @@ const Feed =(props) => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [posts, setPosts] = useState([]);
+    const [post, setPost] = useState([]);
     const [comments, setComments] = useState([]);
 
     var user = JSON.parse( localStorage.getItem('user') );
@@ -135,20 +136,71 @@ const onAddComment = async (postId,content) => {
     });
 }
       // ------------------------------------------------------------------------------------------
-       useEffect(()=>{
-         const fetchComment = async () => {
+        useEffect(()=>{
+          const fetchComment = async () => {
           
-          const response = await axios.get('/post/getComments', {postId}, {
-           headers: {
-            'Authorization': `Bearer ${user.token}`}})
-           //setUsers(response.data)
-           setComments(response.data);
-           console.log(response.data);
+           const response = await axios.get('/post/getComments', {postId}, {
+            headers: {
+             'Authorization': `Bearer ${user.token}`}})
+            //setUsers(response.data)
+            setComments(response.data);
+            console.log(response.data);
     
-         }
-         fetchComment()
-       },[postId])
+          }
+          fetchComment()
+        },[postId])
 
+ // ------------------------------------------------------------------------------------------
+
+      //  useEffect(() => {
+      //   const fetchComments = async () => {
+      //     try {
+      //       const res = await axios.post(`/post/getComments`, { postId: post._id }, {
+      //         headers: {'Content-Type': 'application/json',
+      //         'Authorization': `Bearer ${user.token}`},
+      //     });
+      //       setComments((prevComments) => ({
+      //         ...prevComments,
+      //         [post._id]: res.data,
+      //       }));
+      //     } catch (err) {
+      //       console.log(err);
+      //     }
+      //   };
+      //   fetchComments();
+      // }, [post._id]);
+ // ------------------------------------------------------------------------------------------
+      // useEffect(() => {
+      //   const fetchComments = async () => {
+      //     try {
+      //       if (!post._id) {
+      //         console.log(" post ID is undefined");
+      //         return;
+      //       }
+      //       const res = await axios.post(
+      //         `/post/getComments`,
+      //         { postId: post._id },
+      //         {
+      //           headers: {
+      //             "Content-Type": "application/json",
+      //             'Authorization': `Bearer ${user.token}`,
+      //           },
+      //         }
+              
+      //       );
+      //       setComments((prevComments) => ({
+      //         ...prevComments,
+      //         [post._id]: res.data,
+      //       }));
+      //     } catch (err) {
+      //       console.log(err);
+      //     }
+      //   };
+      //   fetchComments();
+      // }, [post._id]);
+ // ------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------
+   // ------------------------------------------------------------------------------------------
        
 
     return (
@@ -156,18 +208,26 @@ const onAddComment = async (postId,content) => {
           <Navbar/>
             <div className={styles.postTop}>
                 <form onSubmit={handleSubmit} className={styles.post} >
-                <select value={selectedProject} onChange={handleSelect}>
+                <Form.Select value={selectedProject} onChange={handleSelect} size="lg">
                     <option value="">Select a project</option>
                     {Projects.map((project) => (
                         <option key={project._id} value={project._id}>
                             {project.ProjectName}
                         </option>
-                    ))}
-                   
-                </select>
+                    ))}                 
+                </Form.Select>
                 <p>You have selected: {selectedProject}</p>
-          <textarea className={styles.postTop} rows="2" placeholder="What's on your mind?" type="text" name="caption" />
-          <input type="file"  name="image" />
+                <Form.Control
+          as="textarea"
+          placeholder="What's on your mind?"
+          style={{ height: '100px' }}
+          name="caption"
+        />
+          {/* <textarea className={styles.postTop} rows="2" placeholder="What's on your mind?" type="text" name="caption" /> */}
+          <Form.Group controlId="formFileLg" className="mb-3">
+        <Form.Control type="file" size="lg" name="image" />
+      </Form.Group>
+          {/* <input type="file"  name="image" /> */}
           <button type="submit" className="btn btn-outline-primary ms-1">Create Post</button>
           {isLoading && <p>Loading...</p>}
           {error && <p>{error}</p>}
@@ -187,6 +247,16 @@ const onAddComment = async (postId,content) => {
         <Button variant="primary">LIKE</Button>
       </Card.Body>
     </Card>))} */}
+
+
+<Form.Select value={selectedProject} onChange={handleSelect} size="lg" className={styles.post}>
+                    <option value="">Select a project</option>
+                    {Projects.map((project) => (
+                        <option key={project._id} value={project._id}>
+                            {project.ProjectName}
+                        </option>
+                    ))}                 
+                </Form.Select>
     {posts.map((post) => (
             <div key= {post._id} className={styles.post} >
                 <div className={styles.postWrapper}>
