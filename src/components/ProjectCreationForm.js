@@ -31,7 +31,7 @@ const ProjectCreationForm=()=>{
         const response = await fetch('/api/project/new', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({  ProjectName, Description, DetailedDescription,Team,LegalConsiderations,AmountAlreadyRaised,Category,ImpactOrGoal,FundingGoal,ProjectLocation,FundingModel,Website,FundingDeadline,Creator,Image})
+            body: JSON.stringify({  ProjectName, Description, DetailedDescription,Team,LegalConsiderations,AmountAlreadyRaised,Category,ImpactOrGoal,FundingGoal,ProjectLocation,FundingModel,Website,FundingDeadline,Creator,Image,Stage})
         })
         const json = await response.json()
 
@@ -44,6 +44,7 @@ const ProjectCreationForm=()=>{
             // update loading state
             setIsLoading(false)
             setValid(true)
+            setShowModal(true); // show the modal
         }
 
     }
@@ -98,9 +99,8 @@ const ProjectCreationForm=()=>{
             }
 
                 await addProject( ProjectName, Description, DetailedDescription,Team,LegalConsiderations,AmountAlreadyRaised,Category,ImpactOrGoal,FundingGoal,ProjectLocation,FundingModel,Website,FundingDeadline,Creator,Stage,Image)
-                if (Valid) {
-                setShowModal(true); // show the modal
-                }
+
+
         }else {
             setError(
                 "You must complete all the required inputs (you can see * in front of the required inputs)"

@@ -12,19 +12,14 @@ function ProjectDetails({ProjectName,Creator,ProjectLocation,Description,Image,O
 
 
         <tr  style={{color: 'black'}}>
-            <th style={{color: '#2F4F4F '}}>{id}</th>
+            {/*  <th style={{color: '#2F4F4F '}}>{id}</th>*/}
 
-            <td>{ProjectName}</td>
-            <td>{Creator}</td>
-            <td>{ProjectLocation}</td>
-            <td>{Description}</td>
-          
-            <td>
-                <Button   style={{backgroundColor: '#2F4F4F '}}   onClick={() => { handleClose(); OnDelete(id) ; }}>
-                    Delete
+            <td style={{textAlign: "center", verticalAlign: "middle"}}>{ProjectName}</td>
+            <td style={{textAlign: "center", verticalAlign: "middle"}}>{Creator.userName}</td>
+            <td style={{textAlign: "center", verticalAlign: "middle"}}>{ProjectLocation}</td>
+            {/* <td>{Description}</td>*/}
 
-                </Button>
-            </td>
+
             <td>
                  <FacebookButton url={url} appId={251304003958960}>
                  <img  style={{  display: "block",
@@ -34,12 +29,18 @@ function ProjectDetails({ProjectName,Creator,ProjectLocation,Description,Image,O
                          src="/images/fb.png"/>
                  </FacebookButton>
                  <TwitterButton url={url} appId={26988017}>
-                 <img  style={{  display: "block",
+                 <img  style={{ display: "block",
                         width: "30px",
                         height: "30px",
                        }} 
                          src="/images/twitter.png"/>
                  </TwitterButton>
+            </td>
+            <td style={{textAlign: "center", verticalAlign: "middle"}}>
+                <Button   style={{backgroundColor: '#343a40 '}}   onClick={() => { handleClose(); OnDelete(id) ; }}>
+                    Delete
+
+                </Button>
             </td>
 
 

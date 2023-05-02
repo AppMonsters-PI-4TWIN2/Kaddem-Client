@@ -1,11 +1,12 @@
 
 import Footer from "../components/Common/Footer/footer";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RowDetails from "../components/RowDetails";
 import Alert from "../components/Alert";
 import NavbarAdmin from "../components/Common/NavbarAdmin/navbarAdmin";
 import FooterAdmin from "../components/Common/Footer/footerAdmin";
+import {Button, Form} from "react-bootstrap";
 // stocker le token dans localStorage
 
 
@@ -83,7 +84,7 @@ const[message,setMessage]=useState("") ;
 
    // const {user} = useAuthContext()
     return (
-        <>
+        <div style={{backgroundColor:"#f4f5f7"}}>
           
        <NavbarAdmin/>
        <Alert message={message} show={show}/>
@@ -129,22 +130,32 @@ const[message,setMessage]=useState("") ;
                 </div>
 
             </div>
+            <div className="search col-lg-4 " style={{margin: "0 auto"}}>
+                <Form className="d-flex">
+                    <Form.Control
+                        type="search"
+                        placeholder="Search"
+                        className="me-2"
+                        aria-label="Search"
+
+                    />
+                    <Button variant="success" className='btn-dark' style={{backgroundColor:"1E1E2C"}} >Search</Button>
+                </Form>
+            </div>
             <div className="section">
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-lg-10">
-                            <div  className="col align-self-center">
+                        <div className="col-lg-12">
+                            <div  className="col align-self-center" style={{backgroundColor:"#ffffff",boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)"}}>
                                 <table className="table table-hover " style={{color: '#2F4F4F '}} >
-                                    <thead className="thead-light">
+                                    <thead className="thead-light" style={{backgroundColor:"f4f5f7",color:"black",fontSize: "1.2em", padding: "20px"}}>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">email</th>
-
-                                        <th scope="col">role</th>
-
-                                        <th scope="col">status</th>
-                                        <th scope="col">created</th>
-                                        <th scope="col">Banned</th>
+                                        {/* <th style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">#</th>*/}
+                                        <th  style={{textAlign: "center", verticalAlign: "middle"}}  scope="col">email</th>
+                                        <th  style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">role</th>
+                                        <th  style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">status</th>
+                                        <th  style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">created</th>
+                                        <th  style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">Banned</th>
                                         {/* <th scope="col">Actions</th> */}
                                     </tr>
                                     </thead>
@@ -164,7 +175,7 @@ const[message,setMessage]=useState("") ;
                     </div>
                 </div>
             </div>
-        </>
+        </div>
 
     )
 }

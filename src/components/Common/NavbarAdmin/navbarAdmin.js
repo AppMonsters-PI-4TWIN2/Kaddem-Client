@@ -17,7 +17,7 @@ const NavbarAdmin = () => {
     return (
         <header className="navigation bg-tertiary">
 
-        <nav className="navbar navbar-expand-xl navbar-light  py-2" >
+            <nav className="navbar navbar-expand-xl navbar-light  py-2" style={{backgroundColor:"f4f5f7",boxShadow:"0px 2px 5px rgba(0, 0, 0, 0.1)", borderBottomLeftRadius: "30px", borderBottomRightRadius: "30px"}} >
             <h3 style={{marginLeft:"2%",marginTop:"0.5%",fontSize:"250%"}}>Admin Panel</h3>
             <div className="container">
 
