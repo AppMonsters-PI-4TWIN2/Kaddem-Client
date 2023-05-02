@@ -26,6 +26,7 @@ import ShowAllProjects from "./pages/ShowAllProjects";
 import ProjectCard from "./pages/ProjectCard";
 import EditProject from "./pages/EditProject";
 import ReactGA from "react-ga";
+import AdminDashboard from "./pages/AdminDashboard";
 const TRACKING_ID="UA-264043342-1";
 ReactGA.initialize(TRACKING_ID);
 
@@ -43,12 +44,13 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}/>
               {/*admin routes*/}
+                <Route path="/admin" element ={LoggedInUser && LoggedInUser.role === 'admin' ?<AdminDashboard />:<Navigate to="/" />} />
               <Route path="/admin/users" element ={LoggedInUser && LoggedInUser.role === 'admin' ?<Users />:<Navigate to="/" />} />
                 <Route path="/admin/projects" element={LoggedInUser && LoggedInUser.role === 'admin' ?<ShowAllProjects/>:<Navigate to="/" />}/>
                 {/*end admin routes*/}
               <Route path="/edit-profile" element={LoggedInUser ? < EditProfil/>:<Navigate to="/" />}/>
               <Route path="/googleLogin" element={<GoogleLogin />}/>
-              <Route path="/login" element={!LoggedInUser ? <Login /> : LoggedInUser.role ==="admin" ? <Navigate to="/admin/users"  /> : <Navigate to="/edit-profile" />}/>
+              <Route path="/login" element={!LoggedInUser ? <Login /> : LoggedInUser.role ==="admin" ? <Navigate to="/admin"  /> : <Navigate to="/edit-profile" />}/>
               {/* <Route path="/signup" element={!user ? <Signup /> : user.role == 'admin' ? <Navigate to="/users" /> : <Navigate to ="/" />}    /> */}
               <Route path="/signup" element={!LoggedInUser ? <Signup /> : <Navigate to="/check-email" />} />
               <Route path="/reset-password" element={!LoggedInUser ? <ResetPwd /> : <Navigate to="/login" />}/>

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 import React, { useState } from 'react'
 
-function RowDetails({email ,password,role,created,status,isBanned,id,OnDelete,OnBan,fetchData}) {
+function RowDetails({email ,password,role,created,status,isBanned,id,OnDelete,OnBan,fetchData,userName}) {
  
  
  
@@ -27,6 +27,7 @@ const [isUserBanned, setIsUserBanned] = useState(isBanned);
    
     <tr  style={{color: 'black'}}>
       {/* <th style={{textAlign: "center", verticalAlign: "middle"}} style={{color: '#2F4F4F '}}>{id}</th>*/}
+      <td style={{textAlign: "center", verticalAlign: "middle"}} >{userName}</td>
       <td style={{textAlign: "center", verticalAlign: "middle"}} >{email}</td>
     <td style={{textAlign: "center", verticalAlign: "middle"}}>{role}</td>
     <td style={{textAlign: "center", verticalAlign: "middle"}}>{status}</td>

@@ -151,6 +151,7 @@ const[message,setMessage]=useState("") ;
                                     <thead className="thead-light" style={{backgroundColor:"f4f5f7",color:"black",fontSize: "1.2em", padding: "20px"}}>
                                     <tr>
                                         {/* <th style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">#</th>*/}
+                                        <th  style={{textAlign: "center", verticalAlign: "middle"}}  scope="col">Username</th>
                                         <th  style={{textAlign: "center", verticalAlign: "middle"}}  scope="col">email</th>
                                         <th  style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">role</th>
                                         <th  style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">status</th>
@@ -161,9 +162,9 @@ const[message,setMessage]=useState("") ;
                                     </thead>
                                     <tbody>
                                     {
-                                        users.map(({email,password,role,created,status,isBanned,_id}) =>(
+                                        users.map(({email,password,role,created,status,isBanned,_id,userName}) =>(
 
-                                            <RowDetails key={_id} email={email} password={password} role={role} status={status} isBanned={isBanned} created ={created} id={_id} OnDelete={OnDelete} OnBan={OnBan} fetchData={fetchData}/>
+                                            <RowDetails key={_id} userName={userName} email={email} password={password} role={role} status={status} isBanned={isBanned} created ={created} id={_id} OnDelete={OnDelete} OnBan={OnBan} fetchData={fetchData}/>
 
                                         ))
                                     }

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
+import Loading from "../components/Common/Loading";
 
 const ViewProfil = () => {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ const ViewProfil = () => {
     }, [userName]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div><Loading/></div>;
     }
 
     return (
