@@ -11,6 +11,7 @@ import heartIcon from "../styles/heartIcon.png";
 
 import Navbar from "../components/Common/Navbar/navbar";
 import Footer from "../components/Common/Footer/footer";
+import Post from "./PostItem.js"
 
 const Feed =(props) => {
 
@@ -112,20 +113,25 @@ const Feed =(props) => {
         await onAddComment(postId,content);
       };
  // ------------------------------------------------------------------------------------------
-const onAddComment = async (postId,content) => {
-  console.log(postId)
-  console.log(content)
-  console.log(user.token)
+ const onAddComment = async (postId, content) => {
+  console.log(postId);
+  console.log(content);
+  console.log(user.token);
   setIsLoading(true);
   axios
     .post(`/post/addComment`, { postId, content }, {
-        headers: {'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.token}`},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`,
+      },
     })
     .then((response) => {
       console.log("Comment added successfully", response.data);
-      // do something else, such as update the UI
-      setComments([response.data, ...comments]);
+      // Update the comments state with the new comment
+      setComments((prevComments) => ({
+        ...prevComments,
+        [postId]: [...(prevComments[postId] || []), response.data],
+      }));
       setIsLoading(false);
     })
     .catch((error) => {
@@ -135,74 +141,6 @@ const onAddComment = async (postId,content) => {
       setIsLoading(false);
     });
 }
-      // ------------------------------------------------------------------------------------------
-        useEffect(()=>{
-          const fetchComment = async () => {
-          
-           const response = await axios.get('/post/getComments', {postId}, {
-            headers: {
-             'Authorization': `Bearer ${user.token}`}})
-            //setUsers(response.data)
-            setComments(response.data);
-            console.log(response.data);
-    
-          }
-          fetchComment()
-        },[postId])
-
- // ------------------------------------------------------------------------------------------
-
-      //  useEffect(() => {
-      //   const fetchComments = async () => {
-      //     try {
-      //       const res = await axios.post(`/post/getComments`, { postId: post._id }, {
-      //         headers: {'Content-Type': 'application/json',
-      //         'Authorization': `Bearer ${user.token}`},
-      //     });
-      //       setComments((prevComments) => ({
-      //         ...prevComments,
-      //         [post._id]: res.data,
-      //       }));
-      //     } catch (err) {
-      //       console.log(err);
-      //     }
-      //   };
-      //   fetchComments();
-      // }, [post._id]);
- // ------------------------------------------------------------------------------------------
-      // useEffect(() => {
-      //   const fetchComments = async () => {
-      //     try {
-      //       if (!post._id) {
-      //         console.log(" post ID is undefined");
-      //         return;
-      //       }
-      //       const res = await axios.post(
-      //         `/post/getComments`,
-      //         { postId: post._id },
-      //         {
-      //           headers: {
-      //             "Content-Type": "application/json",
-      //             'Authorization': `Bearer ${user.token}`,
-      //           },
-      //         }
-              
-      //       );
-      //       setComments((prevComments) => ({
-      //         ...prevComments,
-      //         [post._id]: res.data,
-      //       }));
-      //     } catch (err) {
-      //       console.log(err);
-      //     }
-      //   };
-      //   fetchComments();
-      // }, [post._id]);
- // ------------------------------------------------------------------------------------------
-  // ------------------------------------------------------------------------------------------
-   // ------------------------------------------------------------------------------------------
-       
-
     return (
         <div className={styled.feed}>
           <Navbar/>
@@ -234,21 +172,6 @@ const onAddComment = async (postId,content) => {
         </form>
             </div>
         <div className={styled.feedWrapper}>
-
-
-        {/* {posts.reverse().map((post) => (
-    <Card key= {post._id} style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={post.image} />
-      <Card.Body>
-        <Card.Title>{post.caption}</Card.Title>
-        <Card.Text>
-          here should be text
-        </Card.Text>
-        <Button variant="primary">LIKE</Button>
-      </Card.Body>
-    </Card>))} */}
-
-
 <Form.Select value={selectedProject} onChange={handleSelect} size="lg" className={styles.post}>
                     <option value="">Select a project</option>
                     {Projects.map((project) => (
@@ -257,67 +180,19 @@ const onAddComment = async (postId,content) => {
                         </option>
                     ))}                 
                 </Form.Select>
-    {posts.map((post) => (
-            <div key= {post._id} className={styles.post} >
-                <div className={styles.postWrapper}>
-                    <div className={styles.postTop}>
-                        <div className={styles.postTopLeft}>
-                        <img className={styles.postProfileImg} src={profilePicture} alt="" />
-                            {/* <Link to={`profile/${user.username}`}>
-                                <img className={styles.postProfileImg} src={user.profilePicture ? PF + user.profilePicture : PF + "blank-profile-picture.png"} alt="" />
-                            </Link> */}
-                            <span className={styles.postUsername}>
-                                {post.owner.userName}
-                            </span>
-                        </div>
-                        <div className={styles.postTopRight}>
-                             {/* <MoreVert />  */}
-                        </div>
-                    </div>
-                    <div className={styles.postCenter}>
-                        <span className={styles.postText}>
-                            {post.caption}
-                        </span>
-                        <img className={styles.postImage} src={post.image} alt="" />
-
-                    </div>
-                    <div className={styles.postBottom}>
-                        <div className={styles.postBottomLeft}>
-                             <img className={styles.likeIcon} src={likeIcon}  alt="" />
-                            <img className={styles.likeIcon} src={heartIcon}  alt="" />
-                            {/* <span className={styles.postLikeCounter}>
-                                {like} people like it
-                            </span>  */}
-                        </div>
-
-                    </div>
-                </div>
-                <form onSubmit={handleCommentSubmit} className={styles.postTop } >
-          <textarea className={styles.postTop} rows="2" placeholder="What's on your mind?" type="text" name="content" onChange={(e) => {setPostId(post._id), setContent(e.target.value)}}/>
-          <button type="submit" className="btn btn-outline-primary ms-6" >Comment</button>
-          {isLoading && <p>Loading...</p>}
-          {error && <p>{error}</p>}
-        </form>
-        {comments.map((comment) => (
-          <div key={comment._id}>
-                                <div className={styles.postTop}>
-                        <div className={styles.postTopLeft}>
-                        <img className={styles.postProfileImg} src={profilePicture} alt="" />
-                            {/* <Link to={`profile/${user.username}`}>
-                                <img className={styles.postProfileImg} src={user.profilePicture ? PF + user.profilePicture : PF + "blank-profile-picture.png"} alt="" />
-                            </Link> */}
-                            <span className={styles.postUsername}>
-                                {post.owner.userName}
-                            </span>
-                        </div>
-                        <div className={styles.postTopRight}>
-                             {/* <MoreVert />  */}
-                        </div>
-                    </div>
-            <span> {comment.content}</span>
-            </div>
-        ))}
-            </div>))}
+                {posts.map((post) => (
+  <Post
+    key={post._id}
+    post={post}
+    user={user}
+    handleCommentSubmit={handleCommentSubmit}
+    setContent={setContent}
+    setPostId={setPostId}
+    isLoading={isLoading}
+    error={error}
+    setComments={setComments}
+  />
+))}
         </div>
         <Footer/>
         </div>
