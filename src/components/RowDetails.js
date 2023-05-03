@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 import React, { useState } from 'react'
 
-function RowDetails({email ,password,role,created,status,isBanned,id,OnDelete,OnBan,fetchData}) {
+function RowDetails({email ,password,role,created,status,isBanned,id,OnDelete,OnBan,fetchData,userName}) {
  
  
  
@@ -26,13 +26,14 @@ const [isUserBanned, setIsUserBanned] = useState(isBanned);
   return (
    
     <tr  style={{color: 'black'}}>
-    <th style={{color: '#2F4F4F '}}>{id}</th>
-    <td>{email}</td>
-    <td>{role}</td>
-    <td>{status}</td>
-    <td>{created}</td>
-    <td >
-        <button style={{ fontSize: '12px !important' }}  className={`btn btn-${isUserBanned ? 'danger' : 'success'}`} onClick={handleToggleBanned}>
+      {/* <th style={{textAlign: "center", verticalAlign: "middle"}} style={{color: '#2F4F4F '}}>{id}</th>*/}
+      <td style={{textAlign: "center", verticalAlign: "middle"}} >{userName}</td>
+      <td style={{textAlign: "center", verticalAlign: "middle"}} >{email}</td>
+    <td style={{textAlign: "center", verticalAlign: "middle"}}>{role}</td>
+    <td style={{textAlign: "center", verticalAlign: "middle"}}>{status}</td>
+    <td style={{textAlign: "center", verticalAlign: "middle"}}>{created}</td>
+    <td style={{textAlign: "center", verticalAlign: "middle"}}>
+        <button style={{ fontSize: '12px !important' }}  className={`btn btn-${isUserBanned ? 'danger' : 'dark'}`} onClick={handleToggleBanned}>
           {isUserBanned ? 'Banned' : 'Not Banned'}
         </button>
 </td>

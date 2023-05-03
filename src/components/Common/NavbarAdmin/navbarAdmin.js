@@ -17,11 +17,11 @@ const NavbarAdmin = () => {
     return (
         <header className="navigation bg-tertiary">
 
-        <nav className="navbar navbar-expand-xl navbar-light  py-2" >
+            <nav className="navbar navbar-expand-xl navbar-light  py-2" style={{backgroundColor:"f4f5f7",boxShadow:"0px 2px 5px rgba(0, 0, 0, 0.1)", borderBottomLeftRadius: "30px", borderBottomRightRadius: "30px"}} >
             <h3 style={{marginLeft:"2%",marginTop:"0.5%",fontSize:"250%"}}>Admin Panel</h3>
             <div className="container">
 
-                <a className="navbar-brand" href="index.html">
+                <a className="navbar-brand" href="/admin">
                     <img loading="prelaod" decoding="async" className="img-fluid" width="160" src="/images/logo.png"
                          alt="kaddem"/>
                 </a>
@@ -64,16 +64,7 @@ const NavbarAdmin = () => {
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{marginTop:"30%"}}>
                                 <li><a className="dropdown-item " href="/edit-profile">Edit my profile</a>
                                 </li>
-                                <li><a className="dropdown-item " href="blog-details.html">Blog Details</a>
-                                </li>
-                                <li><a className="dropdown-item " href="service-details.html">Service Details</a>
-                                </li>
-                                <li><a className="dropdown-item " href="faq.html">FAQ&#39;s</a>
-                                </li>
-                                <li><a className="dropdown-item " href="legal.html">Legal</a>
-                                </li>
-                                <li><a className="dropdown-item " href="terms.html">Terms &amp; Condition</a>
-                                </li>
+                                
                                 <li><button className="btn btn-warning col-12 " style={{color:"white"}}   onClick={handleClick}  type="button" >Log out</button>
                                 </li>
                             </ul>
