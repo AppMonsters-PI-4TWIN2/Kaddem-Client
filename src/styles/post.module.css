@@ -1,91 +1,159 @@
 .postWrapper {
     padding: 10px;
-}
-
-.postCenter {
+  }
+  
+  .postCenter {
     margin: 20px 0;
-}
-
-.postBottom {
+  }
+  
+  .postBottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.postBottomLeft {
+  }
+  
+  .postBottomLeft {
     display: flex;
     align-items: center;
-}
-
-.postTop {
+  }
+  
+  .postTop {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.post {
-
+  }
+  
+  .post {
     width: 40%;
     border-radius: 20px;
     -webkit-box-shadow: 0px 0px 16px -3px rgba(0,0,0,0.66);
     box-shadow: 0px 0px 16px -3px rgba(0, 0, 0, 0.66);
-    margin: 50px auto 0 auto;
-}
-
-.comment {
-
+    margin: 50px auto;
+  }
+  
+  .comment {
     width: 40%;
     border-radius: 20px;
     -webkit-box-shadow: 0px 0px 16px -3px rgba(0,0,0,0.66);
     box-shadow: 0px 0px 16px -3px rgba(0, 0, 0, 0.66);
     margin: 50px 30px 0 auto;
-}
-
-.postTopLeft {
+  }
+  
+  .postTopLeft {
     display: flex;
     align-items: center;
-}
-
-/* .postTopRight {
-} */
-
-.postProfileImg {
+  }
+  
+  .postProfileImg {
     width: 32px;
     height: 32px;
     border-radius: 50%;
     object-fit: cover;
-}
-
-.postDate {
+  }
+  
+  .postDate {
     font-size: 12px;
-}
-
-.postUsername {
+  }
+  
+  .postUsername {
     font-size: 15px;
     font-weight: 500;
     margin: 0 10px;
-}
-
-.likeIcon {
+  }
+  
+  .likeIcon {
     width: 24px;
     height: 24px;
     cursor: pointer;
     margin-right: 5px;
-}
-
-.postLikeCounter {
+  }
+  
+  .postLikeCounter {
     font-size: 15px;
-}
-
-.postImage {
+  }
+  
+  .postImage {
     margin-top: 20px;
     width: 100%;
     max-height: 500px;
     object-fit: contain;
-}
-
-.postCommentText {
+  }
+  
+  .postCommentText {
     cursor: pointer;
-    border-bottom: 1px dashed gray;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0);
     font-size: 15px;
-}
+  }
+  
+  .commentIcon {
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .commentCard {
+    display: flex;
+    background-color: #f0f2f500;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+  }
+  
+  .commentForm {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  
+  textarea {
+    border-radius: 10px;
+    flex-grow: 1;
+    resize: none;
+    padding: 8px;
+    margin-right: 8px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .showCommentsText {
+    text-decoration: underline;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+  
+  .commentButton {
+    font-size: 0.9rem;
+  }
+  
+  .commentCard {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 8px 0;
+  }
+  
+  .commentProfileImg {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .commentInfo {
+    display: flex;
+    flex-direction: column;
+    background-color: #fafafa;
+    padding: 12px; /* Increase padding as per your requirement */
+    border-radius: 12px;
+    max-width: 100%;
+  }
+  
+  .commentUsername {
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: black;
+  }
+  
+  .commentContent {
+    word-wrap: break-word;
+    color: black;
+  }
