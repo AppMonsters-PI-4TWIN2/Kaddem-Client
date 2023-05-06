@@ -26,6 +26,7 @@ import ShowAllProjects from "./pages/ShowAllProjects";
 import ProjectCard from "./pages/ProjectCard";
 import EditProject from "./pages/EditProject";
 import ReactGA from "react-ga";
+import Reports from './pages/Reports';
 import AdminDashboard from "./pages/AdminDashboard";
 const TRACKING_ID="UA-264043342-1";
 ReactGA.initialize(TRACKING_ID);
@@ -47,6 +48,7 @@ function App() {
                 <Route path="/admin" element ={LoggedInUser && LoggedInUser.role === 'admin' ?<AdminDashboard />:<Navigate to="/" />} />
               <Route path="/admin/users" element ={LoggedInUser && LoggedInUser.role === 'admin' ?<Users />:<Navigate to="/" />} />
                 <Route path="/admin/projects" element={LoggedInUser && LoggedInUser.role === 'admin' ?<ShowAllProjects/>:<Navigate to="/" />}/>
+                <Route path="/admin/reports" element={LoggedInUser && LoggedInUser.role === 'admin' ?<Reports/>:<Navigate to="/" />}/>
                 {/*end admin routes*/}
               <Route path="/edit-profile" element={LoggedInUser ? < EditProfil/>:<Navigate to="/" />}/>
               <Route path="/googleLogin" element={<GoogleLogin />}/>

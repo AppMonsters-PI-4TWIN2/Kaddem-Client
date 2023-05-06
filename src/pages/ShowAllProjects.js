@@ -41,11 +41,23 @@ const ShowAllProjects = () => {
         }
         fetchData()
     },[])
+
+    const searchHandle = async (event)=>{
+        let key = event.target.value ;
+        if(key){
+        let result = await fetch(`/api/project/searchBack/${key}`)
+        result = await result.json()
+        if(result){
+            setProject(result);
+        } 
+    }else{
+        fetchData();
+    }
+    }
     return (
         <div style={{backgroundColor:"#f4f5f7"}}>
             <NavbarAdmin/>
-
-            <div  >
+        <div>
 
                 <div className="col-8 mx-auto text-center" style={{marginTop:"10%"}}>
                     <h1 className="mb-3 text-capitalize">List of Projects</h1>
@@ -59,7 +71,7 @@ const ShowAllProjects = () => {
                         placeholder="Search"
                         className="me-2"
                         aria-label="Search"
-
+                        onChange={searchHandle}
                     />
                     <Button variant="success" className='btn-dark' style={{backgroundColor:"1E1E2C"}} >Search</Button>
                 </Form>
@@ -87,7 +99,9 @@ const ShowAllProjects = () => {
                                     {
                                         projects.map(({ProjectName,Creator,ProjectLocation,Description,Image,_id,IsVerified}) =>(
 
-                                            <ProjectDetails  key={_id} ProjectName={ProjectName} Creator={Creator} ProjectLocation={ProjectLocation} Description={Description} Image={Image} IsVerified={IsVerified} id={_id} OnVerify={OnVerify} OnDelete={OnDelete} />
+                                            <ProjectDetails  key={_id} ProjectName={ProjectName} Creator={Creator} ProjectLocation={ProjectLocation} Description={Description} Image={Image} id={_id} OnDelete={OnDelete} />
+                                            
+                                            
 
                                         ))
                                     }

@@ -29,7 +29,7 @@ const ViewProject = () => {
 const [idProject ,setIdProject] = useState('')
   var user = JSON.parse( localStorage.getItem('user') );
   const addInvestment = async (idUser, idProject, montant, token) => {
-    idUser=user.id
+   
       try {
       const response = await axios.post('/investment/add', {
         idUser,

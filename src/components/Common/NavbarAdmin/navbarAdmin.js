@@ -32,9 +32,11 @@ const NavbarAdmin = () => {
                         </li>
                         <li className="nav-item"><a className="nav-link" href="/admin/projects">Projects</a>
                         </li>
-                         
+                        <li className="nav-item "><a className="nav-link" href="/admin/reports  ">Reports </a>
+                            </li>
                         <li className="nav-item "><a className="nav-link" href="/chat">Chat </a>
                             </li>
+                       
                         {/*
                         <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#"
                                                              id="navbarDropdown" role="button"
@@ -62,9 +64,18 @@ const NavbarAdmin = () => {
                     {user && (
                         <li className="nav-item dropdown" style={{position:"absolute",right:"10%"}} ><img src={LoggedInUser.avatar} className="profile"  height="55" width="55" style={{borderRadius: "25%"}}/>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{marginTop:"30%"}}>
-                                <li><a className="dropdown-item " href="/edit-profile">Edit my profile</a>
+                                {/* <li><a className="dropdown-item " href="/edit-profile">Edit my profile</a>
                                 </li>
-                                
+                                <li><a className="dropdown-item " href="blog-details.html">Blog Details</a>
+                                </li>
+                                <li><a className="dropdown-item " href="service-details.html">Service Details</a>
+                                </li>
+                                <li><a className="dropdown-item " href="faq.html">FAQ&#39;s</a>
+                                </li>
+                                <li><a className="dropdown-item " href="legal.html">Legal</a>
+                                </li>
+                                <li><a className="dropdown-item " href="terms.html">Terms &amp; Condition</a>
+                                </li> */}
                                 <li><button className="btn btn-warning col-12 " style={{color:"white"}}   onClick={handleClick}  type="button" >Log out</button>
                                 </li>
                             </ul>
