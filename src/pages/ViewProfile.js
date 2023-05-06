@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
+import Loading from "../components/Common/Loading";
 
 const ViewProfil = () => {
     const navigate = useNavigate();
@@ -87,7 +88,7 @@ const ViewProfil = () => {
     }, [userName]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div><Loading/></div>;
     }
 
     return (

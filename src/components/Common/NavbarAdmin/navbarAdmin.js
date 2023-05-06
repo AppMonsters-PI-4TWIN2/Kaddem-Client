@@ -21,7 +21,7 @@ const NavbarAdmin = () => {
             <h3 style={{marginLeft:"2%",marginTop:"0.5%",fontSize:"250%"}}>Admin Panel</h3>
             <div className="container">
 
-                <a className="navbar-brand" href="index.html">
+                <a className="navbar-brand" href="/admin">
                     <img loading="prelaod" decoding="async" className="img-fluid" width="160" src="/images/logo.png"
                          alt="kaddem"/>
                 </a>

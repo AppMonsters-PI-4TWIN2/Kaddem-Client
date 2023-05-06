@@ -91,8 +91,8 @@ const ProjectCard= () => {
                 <div style={{marginTop:"2%"}}>
                 
                 {/* search */}
-                <div class="d-flex justify-content-center align-items-center">
-       <div class="search col-lg-4">
+                <div className="d-flex justify-content-center align-items-center">
+       <div className="search col-lg-4">
          <Form className="d-flex">
            <Form.Control
              type="search"
@@ -138,7 +138,21 @@ const ProjectCard= () => {
                                     <img src={curElem.Image.url|| "/images/no-image.png"} style={{ width: "150px", height: "150px" }} alt="" />
 
 
-                                    <div className="ProjectName">{curElem.ProjectName}</div>
+
+                                    {curElem.IsVerified === 1 ? (
+                                        <>
+                                            <div className="ProjectName">{curElem.ProjectName}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor" className="bi bi-check-circle-fill"
+                                                 viewBox="0 0 16 16" style={{color: "#3498db",marginLeft:"2%"}}>
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                            </svg>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <div className="ProjectName">{curElem.ProjectName}</div>
+                                    )}
                                     <div style={{overflow:"hidden",textOverflow:"ellipsis",display:"-webkit-box",WebkitBoxOrient: "vertical",WebkitLineClamp: "3", height: "4.5em",marginBottom:"2%"}}>{curElem.Description}</div>
 
 

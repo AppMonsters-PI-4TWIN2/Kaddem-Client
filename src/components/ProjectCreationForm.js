@@ -167,6 +167,7 @@ const ProjectCreationForm=()=>{
                                             </div>
                                             <div className={"input-group mb-4"}>
                                                 <select style={{color:"black"}} className="form-select" id="inputGroupSelect04" onChange={(event) => setStage(event.target.value)}>
+                                                    <option value="">-</option>
                                                     <option value="Idea Stage">Idea Stage</option>
                                                     <option value="Prototype Stage">Prototype Stage</option>
                                                     <option value="Development Stage">Development Stage</option>

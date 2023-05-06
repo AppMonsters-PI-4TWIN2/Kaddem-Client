@@ -18,6 +18,17 @@ const ShowAllProjects = () => {
                 console.log('Error deleting Project', error);
             });
     }
+    const OnVerify = (id__) => {
+        axios.patch(`/api/project/verify/${id__}`)
+            .then((response) => {
+                console.log('Project is now verified', response.data);
+
+            })
+            .catch((error) => {
+                console.log('Error verifying the project', error);
+            });
+    }
+
 
     const [projects, setProject] = useState([]);
     useEffect(()=>{
@@ -79,13 +90,14 @@ const ShowAllProjects = () => {
                                         <th style={{textAlign: "center", verticalAlign: "middle"}}  width="500%" scope="col">Project Location</th>
                                         {/* <th scope="col">Description</th> */}
                                         <th style={{textAlign: "center", verticalAlign: "middle"}} scope="col">Social</th>
-                                        <th style={{textAlign: "center", verticalAlign: "middle"}} scope="col">Actions</th>
+                                        <th style={{textAlign: "center", verticalAlign: "middle"}} scope="col">Verify</th>
+                                        <th style={{textAlign: "center", verticalAlign: "middle"}} scope="col">Delete</th>
 
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {
-                                        projects.map(({ProjectName,Creator,ProjectLocation,Description,Image,_id}) =>(
+                                        projects.map(({ProjectName,Creator,ProjectLocation,Description,Image,_id,IsVerified}) =>(
 
                                             <ProjectDetails  key={_id} ProjectName={ProjectName} Creator={Creator} ProjectLocation={ProjectLocation} Description={Description} Image={Image} id={_id} OnDelete={OnDelete} />
                                             
