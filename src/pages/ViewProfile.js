@@ -4,12 +4,67 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
+import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 
 const ViewProfil = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
+    const[reason,setReason]=useState('');
+    const[reported,setReporter]=useState('');
+    const[date,setDate]=useState('');
+    const[reportedBy,setReportee]=useState('')
+    
+    const[project,setProject]=useState('')
+    const[isTraited,setIsTraited]=useState(false)
     let { userName } = useParams();
+    const [selectedProject, setSelectedProject] = useState('');
+    const [Projects, setProjects] = useState([]);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    var thisUser = JSON.parse( localStorage.getItem('user') );
+    const userId = thisUser.id;
+    const addReport = async (reported, reportedBy, reason) => {
+        reported=thisUser.id
+          try {
+          const response = await axios.post('/report/add', {
+            reported,
+            reportedBy,
+            reason,
+            date:Date.now(),
+            isTraited,
+            project
+          });
+          return response.data;
+        } catch (error) {
+          console.error(error);
+          throw new Error(error.response.data.message || 'Failed to add investment');
+        }
+      };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault()
+        const token = localStorage.getItem('token');
+        setReporter(thisUser.id)
+        setReportee(user._id)
+        setDate(Date.now())
+            await addReport(reported, reportedBy, reason,date,isTraited,project, user.token)
+            handleClose()
+       // window.location.reload(true)
+
+    }
+    const fetchDataReport = async () => {
+
+        const response = await axios.get(`/api/project/projects/${userId}`)
+        setProjects(response.data)
+        console.log(response.data);
+
+    }
+    const handleSelect = (event) => {
+        const project = event.target.value;
+        setProject(project);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -18,6 +73,7 @@ const ViewProfil = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setUser(data);
+                  //  console.log(user._id)
                     setLoading(false);
                     console.log(data)
                 }
@@ -27,6 +83,7 @@ const ViewProfil = () => {
             }
         };
         fetchData();
+        fetchDataReport()
     }, [userName]);
 
     if (loading) {
@@ -44,9 +101,12 @@ const ViewProfil = () => {
 
                     <img style={{borderRadius: "25%",marginLeft:"15%",position:"static"}} loading="prelaod" decoding="async" className="img-fluid" height="175" width="175" src={user.avatar}/>
 
-                    <h1 style={{textAlign:"center",position:"relative",marginTop:"-7%"}}>{user.userName}</h1>
+                    <h1 style={{textAlign:"center",position:"relative",marginTop:"-7%"}}>{user.userName}
+                  {thisUser  &&  <button className=" btn-danger " style={{ fontSize:" 0.4em"}}  onClick={handleShow} >report</button>}
+                    </h1>
                     <div style={{textAlign:"center",display: "flex",justifyContent: "center", alignItems: "center",marginTop:"1%"}} >
                         <button className="btn btn-primary col-lg-1 align-content-sm-start" onClick={() => navigate(`/chat`)}  >Chat</button>
+                       
                      
                     </div>
                 </section>
@@ -77,6 +137,59 @@ const ViewProfil = () => {
                 </section>
 
             </div>
+
+               
+            <Modal  show={show} onHide={handleClose}>
+                                      <Modal.Header style={{backgroundColor: '#198754', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
+  <Modal.Title >
+  <img style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} loading="prelaod" decoding="async" className="img-fluid" width="160" src=""
+    alt="Kaddem"  />
+    </Modal.Title>
+  
+</Modal.Header>
+
+                                      <Modal.Body   >
+                                      <p style={{color:'black' , fontWeight: 'bold', fontSize: '24px', textAlign: 'center'}} >
+                                      Report  {user.userName}</p>
+                                                      <form className="create" onSubmit={handleSubmit}>
+
+                                            <div className="form-group mb-4 pb-2">
+                                                <label htmlFor="exampleFormControlInput1" className="form-label" style={{fontSize: '16px' ,color:'black'}}>  Reason  :</label>
+                                                <input style={{color :'#343a40'}} 
+                                                     
+                                                     className="form-control shadow-none"
+                                                       type="text"
+                                                     
+                                                       onChange={(e)=>setReason(e.target.value)}
+                                                       list="suggestions"
+                                                       />
+                                                       <datalist id="suggestions">
+                                                         <option value="Offensive language" />
+                                                         <option value="Inappropriate behavior" />
+                                                         
+                                                       </datalist>
+
+           <select value={project} onChange={handleSelect}>
+                    <option value="">Select a project</option>
+                    {Projects.map((project) => (
+                        <option key={project._id} value={project._id}>
+                            {project.ProjectName}
+                        </option>
+                    ))}
+                   
+                </select>
+             
+                                                
+                                            </div>
+
+                                            <div className={" col-12"}>
+                                                <button style={{color:'black'}} className="btn btn-primary col-12" >Report</button>
+                                                {/* {error && <div className="error">{error}</div>} */}
+                                            </div>
+                                        </form>
+                                        </Modal.Body>
+                                      
+                                           </Modal>
             <Footer />
         </div>
     );

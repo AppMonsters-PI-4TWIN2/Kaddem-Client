@@ -57,16 +57,14 @@ const[message,setMessage]=useState("") ;
    }}
 
    const fetchData = async () => {
-    const token = localStorage.getItem('token'); // Récupère le token stocké dans le local storage du navigateur
-
+      
     const response = await axios.get('/list/users', {
-        headers: {'Authorization': `Bearer ${user.token}`},
-    })
-    setUsers(response.data)
-    console.log(response.data);
+         headers: {'Authorization': `Bearer ${user.token}`},
+     })
+     setUsers(response.data)
+     console.log(response.data);
 
-  }
-
+   }
 /* find all users */
  useEffect(()=>{
     const fetchData = async () => {
@@ -81,6 +79,20 @@ const[message,setMessage]=useState("") ;
     fetchData()
   },[])
 
+    const searchHandle = async (event)=>{
+        let key = event.target.value ;
+        if(key){
+        let result = await fetch(`/list/search/${key}`, {
+          headers: {'Authorization': `Bearer ${user.token}`},
+      })
+        result = await result.json()
+        if (Array.isArray(result)) { // check if result is an array
+            setUsers(result);
+          }
+    }else{
+        fetchData();
+    }
+    }
 
    // const {user} = useAuthContext()
     return (
@@ -88,41 +100,7 @@ const[message,setMessage]=useState("") ;
           
        <NavbarAdmin/>
        <Alert message={message} show={show}/>
-            {/*
-       <div className="row">
-       <div  className="col  align-self-start">
-       </div>
-       <div  className="col align-self-center">
-  <table className="table table-hover " style={{color: '#2F4F4F '}} >
-  <thead className="thead-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">email</th>
-      <th scope="col">password</th>
-      <th scope="col">role</th>
-     
-      <th scope="col">status</th>
-      <th scope="col">created</th>
-      <th scope="col">Banned</th>
-     <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-{
-    users.map(({email,password,role,created,status,isBanned,_id}) =>(
-     
-        <RowDetails key={_id} email={email} password={password} role={role} status={status} isBanned={isBanned} created ={created} id={_id} OnDelete={OnDelete} OnBan={OnBan} fetchData={fetchData}/>
-    
-    ))
-}
-  </tbody>
-</table>
-</div>
-<div className="col align-self-end"></div>
-</div>
-
-         </div>
-*/}
+ 
             <div className="container">
 
                 <div className="col-8 mx-auto text-center" style={{marginTop:"10%"}}>
@@ -137,7 +115,7 @@ const[message,setMessage]=useState("") ;
                         placeholder="Search"
                         className="me-2"
                         aria-label="Search"
-
+                        onChange={searchHandle}
                     />
                     <Button variant="success" className='btn-dark' style={{backgroundColor:"1E1E2C"}} >Search</Button>
                 </Form>
@@ -151,6 +129,7 @@ const[message,setMessage]=useState("") ;
                                     <thead className="thead-light" style={{backgroundColor:"f4f5f7",color:"black",fontSize: "1.2em", padding: "20px"}}>
                                     <tr>
                                         {/* <th style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">#</th>*/}
+                                        <th  style={{textAlign: "center", verticalAlign: "middle"}}  scope="col">userName</th>
                                         <th  style={{textAlign: "center", verticalAlign: "middle"}}  scope="col">email</th>
                                         <th  style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">role</th>
                                         <th  style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">status</th>
@@ -161,9 +140,10 @@ const[message,setMessage]=useState("") ;
                                     </thead>
                                     <tbody>
                                     {
-                                        users.map(({email,password,role,created,status,isBanned,_id}) =>(
+                                        users.map(({email,password,role,created,status,isBanned,_id,userName}) =>(
 
-                                            <RowDetails key={_id} email={email} password={password} role={role} status={status} isBanned={isBanned} created ={created} id={_id} OnDelete={OnDelete} OnBan={OnBan} fetchData={fetchData}/>
+                                            <RowDetails key={_id} userName={userName} email={email} password={password} role={role} status={status} isBanned={isBanned} created ={created} id={_id} OnDelete={OnDelete} OnBan={OnBan} fetchData={fetchData}/>
+                                            
 
                                         ))
                                     }
