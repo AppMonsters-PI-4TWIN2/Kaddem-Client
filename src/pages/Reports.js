@@ -28,7 +28,7 @@ function Reports() {
 
             </div>
             <div className="search col-lg-4 " style={{margin: "0 auto"}}>
-                <Form className="d-flex">
+                {/* <Form className="d-flex">
                     <Form.Control
                         type="search"
                         placeholder="Search"
@@ -37,7 +37,7 @@ function Reports() {
                        // onChange={searchHandle}
                     />
                     <Button variant="success" className='btn-dark' style={{backgroundColor:"1E1E2C"}} >Search</Button>
-                </Form>
+                </Form> */}
             </div>
             <div className="section">
                 <div className="container">
@@ -52,7 +52,7 @@ function Reports() {
                                         <th style={{textAlign: "center", verticalAlign: "middle"}} width="30%" scope="col">reported By </th>
                                         <th style={{textAlign: "center", verticalAlign: "middle"}}  width="500%" scope="col">Reason</th>
                                         <th style={{textAlign: "center", verticalAlign: "middle"}}  width="500%" scope="col">Date</th>
-                                        <th style={{textAlign: "center", verticalAlign: "middle"}}  width="500%" scope="col">Project</th>
+                                        {/* <th style={{textAlign: "center", verticalAlign: "middle"}}  width="500%" scope="col">Project</th> */}
                                         <th style={{textAlign: "center", verticalAlign: "middle"}}  width="500%" scope="col">State</th>
                                     </tr>
                                     </thead>
@@ -61,6 +61,7 @@ function Reports() {
                                         report.map(({reported,reportedBy,reason,date,project,isTraited,_id}) =>(
 
                                             <ReportDetails  key={_id} reported={reported} reportedBy={reportedBy} reason={reason} date={date} isTraited={isTraited} project={project} id={_id}  />
+
                                             
 
 

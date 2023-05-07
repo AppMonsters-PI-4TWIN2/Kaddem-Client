@@ -60,18 +60,6 @@ setCount(count+1)
         <Navbar />
 
 	
-		<div className="search col-lg-4">
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                 onChange={searchHandle}
-                />
-                <Button variant="success" className='search_btn'>Search</Button>
-              </Form>
-            </div>
     <section class="section core-value bg-tertiary">
 	<div class="container">
 		<div class="row align-items-center">

@@ -24,7 +24,6 @@ function MyInvestmentDetails({id,montant,idUser,idProject,isValid,fetchData}) {
   var user = JSON.parse( localStorage.getItem('user') );
  const [project,setproject]=useState(null);
  const [idP,setIdP]=useState(null)
- const [fullName,setFullName]=useState(null);
 
  async function fetchProject() {
   const response = await fetch(`/api/project/name/${idProject}`);
@@ -32,23 +31,17 @@ function MyInvestmentDetails({id,montant,idUser,idProject,isValid,fetchData}) {
   setproject(data)
 } 
 
-async function fetchUser() {
-  const response = await fetch(`/api/user/byid/${idUser}`);
-  const data = await response.json();
-  setFullName(data)
-}
+
 
 useEffect (() => {
-fetchUser();
+//fetchUser();
    
   fetchProject()
 },[id])
 if (!project) {
   return null;
 }
-if (!fullName) {
-  return null;
-}
+
 const name = project.projectName ? `${project.projectName} ${user.Category}` :montant ;
 
 //delete

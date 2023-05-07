@@ -45,7 +45,7 @@ const ShowAllProjects = () => {
     const searchHandle = async (event)=>{
         let key = event.target.value ;
         if(key){
-        let result = await fetch(`/api/project/searchBack/${key}`)
+        let result = await fetch(`/api/project/search/${key}`)
         result = await result.json()
         if(result){
             setProject(result);
@@ -99,7 +99,7 @@ const ShowAllProjects = () => {
                                     {
                                         projects.map(({ProjectName,Creator,ProjectLocation,Description,Image,_id,IsVerified}) =>(
 
-                                            <ProjectDetails  key={_id} ProjectName={ProjectName} Creator={Creator} ProjectLocation={ProjectLocation} Description={Description} Image={Image} id={_id} OnDelete={OnDelete} />
+                                            <ProjectDetails  key={_id} ProjectName={ProjectName} Creator={Creator} ProjectLocation={ProjectLocation} Description={Description} Image={Image} id={_id} OnVerify={OnVerify} IsVerified={IsVerified} OnDelete={OnDelete} />
                                             
                                             
 

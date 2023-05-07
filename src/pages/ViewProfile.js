@@ -12,9 +12,9 @@ const ViewProfil = () => {
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
     const[reason,setReason]=useState('');
-    const[reported,setReporter]=useState('');
+    const[reported,setReported]=useState('');
     const[date,setDate]=useState('');
-    const[reportedBy,setReportee]=useState('')
+    const[reportedBy,setReportedBy]=useState('')
     
     const[project,setProject]=useState('')
     const[isTraited,setIsTraited]=useState(false)
@@ -27,7 +27,7 @@ const ViewProfil = () => {
     var thisUser = JSON.parse( localStorage.getItem('user') );
     const userId = thisUser.id;
     const addReport = async (reported, reportedBy, reason) => {
-        reported=thisUser.id
+       // reported=thisUser.id
           try {
           const response = await axios.post('/report/add', {
             reported,
@@ -47,10 +47,13 @@ const ViewProfil = () => {
       const handleSubmit = async (e) => {
         e.preventDefault()
         const token = localStorage.getItem('token');
-        setReporter(thisUser.id)
-        setReportee(user._id)
+        console.log("aa")
+        console.log(thisUser.id)
+        console.log(user._id)
+        setReported(user._id)
+        setReportedBy(thisUser.id)
         setDate(Date.now())
-            await addReport(reported, reportedBy, reason,date,isTraited,project, user.token)
+            await addReport(user._id, thisUser.id, reason,date,isTraited,project, user.token)
             handleClose()
        // window.location.reload(true)
 
@@ -74,7 +77,7 @@ const ViewProfil = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setUser(data);
-                  //  console.log(user._id)
+                  console.log(user.id)
                     setLoading(false);
                     console.log(data)
                 }
@@ -141,13 +144,13 @@ const ViewProfil = () => {
 
                
             <Modal  show={show} onHide={handleClose}>
-                                      <Modal.Header style={{backgroundColor: '#198754', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
+                                      {/* <Modal.Header style={{backgroundColor: '#198754', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
   <Modal.Title >
   <img style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} loading="prelaod" decoding="async" className="img-fluid" width="160" src=""
     alt="Kaddem"  />
     </Modal.Title>
   
-</Modal.Header>
+</Modal.Header> */}
 
                                       <Modal.Body   >
                                       <p style={{color:'black' , fontWeight: 'bold', fontSize: '24px', textAlign: 'center'}} >
@@ -170,7 +173,7 @@ const ViewProfil = () => {
                                                          
                                                        </datalist>
 
-           <select value={project} onChange={handleSelect}>
+           {/* <select value={project} onChange={handleSelect}>
                     <option value="">Select a project</option>
                     {Projects.map((project) => (
                         <option key={project._id} value={project._id}>
@@ -178,13 +181,13 @@ const ViewProfil = () => {
                         </option>
                     ))}
                    
-                </select>
+                </select> */}
              
                                                 
                                             </div>
 
                                             <div className={" col-12"}>
-                                                <button style={{color:'black'}} className="btn btn-primary col-12" >Report</button>
+                                                <button style={{color:'white'}} className="btn btn-danger col-12" >Report</button>
                                                 {/* {error && <div className="error">{error}</div>} */}
                                             </div>
                                         </form>

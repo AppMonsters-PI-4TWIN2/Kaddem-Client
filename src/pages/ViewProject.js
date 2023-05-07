@@ -8,10 +8,10 @@ import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 
 const ViewProject = () => {
 
+    const [Invest, setInvest] = useState({});
     const [Project, setProject] = useState({});
  const navigate = useNavigate();
-
-
+const [idP,setIdP] =useState('');
     const percentageAchieved=(Project.AmountAlreadyRaised*100/Project.FundingGoal).toFixed(2)
    const [loading, setLoading] = useState(true);
     let { ProjectName } = useParams();
@@ -28,24 +28,45 @@ const ViewProject = () => {
   const [idUser,setIdUser] =useState('') ;
 const [idProject ,setIdProject] = useState('')
   var user = JSON.parse( localStorage.getItem('user') );
+  
   const addInvestment = async (idUser, idProject, montant, token) => {
-   
+    console.log(idProject)
+    idUser=user.id;
       try {
       const response = await axios.post('/investment/add', {
         idUser,
         idProject,
         montant,
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      }
+      );
       return response.data;
     } catch (error) {
       console.error(error);
       throw new Error(error.response.data.message || 'Failed to add investment');
     }
   };
+
+  const fetchInvest = async (idP) => {
+    try {
+        const response = await fetch(`/investment/findById/${Project._id}`);
+    
+        console.log(Project._id)
+        if (response.ok) {
+            const data = await response.json();
+            setInvest(data);
+            setLoading(false);
+            console.log(data)
+        }
+        
+    } catch (error) {
+        console.error(error);
+        setLoading(false);
+    }
+  }
+  useEffect(()=>{
+
+    fetchInvest()
+  },[idProject])
   useEffect(() => {
         const fetchData = async () => {
             try {
@@ -53,6 +74,7 @@ const [idProject ,setIdProject] = useState('')
                 if (response.ok) {
                     const data = await response.json();
                     setProject(data);
+                    console.log(Project._id)
                     setIdProject(Project._id)
                     setLoading(false);
                     console.log(data)
@@ -62,8 +84,11 @@ const [idProject ,setIdProject] = useState('')
                 setLoading(false);
             }
         };
+      
+        console.log(Invest)
         fetchData();
     }, [ProjectName]);
+
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -154,7 +179,23 @@ const [idProject ,setIdProject] = useState('')
                                                 </Button>
                                             ) : (
 
-                                                <div style={{fontWeight: "bold ", textDecoration: "underline"}}>it's your project</div>
+                                                <div style={{fontWeight: "bold ", textDecoration: "underline"}}>Investments List : 
+                                                
+                                             
+      <ul> 
+      {Array.isArray(Invest) &&
+          Invest.map((investment) => ( 
+            <li key={investment._id}>
+            <p className="list-inline-item">Investor : <a href={`/user/${investment.idUser.userName}`} className="ml-1">{investment.idUser.userName}</a></p>
+             
+             <p className="list-inline-item">( {investment.montant} $)</p> <td></td>
+          
+            </li>
+          ))}
+      </ul>
+                                                
+                                                </div>
+
 
                                             )
                                         ) : (

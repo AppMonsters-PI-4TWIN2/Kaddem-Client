@@ -23,12 +23,16 @@ const handleToggleBanned = () => {
     <td style={{textAlign: "center", verticalAlign: "middle"}}>{reportedBy.userName}</td>
     <td style={{textAlign: "center", verticalAlign: "middle"}}>{reason}</td>
     <td style={{textAlign: "center", verticalAlign: "middle"}}>{new Date(date).toLocaleString()}</td>
-    <td style={{textAlign: "center", verticalAlign: "middle"}}>{project.ProjectName}</td>
+    {/* <td style={{textAlign: "center", verticalAlign: "middle"}}>{project.ProjectName}</td> */}
     <td style={{textAlign: "center", verticalAlign: "middle"}}>
       {/* {isTraited ? 'traité' : 'non traité'} */}
+   {!isReportTraited && 
     <button style={{ fontSize: '12px !important' }}  className={`btn btn-${isReportTraited ? 'dark' : 'danger'}`} onClick={handleToggleBanned}>
           {isReportTraited ? 'Traited' : 'Not Traited'}
-        </button>
+        </button>}
+        {isReportTraited &&
+ <td style={{textAlign: "center", verticalAlign: "middle"}}>Traited</td>
+        }
         </td>
   
     </tr>
