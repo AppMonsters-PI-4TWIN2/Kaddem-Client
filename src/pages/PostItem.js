@@ -7,14 +7,14 @@ import heartIcon from '../styles/heartIcon.png';
 
 
 const Post = ({
-  post,
-  user,
-  handleCommentSubmit,
-  setContent,
-  setPostId,
-  isLoading,
-  error,
-}) => {
+                post,
+                user,
+                handleCommentSubmit,
+                setContent,
+                setPostId,
+                isLoading,
+                error,
+              }) => {
   const [comments, setComments] = useState({});
   const [displayComments, setDisplayComments] = useState(false);
 
@@ -34,78 +34,87 @@ const Post = ({
     }
   };
 
-  
+
 
   useEffect(() => {
     fetchComment(post._id);
   }, [post._id, user.token]);
 
   return (
-    <div key={post._id} className={styles.post}>
-      <div className={styles.postWrapper}>
-        <div className={styles.postTop}>
-          <div className={styles.postTopLeft}>
-            <img className={styles.postProfileImg} src={profilePicture} alt="" />
-            <span className={styles.postUsername}>{post.owner.userName}</span>
-          </div>
-          <div className={styles.postTopRight}>{/* <MoreVert />  */}</div>
-        </div>
-        <div className={styles.postCenter}>
-          <span className={styles.postText}>{post.caption}</span>
-          <img className={styles.postImage} src={post.image} alt="" />
-        </div>
-        <div className={styles.postBottom}>
-          <div className={styles.postBottomLeft}>
-            <img className={styles.likeIcon} src={likeIcon} alt="" />
-            <img className={styles.likeIcon} src={heartIcon} alt="" />
-          </div>
-          <div className={styles.postBottomRight}>
+      <div className="row">
+        <div className="col-12 col-md-5 mx-auto shadow p-3 mb-5 bg-body rounded">
+
+          <div key={post._id} >
+            <div className={styles.postWrapper}>
+              <div >
+                <div >
+                  {post.project.Image ? (
+                      <img style={{width:"60px",height:"60px"}} className={styles.postProfileImg} src={post.project.Image.url} alt="" />
+                  ) : (
+                      <img style={{width:"60px",height:"60px"}} className={styles.postProfileImg} src={profilePicture} alt="" />
+                  )}
+                  <span className={styles.postUsername} style={{fontSize:"21px" ,color:"black"}}>{post.project.ProjectName}</span>
+                </div>
+                <div className={styles.postTopRight}>{/* <MoreVert />  */}</div>
+              </div>
+              <div className={styles.postCenter}>
+                <span className={styles.postText}>{post.caption}</span>
+                <img className={styles.postImage} src={post.image} alt="" />
+              </div>
+              <div className={styles.postBottom}>
+                <div className={styles.postBottomLeft}>
+                  <img className={styles.likeIcon} src={likeIcon} alt="" />
+                  <img className={styles.likeIcon} src={heartIcon} alt="" />
+                </div>
+                <div className={styles.postBottomRight}>
             <span
-              onClick={() => setDisplayComments((prevState) => !prevState)}
-              className={styles.showCommentsText}
+                onClick={() => setDisplayComments((prevState) => !prevState)}
+                className={styles.showCommentsText}
             >
               Show Comments
             </span>
+                </div>
+              </div>
+            </div>
+            <form
+                onSubmit={handleCommentSubmit}
+                className={`${styles.postTop} ${styles.commentForm}`}
+            >
+        <textarea
+            className={styles.commentInput}
+            rows="1"
+            placeholder="Add a comment..."
+            type="text"
+            name="content"
+            onChange={(e) => {
+              setPostId(post._id), setContent(e.target.value);
+            }}
+        />
+              <button type="submit" className={`${styles.commentButton} btn btn-outline-primary ms-6`}>
+                Comment
+              </button>
+              {isLoading && <p>Loading...</p>}
+              {error && <p>{error}</p>}
+            </form>
+            {displayComments &&
+                (comments[post._id] || []).map((comment) => (
+                    <div key={comment._id} className={styles.commentCard}>
+                      <img
+                          className={styles.commentProfileImg}
+                          src={profilePicture}
+                          alt=""
+                      />
+                      <div className={styles.commentInfoCard}>
+                        <div className={styles.commentInfo}>
+                          <span className={styles.commentUsername}>{comment.owner.userName}</span>
+                          <span className={styles.commentContent}>{comment.content}</span>
+                        </div>
+                      </div>
+                    </div>
+                ))}
           </div>
         </div>
       </div>
-      <form
-        onSubmit={handleCommentSubmit}
-        className={`${styles.postTop} ${styles.commentForm}`}
-      >
-        <textarea
-          className={styles.commentInput}
-          rows="1"
-          placeholder="Add a comment..."
-          type="text"
-          name="content"
-          onChange={(e) => {
-            setPostId(post._id), setContent(e.target.value);
-          }}
-        />
-        <button type="submit" className={`${styles.commentButton} btn btn-outline-primary ms-6`}>
-          Comment
-        </button>
-        {isLoading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-      </form>
-      {displayComments &&
-  (comments[post._id] || []).map((comment) => (
-    <div key={comment._id} className={styles.commentCard}>
-      <img
-        className={styles.commentProfileImg}
-        src={profilePicture}
-        alt=""
-      />
-      <div className={styles.commentInfoCard}>
-        <div className={styles.commentInfo}>
-          <span className={styles.commentUsername}>{comment.owner.userName}</span>
-          <span className={styles.commentContent}>{comment.content}</span>
-        </div>
-      </div>
-    </div>
-  ))}
-    </div>
   );
 };
 

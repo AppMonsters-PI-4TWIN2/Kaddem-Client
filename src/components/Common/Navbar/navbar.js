@@ -8,7 +8,7 @@ const Navbar = () => {
     const { user } = useAuthContext()
     var LoggedInUser = JSON.parse( localStorage.getItem('user') );
     const navigate=useNavigate()  ;
-  
+
     const handleClick = () => {
         logout()
         navigate("/")
@@ -37,17 +37,24 @@ const Navbar = () => {
                                 <>
                                     <li className="nav-item "><a className="nav-link" href="/feed">my Feed</a>
                                     </li>
-                            <li className="nav-item "><a className="nav-link" href="/investment">investments</a>
+                                    <li className="nav-item dropdown"><a className="nav-link dropdown-toggle"
 
-                            </li>
-                            <li className="nav-item "><a className="nav-link" href="/myInvestment">my Investments</a>
-                            </li>
-                           
-                             <li className="nav-item "><a className="nav-link" href="/chat">Chat </a>
-                            </li>
+
+                                    >Dashboard</a>
+                                        <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><a className="dropdown-item " href="/dashboard-project-creator">For project creators</a>
+                                            </li>
+                                            <li><a className="dropdown-item " href="/dashboard-investor">For investors</a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+                                    <li className="nav-item "><a className="nav-link" href="/chat">Chat </a>
+                                    </li>
                                 </>}
-                           
-                          
+
+
                         </ul>
                         {user && (
                             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
@@ -56,21 +63,21 @@ const Navbar = () => {
                                 </li>
                                 <li className="nav-item dropdown" >
 
-                                <img src={LoggedInUser.avatar}  loading="prelaod" decoding="async"  className="profile img-fluid"  height="55" width="55" style={{borderRadius: "25%"}}/>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{marginTop:"30%",textAlign:"center"}}>
+                                    <img src={LoggedInUser.avatar}  loading="prelaod" decoding="async"  className="profile img-fluid"  height="55" width="55" style={{borderRadius: "25%"}}/>
+                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{marginTop:"30%",textAlign:"center"}}>
 
 
-                                    <li><a className="dropdown-item " href="/edit-profile">Edit my profile</a>
-                                    </li>
-                                    <li><a className="dropdown-item " href={'/user/' + LoggedInUser.userName}>See my profile</a>
-                                    </li>
-                                    <li><a className="dropdown-item " href="service-details.html">Settings</a>
-                                    </li>
+                                        <li><a className="dropdown-item " href="/edit-profile">Edit my profile</a>
+                                        </li>
+                                        <li><a className="dropdown-item " href={'/user/' + LoggedInUser.userName}>See my profile</a>
+                                        </li>
+                                        <li><a className="dropdown-item " href="service-details.html">Settings</a>
+                                        </li>
 
-                                    <li><button className="btn btn-warning col-12 " style={{color:"white"}}   onClick={handleClick}  type="button" >Log out</button>
-                                    </li>
-                                </ul>
-                            </li>
+                                        <li><button className="btn btn-warning col-12 " style={{color:"white"}}   onClick={handleClick}  type="button" >Log out</button>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         )}
 

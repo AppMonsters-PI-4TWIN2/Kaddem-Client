@@ -93,10 +93,10 @@ const ProjectCreationForm=()=>{
                 setError("The amount already raised can not be a negative number");
                 return;
             }
-            if (AmountAlreadyRaised > FundingGoal) {
+           /* if (AmountAlreadyRaised > FundingGoal) {
                 setError("The amount already raised can not be higher than the funding goal");
                 return;
-            }
+            }*/
 
                 await addProject( ProjectName, Description, DetailedDescription,Team,LegalConsiderations,AmountAlreadyRaised,Category,ImpactOrGoal,FundingGoal,ProjectLocation,FundingModel,Website,FundingDeadline,Creator,Stage,Image)
 

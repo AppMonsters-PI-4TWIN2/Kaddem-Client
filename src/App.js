@@ -62,9 +62,9 @@ function App() {
               <Route path="/feed" element={<Feed />}/>
               <Route path="/user/:userName" element={<ViewProfile />} />
 
-           <Route path="/investment" element={<Investment/>}></Route>
+                <Route path="/dashboard-project-creator" element={<Investment/>}></Route>
 
-           <Route path="/myInvestment" element={<MyInvest/>}></Route>
+                <Route path="/dashboard-investor" element={<MyInvest/>}></Route>
               <Route path="/new-project" element={<NewProject />}/>
               <Route path="/edit-project/:ProjectName" element={<EditProject />}/>
               <Route path="/project/:ProjectName" element={<ViewProject />}/>

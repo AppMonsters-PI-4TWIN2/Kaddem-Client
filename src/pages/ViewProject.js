@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import BreadcrumbShapes from "../components/Common/BreadcrumbShapes";
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
+import Loading from "../components/Common/Loading";
 
 const ViewProject = () => {
 
@@ -109,7 +110,7 @@ const [idProject ,setIdProject] = useState('')
         }
     }, [Project.Creator]);
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading/>;
     }
 
     
