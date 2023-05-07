@@ -15,7 +15,7 @@ import Post from "./PostItem.js"
 
 const Feed =(props) => {
 
-    const [error, setError] = useState(null);
+    const [error, setError] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [posts, setPosts] = useState([]);
     const [post, setPost] = useState([]);
@@ -54,6 +54,18 @@ const Feed =(props) => {
         var formData = new FormData(event.target);
         formData.append('owner', owner);
         formData.append('project',selectedProject)
+        const selectedProjectValue = formData.get('project');
+        const imageFile = formData.get('image');
+        const captionValue = formData.get('caption');
+      
+        // Input validation
+        if (!selectedProjectValue || !imageFile || !captionValue) {
+          setError(
+            "You must complete all the required inputs"
+        );
+          return;
+        }
+      
 
         await OnAddPost(formData);
     };
@@ -173,8 +185,9 @@ const Feed =(props) => {
                         {/* <input type="file"  name="image" /> */}
                         <button type="submit" style={{float:"right"}} className="btn btn-sm btn-primary ms-1 ">Create Post</button>
                         {isLoading && <p>Loading...</p>}
-                        {error && <p>{error}</p>}
+                        {error    && <div  className="notices info" style={{textAlign:"center", backgroundColor:"#ff6b6b",opacity:"0.6",color:"white",borderRadius: "30px",marginTop:"3%"}}> <p>{error}</p></div>}
                     </form>
+
                 </div>
             </div>
             <div className={styled.feedWrapper}>
