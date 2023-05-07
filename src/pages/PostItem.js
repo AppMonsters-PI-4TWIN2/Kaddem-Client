@@ -3,7 +3,9 @@ import axios from 'axios';
 import styles from '../styles/post.module.css';
 import profilePicture from '../styles/blank-profile-picture.png';
 import likeIcon from '../styles/likeIcon.png';
-import heartIcon from '../styles/heartIcon.png';
+import { Modal } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Post = ({
@@ -17,6 +19,7 @@ const Post = ({
               }) => {
   const [comments, setComments] = useState({});
   const [displayComments, setDisplayComments] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const fetchComment = async (postId) => {
     try {
@@ -39,6 +42,28 @@ const Post = ({
   useEffect(() => {
     fetchComment(post._id);
   }, [post._id, user.token]);
+
+  const likePost = async (postId) => {
+    try {
+      const response = await axios.post('/post/likePost', {token: user.token,
+        id: postId }, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`,
+        },
+    });
+    toast.success('Post liked! Thank you for your support!');
+  
+      // Update the post data in the front-end after liking/unliking
+      // const updatedPost = response.data;
+      // const updatedPosts = posts.map((post) =>
+      //   post._id === updatedPost._id ? updatedPost : post
+      // );
+      // setPosts(updatedPosts);
+    } catch (error) {
+      console.error('Error liking post:', error);
+    }
+  };
 
   return (
       <div className="row">
@@ -63,8 +88,7 @@ const Post = ({
               </div>
               <div className={styles.postBottom}>
                 <div className={styles.postBottomLeft}>
-                  <img className={styles.likeIcon} src={likeIcon} alt="" />
-                  <img className={styles.likeIcon} src={heartIcon} alt="" />
+                  <img className={styles.likeIcon} src={likeIcon} alt="" onClick={() => likePost(post._id)}/>
                 </div>
                 <div className={styles.postBottomRight}>
             <span
@@ -114,6 +138,10 @@ const Post = ({
                 ))}
           </div>
         </div>
+        <div>
+  {/* Your other components */}
+  <ToastContainer />
+</div>
       </div>
   );
 };
