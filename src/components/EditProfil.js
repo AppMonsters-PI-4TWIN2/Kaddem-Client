@@ -1,119 +1,197 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
+import {useEffect, useState} from "react";
+import {useEditProfil} from "../hooks/useEditProfil";
+import Loading from "./Common/Loading";
 
 
-
-function MyInvestmentDetails({id,montant,idUser,idProject,isValid,fetchData}) {
-    const [isInvestmentValid, setInvestmentValid] = useState(isValid);
-    var user = JSON.parse( localStorage.getItem('user') );
-    const  handleToggleValid =() => {
-        var user = JSON.parse( localStorage.getItem('user') );
-        axios.put(`/investment/valid/${id}`, { isValid: !isInvestmentValid }, {
-            headers: {
-                Authorization: `Bearer ${user.token}`
+const EditProfilForm=()=>{
+    var LoggedInUser = JSON.parse( localStorage.getItem('user') );
+    const emailLoggedin=localStorage.getItem("email")
+    const [User,setUser]=useState("")
+    const [firstName,setFirstName]=useState("")
+    const [userName,setUserName]=useState("")
+    const [lastName,setLastName]=useState("")
+    const [region,setRegion]=useState("")
+    const [country,setCountry]=useState("")
+    const [email,setEmail]=useState("")
+    const [aboutMe,setAboutMe]=useState("")
+    const [phoneNumber,setPhoneNumber]=useState("")
+    const [avatar,setAvatar]=useState("")
+    const {editProfil, error, isLoading} = useEditProfil()
+    const [formError, setFormError] = useState(null)
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`/api/user/findById/${LoggedInUser.id}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setUser(data);
+                    setFirstName(data.firstName)
+                    setLastName(data.lastName)
+                    setUserName(data.userName)
+                    setRegion(data.region)
+                    setCountry(data.country)
+                    setEmail(data.email)
+                    setAboutMe(data.aboutMe)
+                    setPhoneNumber(data.phoneNumber)
+                    setAvatar(data.avatar)
+                    console.log(data)
+                }
+            } catch (error) {
+                console.error(error);
             }
-        })
-            .then(() => setInvestmentValid(!isInvestmentValid))
-            .catch(err => console.log(err));
-    }
-    //modal
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    var user = JSON.parse( localStorage.getItem('user') );
-    const [project,setproject]=useState(null);
-    const [idP,setIdP]=useState(null)
-    const [fullName,setFullName]=useState(null);
+        };
+        fetchData();
+    }, [LoggedInUser.id]);
 
-    async function fetchProject() {
-        const response = await fetch(`/api/project/name/${idProject}`);
-        const data = await response.json();
-        setproject(data)
-    }
 
-    async function fetchUser() {
-        const response = await fetch(`/api/user/byid/${idUser}`);
-        const data = await response.json();
-        setFullName(data)
-    }
-
-    useEffect (() => {
-        fetchUser();
-
-        fetchProject()
-    },[id])
-    if (!project) {
-        return null;
-    }
-    if (!fullName) {
-        return null;
-    }
-    const name = project.projectName ? `${project.projectName} ${user.Category}` :montant ;
-
-//delete
-    const OnDelete = (id__) => {
-        axios.delete(`/investment/delete/${id__}`, {
-            headers: {
-                Authorization: `Bearer ${user.token}`
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        if (
+            userName !== '' &&
+            firstName !== '' &&
+            lastName !== '' &&
+            aboutMe !== '' &&
+            phoneNumber !== '' &&
+            country !== ''
+        ){
+            if (userName.length > 20) {
+                setFormError("The user name should not exceed a maximum length of 20 characters");
+                return;
             }
-        })
-            .then((response) => {
-                console.log('User deleted successfully', response.data);
-                // do something else, such as update the UI
-            })
-            .catch((error) => {
-                console.log('Error deleting user', error);
-                // handle the error, such as displaying an error message to the user
-            });
+            if (firstName.length > 20) {
+                setFormError("The first name should not exceed a maximum length of 20 characters");
+                return;
+            }
+            if (lastName.length > 20) {
+                setFormError("The last name should not exceed a maximum length of 20 characters");
+                return;
+            }
+            if (country.length > 20) {
+                setFormError("The country name should not exceed a maximum length of 20 characters");
+                return;
+            }
+            if (!/^\+?\d+$/.test(phoneNumber)) {
+                // phoneNumber contains at least one non-numeric character or does not start with a plus sign followed by numeric characters
+                setFormError("The phone number should consist of only numeric characters and can only contain a + sign in the beginning (optional)");
+                return;
+            }
+            await editProfil(email,firstName,lastName,aboutMe,avatar,region,country,phoneNumber,userName)
+            window.location.href = '/';
+        }else {
+            setFormError("You must complete all the required inputs");
+            return
+        }
+
+
     }
-    return (
 
-        <>
+    return(
+        <section className="section">
+            <div className="container">
+                <div className="row justify-content-center align-items-center">
+                    <div className="col-lg-6">
+                        <div className="section-title text-center">
+                            <p className="text-primary text-uppercase fw-bold mb-3">Edit Information</p>
+                            <h1>General Information</h1>
+                            <p>In this section you will provide detailed information  </p>
+                        </div>
+                    </div>
+                    <div className="col-lg-10">
+                        <div className="shadow rounded p-5 bg-white">
+                            <div className="row">
+                                <div className="col-12 mb-4">
+                                    <h4>General Information</h4>
+                                </div>
+                                <div className="col-lg-12">
+                                    <div className="contact-form">
+                                        <form className="create" onSubmit={handleSubmit}>
+                                            <div className="d-flex align-items-end mt-75 ms-1" style={{marginBottom:"5%",marginRight:"4%"}}>
 
+                                                {LoggedInUser.avatar==="" &&
 
+                                                    <img  style={{borderRadius: "25%",marginRight:"4%"}} height="100" width="100" src={avatar.url}/>
 
-            { project.projectName && idUser === user.id
-                && (
-                    <div className="icon-box-item col-md-12">
-                        <div className="block bg-white">
-                            <li key={id}>
-                                {isValid === "pending" ?(<div className="rounded"  style={{backgroundColor:"#f9ca24",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Pending</div>):isValid === "rejected" ?(<div className="rounded" style={{backgroundColor:"#ff6b6b",width:"150px" ,float:"right",color:"white",textAlign:"center"}}>Rejected</div>):(<div className="rounded" style={{backgroundColor:"#51B56D",width:"150px" ,float:"right",color:"white",textAlign:"center"}} >Accepted</div>)}
+                                                }
+                                                {LoggedInUser.avatar!=="" &&
 
-                                <h3 className="mb-3">Amount : {montant} $</h3>
-                                {/* <p class="mb-0">user     : {fullName.firstName} {fullName.lastName}</p> */}
-                                <p className="mb-0">Project: {project.projectName}</p>
-                                {/* <p class="mb-0">Project Category: {project.Category}</p>  */}
+                                                    <img style={{borderRadius: "25%",marginRight:"4%"}} height="100" width="100" src={LoggedInUser.avatar}/>
 
+                                                }
 
-                                { isValid!="accepted" &&
-                                    <Button className="btn btn-primary" onClick={() => setShow(true)}>
-                                        Delete
-                                    </Button> }
-
-                                <Modal  show={show} onHide={handleClose}>
-                                    <Modal.Header style={{backgroundColor: '#198754', display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
-                                        <Modal.Title >
-                                            <img style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} loading="prelaod" decoding="async" className="img-fluid" width="160" src="/images/logo.png"
-                                                 alt="Kaddem"  />
-                                        </Modal.Title>
-
-                                    </Modal.Header>
-                                    <Modal.Body  >Are you sure to delete this investment ? </Modal.Body>
-                                    <Modal.Footer>
-                                        <Button  className="btn btn-primary"   onClick={handleClose}>
-                                            Close
-                                        </Button>
-                                        <Button  className="btn btn-primary "   onClick={() => { handleClose(); OnDelete(id) ;fetchData() }}>
-                                            Delete
-
-                                        </Button>
-                                    </Modal.Footer>
-                                </Modal>
+                                                <div>
 
 
-                            </li>
-                        </div> </div> )}
+                                                    <button type="button" id="account-reset"
+                                                            className="btn btn-sm btn-primary mb-75 me-75">Upload
+                                                    </button>
+                                                    <p className="mb-0">Allowed file types: png, jpg, jpeg.</p>
+                                                </div>
+                                            </div>
+                                            <div className="form-group mb-4 pb-2">
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">User Name</label>
+                                                <input className="form-control shadow-none"
+                                                       type={"text"}
+                                                       onChange={(e)=>setUserName(e.target.value)}
+                                                       value={userName}
+                                                />
+                                            </div>
+                                            <div className="form-group mb-4 pb-2">
+                                                <label htmlFor="exampleFormControlInput1" className="form-label" >First Name</label>
+                                                <input className="form-control shadow-none" type={"text"}
+                                                       onChange={(e)=>setFirstName(e.target.value)}
+                                                       value={firstName}
+                                                />
+                                            </div>
+                                            <div className="form-group mb-4 pb-2">
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">Last Name</label>
+                                                <input className="form-control shadow-none"
+                                                       type={"text"}
+                                                       onChange={(e)=>setLastName(e.target.value)}
+                                                       value={lastName}
+                                                />
+                                            </div>
+                                            <div className="form-group mb-4 pb-2">
+                                                <label htmlFor="exampleFormControlInput1" className="form-label">Email</label>
+                                                <input className="form-control shadow-none"
+                                                       readOnly={true}
+                                                       type={"text"}
+                                                       onChange={(e)=>setEmail(e.target.value)}
+                                                       value={email}
+                                                />
+                                            </div>
+                                            <div className="form-group mb-4 pb-2">
+                                                <label htmlFor="exampleFormControlTextarea1" className="form-label"> Country</label>
+                                                <input className="form-control shadow-none"
+                                                       type={"text"}
+                                                       onChange={(e)=>setCountry(e.target.value)}
+                                                       value={country}
+                                                />
+
+                                            </div>
+                                            <div className="form-group mb-4 pb-2">
+                                                <label htmlFor="exampleFormControlTextarea1" className="form-label"> Region</label>
+                                                <input className="form-control shadow-none"
+                                                       type={"text"}
+                                                       onChange={(e)=>setRegion(e.target.value)}
+                                                       value={region}
+                                                />
+                                            </div>
+                                            <div className="form-group mb-4 pb-2">
+                                                <label htmlFor="exampleFormControlTextarea1" className="form-label"> Phone Number</label>
+                                                <input className="form-control shadow-none"
+                                                       type={"text"}
+                                                       onChange={(e)=>setPhoneNumber(e.target.value)}
+                                                       value={phoneNumber}
+                                                />
+                                            </div>
+                                            <div className="form-group mb-4 pb-2">
+                                                <label htmlFor="exampleFormControlTextarea1" className="form-label"> About Me</label>
+                                                <textarea className="form-control shadow-none"
+                                                          type={"text"}
+                                                          onChange={(e)=>setAboutMe(e.target.value)}
+                                                          value={aboutMe}
+                                                />
+                                            </div>
 
 
 
@@ -121,10 +199,23 @@ function MyInvestmentDetails({id,montant,idUser,idProject,isValid,fetchData}) {
 
 
 
-        </>
+                                            <div className={" col-12"}>
+                                                <button className="btn btn-primary col-12" disabled={isLoading}>Save</button>
+
+                                                {error    && <div  className="notices info" style={{textAlign:"center", backgroundColor:"#ff6b6b",opacity:"0.6",color:"white",borderRadius: "30px",marginTop:"3%"}}> <p>{error}</p></div>}
+                                                {formError    && <div  className="notices info" style={{textAlign:"center", backgroundColor:"#ff6b6b",opacity:"0.6",color:"white",borderRadius: "30px",marginTop:"3%"}}> <p>{formError}</p></div>}
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     )
 }
-
-
-export default MyInvestmentDetails
+export default EditProfilForm

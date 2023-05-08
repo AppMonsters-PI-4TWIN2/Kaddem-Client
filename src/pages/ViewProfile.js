@@ -106,11 +106,11 @@ const ViewProfil = () => {
                     <img style={{borderRadius: "25%",marginLeft:"15%",position:"static"}} loading="prelaod" decoding="async" className="img-fluid" height="175" width="175" src={user.avatar}/>
 
                     <h1 style={{textAlign:"center",position:"relative",marginTop:"-7%"}}>{user.userName}
-                  {thisUser  &&  <button className=" btn-danger " style={{ fontSize:" 0.4em"}}  onClick={handleShow} >report</button>}
+
                     </h1>
                     <div style={{textAlign:"center",display: "flex",justifyContent: "center", alignItems: "center",marginTop:"1%"}} >
                         <button className="btn btn-primary col-lg-1 align-content-sm-start" onClick={() => navigate(`/chat`)}  >Chat</button>
-                       
+                        {thisUser  &&  <button className="btn btn-danger col-lg-1 align-content-sm-start" style={{marginLeft:"1%"}} onClick={handleShow} >report</button>}
                      
                     </div>
                 </section>

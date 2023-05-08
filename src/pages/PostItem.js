@@ -89,6 +89,7 @@ const Post = ({
               <div className={styles.postBottom}>
                 <div className={styles.postBottomLeft}>
                   <img className={styles.likeIcon} src={likeIcon} alt="" onClick={() => likePost(post._id)}/>
+                    <span className={styles.postText}>{post.numberOfLikes} Likes</span>
                 </div>
                 <div className={styles.postBottomRight}>
             <span
