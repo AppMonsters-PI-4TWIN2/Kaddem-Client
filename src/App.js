@@ -52,7 +52,7 @@ const BASE_CLIENT_URL  =  "https://kadem.onrender.com/"
                 {/*end admin routes*/}
               <Route path="/edit-profile" element={LoggedInUser ? < EditProfil/>:<Navigate to="/" />}/>
               <Route path="/googleLogin" element={<GoogleLogin />}/>
-              <Route path= "https://kadem.onrender.com/login" element={!LoggedInUser ? <Login /> : LoggedInUser.role ==="admin" ? <Navigate to="/admin"  /> : <Navigate to="/edit-profile" />}/>
+              <Route path= "/login" element={!LoggedInUser ? <Login /> : LoggedInUser.role ==="admin" ? <Navigate to="/admin"  /> : <Navigate to="/edit-profile" />}/>
               {/* <Route path="/signup" element={!user ? <Signup /> : user.role == 'admin' ? <Navigate to="/users" /> : <Navigate to ="/" />}    /> */}
               <Route path="/signup" element={!LoggedInUser ? <Signup /> : <Navigate to="/check-email" />} />
               <Route path="/reset-password" element={!LoggedInUser ? <ResetPwd /> : <Navigate to="/login" />}/>
